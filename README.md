@@ -4,15 +4,15 @@ This repository hosts the documentation website for [FZ - Parametric Scientific 
 
 ## 📚 Documentation Site
 
-Visit the live documentation at: **https://funz.github.io**
+Visit the live documentation at: **https://funz.github.io/fz**
 
 ## 🚀 Quick Links
 
-- [Installation Guide](https://funz.github.io/getting-started/installation/)
-- [Quick Start](https://funz.github.io/getting-started/quickstart/)
-- [Core Functions](https://funz.github.io/user-guide/core-functions/fzr/)
-- [Plugins](https://funz.github.io/plugins/)
-- [Google Colab Notebooks](https://funz.github.io/examples/colab/)
+- [Installation Guide](https://funz.github.io/fz/getting-started/installation/)
+- [Quick Start](https://funz.github.io/fz/getting-started/quickstart/)
+- [Core Functions](https://funz.github.io/fz/user-guide/core-functions/fzr/)
+- [Plugins](https://funz.github.io/fz/plugins/)
+- [Google Colab Notebooks](https://funz.github.io/fz/examples/colab/)
 
 ## 📓 Google Colab Examples
 

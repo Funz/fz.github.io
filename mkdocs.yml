@@ -1,7 +1,7 @@
 site_name: FZ - Parametric Scientific Computing Framework
 site_description: Documentation for FZ and its plugins
 site_author: Funz Team
-site_url: https://funz.github.io
+site_url: https://funz.github.io/fz
 repo_url: https://github.com/Funz/fz
 repo_name: Funz/fz
 
