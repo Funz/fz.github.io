@@ -1,139 +1,139 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://funz.github.io/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/contributing/development/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/contributing/development/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/contributing/testing/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/contributing/testing/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/examples/colab/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/examples/colab/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/examples/hpc/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/examples/hpc/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/examples/modelica/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/examples/modelica/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/examples/perfectgas/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/examples/perfectgas/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/getting-started/concepts/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/getting-started/concepts/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/getting-started/installation/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/getting-started/installation/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/getting-started/quickstart/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/getting-started/quickstart/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/plugins/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/plugins/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/plugins/cathare/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/plugins/cathare/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/plugins/cristal/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/plugins/cristal/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/plugins/mcnp/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/plugins/mcnp/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/plugins/moret/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/plugins/moret/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/plugins/scale/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/plugins/scale/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/plugins/telemac/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/plugins/telemac/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/reference/api/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/reference/api/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/reference/configuration/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/reference/configuration/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/reference/environment/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/reference/environment/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/reference/troubleshooting/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/reference/troubleshooting/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/user-guide/model-definition/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/user-guide/model-definition/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/user-guide/advanced/caching/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/user-guide/advanced/caching/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/user-guide/advanced/formulas/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/user-guide/advanced/formulas/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/user-guide/advanced/interrupts/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/user-guide/advanced/interrupts/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/user-guide/advanced/parallel/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/user-guide/advanced/parallel/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/user-guide/calculators/cache/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/user-guide/calculators/cache/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/user-guide/calculators/overview/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/user-guide/calculators/overview/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/user-guide/calculators/shell/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/user-guide/calculators/shell/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/user-guide/calculators/ssh/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/user-guide/calculators/ssh/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/user-guide/core-functions/fzc/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/user-guide/core-functions/fzc/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/user-guide/core-functions/fzi/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/user-guide/core-functions/fzi/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/user-guide/core-functions/fzo/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/user-guide/core-functions/fzo/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
     <url>
-         <loc>https://funz.github.io/user-guide/core-functions/fzr/</loc>
-         <lastmod>2025-10-16</lastmod>
+         <loc>https://funz.github.io/fz/user-guide/core-functions/fzr/</loc>
+         <lastmod>2025-10-17</lastmod>
     </url>
 </urlset>
