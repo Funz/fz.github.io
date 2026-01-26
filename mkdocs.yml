@@ -94,6 +94,8 @@ nav:
       - Overview: user-guide/calculators/overview.md
       - Local Shell: user-guide/calculators/shell.md
       - SSH Remote: user-guide/calculators/ssh.md
+      - SLURM: user-guide/calculators/slurm.md
+      - Funz Server: user-guide/calculators/funz.md
       - Cache: user-guide/calculators/cache.md
     - Advanced Features:
       - Parallel Execution: user-guide/advanced/parallel.md
@@ -116,6 +118,7 @@ nav:
   - Reference:
     - Configuration: reference/configuration.md
     - Environment Variables: reference/environment.md
+    - Release Notes: reference/releases.md
     - Troubleshooting: reference/troubleshooting.md
     - API Reference: reference/api.md
   - Contributing:

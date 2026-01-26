@@ -86,7 +86,7 @@ python -c "import fz; print('FZ version:', fz.__version__)"
 
 You should see output like:
 ```
-FZ version: 0.9.0
+FZ version: 0.9.1
 ```
 
 ## Google Colab
@@ -100,7 +100,7 @@ To use FZ in Google Colab, add this to your notebook:
 Or for a specific version:
 
 ```python
-!pip install git+https://github.com/Funz/fz.git@v0.9.0
+!pip install git+https://github.com/Funz/fz.git@v0.9.1
 ```
 
 ## Installing Plugins

@@ -2,9 +2,19 @@
 
 [![CI](https://github.com/Funz/fz/workflows/CI/badge.svg)](https://github.com/Funz/fz/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![Version](https://img.shields.io/badge/version-0.9.0-blue.svg)](https://github.com/Funz/fz/releases)
+[![Version](https://img.shields.io/badge/version-0.9.1-blue.svg)](https://github.com/Funz/fz/releases)
 
 A powerful Python package for parametric simulations and computational experiments. **FZ** wraps your simulation codes to automatically run parametric studies, manage input/output files, handle parallel execution, and collect results in structured DataFrames.
+
+!!! info "What's New in 0.9.1"
+    - **SLURM Calculator**: Execute on HPC clusters with workload management
+    - **Funz Server**: Connect to legacy Java Funz calculator servers  
+    - **R Interpreter**: Use R for statistical formula evaluation
+    - **Shell Path Config**: Custom binary resolution with `FZ_SHELL_PATH`
+    - **Progress Callbacks**: Monitor execution with custom callbacks
+    - **Variable Defaults**: Syntax for default values `${var~default}`
+
+    [See full release notes](reference/releases.md)
 
 ## What is FZ?
 
@@ -68,6 +78,8 @@ Execute calculations using different methods:
 
 - **Local shell** - Run scripts and executables locally
 - **SSH remote** - Execute on remote servers with automatic file transfer
+- **SLURM** - Submit jobs to HPC clusters with workload management (New in 0.9.1)
+- **Funz server** - Connect to Java Funz calculator servers (New in 0.9.1)
 - **Cache** - Reuse previous results based on input hashes
 
 ### Smart Parallel Execution

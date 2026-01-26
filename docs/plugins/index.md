@@ -217,7 +217,7 @@ setup(
     name='fz-myplugin',
     version='0.1.0',
     packages=find_packages(),
-    install_requires=['fz>=0.9.0'],
+    install_requires=['fz>=0.9.1'],
     author='Your Name',
     description='FZ plugin for MySimulation',
     url='https://github.com/yourusername/fz-myplugin',
