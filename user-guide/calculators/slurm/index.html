@@ -12,31 +12,31 @@
         <meta name="author" content="Funz Team">
       
       
-        <link rel="canonical" href="https://funz.github.io/fz/getting-started/installation/">
+        <link rel="canonical" href="https://funz.github.io/fz/user-guide/calculators/slurm/">
       
       
-        <link rel="prev" href="../..">
+        <link rel="prev" href="../ssh/">
       
       
-        <link rel="next" href="../quickstart/">
+        <link rel="next" href="../funz/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>Installation - FZ - Parametric Scientific Computing Framework</title>
+        <title>SLURM - FZ - Parametric Scientific Computing Framework</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -55,7 +55,7 @@
       
     
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#installation" class="md-skip">
+        <a href="#slurm-calculator" class="md-skip">
           Skip to content
         </a>
       
@@ -98,7 +98,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="FZ - Parametric Scientific Computing Framework" class="md-header__button md-logo" aria-label="FZ - Parametric Scientific Computing Framework" data-md-component="logo">
+    <a href="../../.." title="FZ - Parametric Scientific Computing Framework" class="md-header__button md-logo" aria-label="FZ - Parametric Scientific Computing Framework" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -118,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Installation
+              SLURM
             
           </span>
         </div>
@@ -231,7 +231,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+      <a href="../../.." class="md-tabs__link">
         
   
   
@@ -248,13 +248,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../../getting-started/installation/" class="md-tabs__link">
           
   
   
@@ -270,6 +268,8 @@
   
   
   
+    
+  
   
     
     
@@ -277,11 +277,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../user-guide/core-functions/fzi/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../core-functions/fzi/" class="md-tabs__link">
           
   
   
@@ -304,7 +306,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../plugins/" class="md-tabs__link">
+        <a href="../../../plugins/" class="md-tabs__link">
           
   
   
@@ -324,7 +326,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../examples/perfectgas/" class="md-tabs__link">
+        <a href="../../../examples/perfectgas/" class="md-tabs__link">
           
   
   
@@ -344,7 +346,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../reference/configuration/" class="md-tabs__link">
+        <a href="../../../reference/configuration/" class="md-tabs__link">
           
   
   
@@ -364,7 +366,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../contributing/development/" class="md-tabs__link">
+        <a href="../../../contributing/development/" class="md-tabs__link">
           
   
   
@@ -398,7 +400,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="FZ - Parametric Scientific Computing Framework" class="md-nav__button md-logo" aria-label="FZ - Parametric Scientific Computing Framework" data-md-component="logo">
+    <a href="../../.." title="FZ - Parametric Scientific Computing Framework" class="md-nav__button md-logo" aria-label="FZ - Parametric Scientific Computing Framework" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -428,7 +430,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -452,31 +454,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   
@@ -494,7 +491,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -509,37 +506,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Installation
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../getting-started/installation/" class="md-nav__link">
         
   
   
@@ -555,353 +525,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Requirements
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installation-methods" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Installation Methods
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Installation Methods">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#from-source-recommended" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        From Source (Recommended)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#from-pypi-coming-soon" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        From PyPI (Coming Soon)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#using-virtual-environment-recommended" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Using Virtual Environment (Recommended)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#optional-dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Optional Dependencies
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Optional Dependencies">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ssh-support" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SSH Support
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dataframe-support" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        DataFrame Support
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#all-optional-dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        All Optional Dependencies
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#verify-installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Verify Installation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#google-colab" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Google Colab
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installing-plugins" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Installing Plugins
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Installing Plugins">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#fz-moret" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        FZ-Moret
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fz-mcnp" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        FZ-MCNP
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#other-plugins" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Other Plugins
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#development-installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Development Installation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#import-error" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Import Error
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ssh-connection-issues" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SSH Connection Issues
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#permission-errors" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Permission Errors
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#system-specific-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        System-Specific Notes
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="System-Specific Notes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#windows" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Windows
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#macos" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        macOS
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#linux" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Linux
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#hpc-environments" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        HPC Environments
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#docker-installation-advanced" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Docker Installation (Advanced)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next Steps
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -914,7 +537,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../quickstart/" class="md-nav__link">
+      <a href="../../../getting-started/quickstart/" class="md-nav__link">
         
   
   
@@ -942,7 +565,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../concepts/" class="md-nav__link">
+      <a href="../../../getting-started/concepts/" class="md-nav__link">
         
   
   
@@ -974,26 +597,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   
@@ -1011,7 +639,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1035,17 +663,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
         
           
-          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="">
             
   
   
@@ -1081,7 +712,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/core-functions/fzi/" class="md-nav__link">
+      <a href="../../core-functions/fzi/" class="md-nav__link">
         
   
   
@@ -1109,7 +740,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/core-functions/fzc/" class="md-nav__link">
+      <a href="../../core-functions/fzc/" class="md-nav__link">
         
   
   
@@ -1137,7 +768,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/core-functions/fzo/" class="md-nav__link">
+      <a href="../../core-functions/fzo/" class="md-nav__link">
         
   
   
@@ -1165,7 +796,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/core-functions/fzr/" class="md-nav__link">
+      <a href="../../core-functions/fzr/" class="md-nav__link">
         
   
   
@@ -1201,7 +832,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/model-definition/" class="md-nav__link">
+      <a href="../../model-definition/" class="md-nav__link">
         
   
   
@@ -1226,26 +857,31 @@
                 
   
   
+    
   
   
+  
     
     
     
     
       
       
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
         
           
-          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
             
   
   
@@ -1263,7 +899,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1281,7 +917,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/calculators/overview/" class="md-nav__link">
+      <a href="../overview/" class="md-nav__link">
         
   
   
@@ -1309,7 +945,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/calculators/shell/" class="md-nav__link">
+      <a href="../shell/" class="md-nav__link">
         
   
   
@@ -1337,7 +973,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/calculators/ssh/" class="md-nav__link">
+      <a href="../ssh/" class="md-nav__link">
         
   
   
@@ -1362,10 +998,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../user-guide/calculators/slurm/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SLURM
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1381,6 +1044,309 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uri-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        URI Format
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="URI Format">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Components
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-slurm-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local SLURM Execution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote-slurm-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote SLURM Execution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automatic-job-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automatic Job Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interrupt-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interrupt Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Transfer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#slurm-script-headers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SLURM Script Headers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-slurm-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom SLURM Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-parametric-study" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Parametric Study
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-partitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiple Partitions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remote-hpc-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote HPC Cluster
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limitations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#job-submission-fails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Job Submission Fails
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#partition-not-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Partition Not Found
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remote-connection-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote Connection Issues
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1393,7 +1359,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/calculators/funz/" class="md-nav__link">
+      <a href="../funz/" class="md-nav__link">
         
   
   
@@ -1421,7 +1387,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/calculators/cache/" class="md-nav__link">
+      <a href="../cache/" class="md-nav__link">
         
   
   
@@ -1463,17 +1429,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
         
           
-          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
             
   
   
@@ -1509,7 +1478,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/advanced/parallel/" class="md-nav__link">
+      <a href="../../advanced/parallel/" class="md-nav__link">
         
   
   
@@ -1537,7 +1506,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/advanced/caching/" class="md-nav__link">
+      <a href="../../advanced/caching/" class="md-nav__link">
         
   
   
@@ -1565,7 +1534,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/advanced/interrupts/" class="md-nav__link">
+      <a href="../../advanced/interrupts/" class="md-nav__link">
         
   
   
@@ -1593,7 +1562,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/advanced/formulas/" class="md-nav__link">
+      <a href="../../advanced/formulas/" class="md-nav__link">
         
   
   
@@ -1688,7 +1657,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../plugins/" class="md-nav__link">
+      <a href="../../../plugins/" class="md-nav__link">
         
   
   
@@ -1716,7 +1685,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../plugins/moret/" class="md-nav__link">
+      <a href="../../../plugins/moret/" class="md-nav__link">
         
   
   
@@ -1744,7 +1713,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../plugins/mcnp/" class="md-nav__link">
+      <a href="../../../plugins/mcnp/" class="md-nav__link">
         
   
   
@@ -1772,7 +1741,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../plugins/cathare/" class="md-nav__link">
+      <a href="../../../plugins/cathare/" class="md-nav__link">
         
   
   
@@ -1800,7 +1769,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../plugins/cristal/" class="md-nav__link">
+      <a href="../../../plugins/cristal/" class="md-nav__link">
         
   
   
@@ -1828,7 +1797,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../plugins/scale/" class="md-nav__link">
+      <a href="../../../plugins/scale/" class="md-nav__link">
         
   
   
@@ -1856,7 +1825,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../plugins/telemac/" class="md-nav__link">
+      <a href="../../../plugins/telemac/" class="md-nav__link">
         
   
   
@@ -1943,7 +1912,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/perfectgas/" class="md-nav__link">
+      <a href="../../../examples/perfectgas/" class="md-nav__link">
         
   
   
@@ -1971,7 +1940,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/modelica/" class="md-nav__link">
+      <a href="../../../examples/modelica/" class="md-nav__link">
         
   
   
@@ -1999,7 +1968,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/hpc/" class="md-nav__link">
+      <a href="../../../examples/hpc/" class="md-nav__link">
         
   
   
@@ -2027,7 +1996,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/colab/" class="md-nav__link">
+      <a href="../../../examples/colab/" class="md-nav__link">
         
   
   
@@ -2114,7 +2083,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/configuration/" class="md-nav__link">
+      <a href="../../../reference/configuration/" class="md-nav__link">
         
   
   
@@ -2142,7 +2111,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/environment/" class="md-nav__link">
+      <a href="../../../reference/environment/" class="md-nav__link">
         
   
   
@@ -2170,7 +2139,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/releases/" class="md-nav__link">
+      <a href="../../../reference/releases/" class="md-nav__link">
         
   
   
@@ -2198,7 +2167,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/troubleshooting/" class="md-nav__link">
+      <a href="../../../reference/troubleshooting/" class="md-nav__link">
         
   
   
@@ -2226,7 +2195,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/api/" class="md-nav__link">
+      <a href="../../../reference/api/" class="md-nav__link">
         
   
   
@@ -2313,7 +2282,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../contributing/development/" class="md-nav__link">
+      <a href="../../../contributing/development/" class="md-nav__link">
         
   
   
@@ -2341,7 +2310,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../contributing/testing/" class="md-nav__link">
+      <a href="../../../contributing/testing/" class="md-nav__link">
         
   
   
@@ -2396,6 +2365,206 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uri-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        URI Format
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="URI Format">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Components
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-slurm-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local SLURM Execution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote-slurm-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote SLURM Execution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#automatic-job-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automatic Job Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interrupt-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interrupt Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-transfer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Transfer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#slurm-script-headers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SLURM Script Headers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-slurm-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom SLURM Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-parametric-study" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Parametric Study
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-partitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiple Partitions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remote-hpc-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote HPC Cluster
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#requirements" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2407,182 +2576,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#installation-methods" class="md-nav__link">
+  <a href="#limitations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Installation Methods
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Installation Methods">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#from-source-recommended" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        From Source (Recommended)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#from-pypi-coming-soon" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        From PyPI (Coming Soon)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#using-virtual-environment-recommended" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Using Virtual Environment (Recommended)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#optional-dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Optional Dependencies
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Optional Dependencies">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ssh-support" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        SSH Support
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dataframe-support" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        DataFrame Support
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#all-optional-dependencies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        All Optional Dependencies
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#verify-installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Verify Installation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#google-colab" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Google Colab
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installing-plugins" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Installing Plugins
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Installing Plugins">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#fz-moret" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        FZ-Moret
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#fz-mcnp" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        FZ-MCNP
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#other-plugins" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Other Plugins
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#development-installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Development Installation
+        Limitations
       
     </span>
   </a>
@@ -2602,10 +2599,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#import-error" class="md-nav__link">
+  <a href="#job-submission-fails" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Import Error
+        Job Submission Fails
       
     </span>
   </a>
@@ -2613,10 +2610,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#ssh-connection-issues" class="md-nav__link">
+  <a href="#partition-not-found" class="md-nav__link">
     <span class="md-ellipsis">
       
-        SSH Connection Issues
+        Partition Not Found
       
     </span>
   </a>
@@ -2624,10 +2621,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#permission-errors" class="md-nav__link">
+  <a href="#remote-connection-issues" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Permission Errors
+        Remote Connection Issues
       
     </span>
   </a>
@@ -2640,82 +2637,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#system-specific-notes" class="md-nav__link">
+  <a href="#see-also" class="md-nav__link">
     <span class="md-ellipsis">
       
-        System-Specific Notes
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="System-Specific Notes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#windows" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Windows
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#macos" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        macOS
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#linux" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Linux
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#hpc-environments" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        HPC Environments
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#docker-installation-advanced" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Docker Installation (Advanced)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next Steps
+        See Also
       
     </span>
   </a>
@@ -2742,178 +2667,151 @@
   
 
 
-<h1 id="installation">Installation</h1>
-<p>FZ is a Python package that requires Python 3.8 or later. This guide covers different installation methods and optional dependencies.</p>
+<h1 id="slurm-calculator">SLURM Calculator</h1>
+<p>The SLURM calculator allows FZ to execute calculations on HPC clusters using the SLURM Workload Manager.</p>
+<h2 id="overview">Overview</h2>
+<p>SLURM (Simple Linux Utility for Resource Management) is a widely-used job scheduler for HPC clusters. The FZ SLURM calculator provides seamless integration for submitting and managing jobs on SLURM-enabled systems.</p>
+<h2 id="uri-format">URI Format</h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>slurm://[user@host[:port]]:partition/script
+</span></code></pre></div>
+<h3 id="components">Components</h3>
+<ul>
+<li><strong>user</strong> (optional): Username for remote SLURM clusters</li>
+<li><strong>host</strong> (optional): Hostname for remote SLURM clusters</li>
+<li><strong>port</strong> (optional): SSH port for remote access (default: 22)</li>
+<li><strong>partition</strong> (required): SLURM partition name (e.g., compute, gpu, debug)</li>
+<li><strong>script</strong>: Shell command or script to execute</li>
+</ul>
+<h2 id="local-slurm-execution">Local SLURM Execution</h2>
+<p>For local SLURM clusters (when FZ runs on the cluster login node):</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">fz</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="s2">&quot;input.txt&quot;</span><span class="p">,</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="p">{</span><span class="s2">&quot;param1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]},</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">model</span><span class="p">,</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">calculators</span><span class="o">=</span><span class="s2">&quot;slurm://:compute/bash script.sh&quot;</span><span class="p">,</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">results_dir</span><span class="o">=</span><span class="s2">&quot;results&quot;</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="p">)</span>
+</span></code></pre></div>
+<p>Example with GPU partition:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">calculators</span> <span class="o">=</span> <span class="s2">&quot;slurm://:gpu/python simulation.py&quot;</span>
+</span></code></pre></div>
+<h2 id="remote-slurm-execution">Remote SLURM Execution</h2>
+<p>For remote SLURM clusters accessed via SSH:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">calculators</span> <span class="o">=</span> <span class="s2">&quot;slurm://username@cluster.example.edu:gpu/bash run.sh&quot;</span>
+</span></code></pre></div>
+<p>With custom SSH port:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">calculators</span> <span class="o">=</span> <span class="s2">&quot;slurm://user@cluster.edu:2222:compute/python script.py&quot;</span>
+</span></code></pre></div>
+<h2 id="features">Features</h2>
+<h3 id="automatic-job-management">Automatic Job Management</h3>
+<ul>
+<li>Submits jobs to SLURM scheduler using <code>sbatch</code></li>
+<li>Monitors job status using <code>squeue</code></li>
+<li>Retrieves results when jobs complete</li>
+<li>Handles job failures and retries</li>
+</ul>
+<h3 id="interrupt-handling">Interrupt Handling</h3>
+<p>Press <code>Ctrl+C</code> to gracefully terminate SLURM jobs:</p>
+<ul>
+<li>Cancels all running SLURM jobs using <code>scancel</code></li>
+<li>Cleans up temporary files</li>
+<li>Preserves completed results</li>
+</ul>
+<h3 id="file-transfer">File Transfer</h3>
+<p>For remote execution:</p>
+<ul>
+<li>Automatically uploads input files to the cluster</li>
+<li>Downloads output files after job completion</li>
+<li>Uses SSH/SCP for secure file transfer</li>
+</ul>
+<h2 id="configuration">Configuration</h2>
+<h3 id="slurm-script-headers">SLURM Script Headers</h3>
+<p>The calculator automatically adds appropriate SLURM directives to job scripts:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1">#SBATCH --job-name=fz_case_001</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1">#SBATCH --output=output_%j.log</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1">#SBATCH --error=error_%j.log</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1">#SBATCH --partition=compute</span>
+</span></code></pre></div>
+<h3 id="custom-slurm-options">Custom SLURM Options</h3>
+<p>You can specify additional SLURM options in your model configuration:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">model</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="s2">&quot;varprefix&quot;</span><span class="p">:</span> <span class="s2">&quot;$&quot;</span><span class="p">,</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="s2">&quot;slurm_options&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>        <span class="s2">&quot;nodes&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>        <span class="s2">&quot;ntasks&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>        <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;01:00:00&quot;</span><span class="p">,</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>        <span class="s2">&quot;mem&quot;</span><span class="p">:</span> <span class="s2">&quot;8GB&quot;</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="p">}</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<h2 id="examples">Examples</h2>
+<h3 id="basic-parametric-study">Basic Parametric Study</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">fz</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">model</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="s2">&quot;varprefix&quot;</span><span class="p">:</span> <span class="s2">&quot;$&quot;</span><span class="p">,</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        <span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="s2">&quot;grep &#39;Result:&#39; output.txt | awk &#39;{print $2}&#39;&quot;</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="p">}</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="p">}</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    <span class="s2">&quot;simulation.input&quot;</span><span class="p">,</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>    <span class="p">{</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>        <span class="s2">&quot;temperature&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">300</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">450</span><span class="p">],</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>        <span class="s2">&quot;pressure&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>    <span class="p">},</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>    <span class="n">model</span><span class="p">,</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>    <span class="n">calculators</span><span class="o">=</span><span class="s2">&quot;slurm://:compute/bash run_simulation.sh&quot;</span><span class="p">,</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>    <span class="n">results_dir</span><span class="o">=</span><span class="s2">&quot;slurm_results&quot;</span><span class="p">,</span>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>    <span class="n">n_parallel</span><span class="o">=</span><span class="mi">6</span>  <span class="c1"># Submit up to 6 jobs simultaneously</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="multiple-partitions">Multiple Partitions</h3>
+<p>Use different partitions for different job types:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">calculators</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="s2">&quot;slurm://:compute/bash short_job.sh&quot;</span><span class="p">,</span>  <span class="c1"># Quick jobs</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="s2">&quot;slurm://:gpu/bash gpu_job.sh&quot;</span>         <span class="c1"># GPU-intensive jobs</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="p">]</span>
+</span></code></pre></div>
+<h3 id="remote-hpc-cluster">Remote HPC Cluster</h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">calculators</span> <span class="o">=</span> <span class="s2">&quot;slurm://myuser@hpc.university.edu:compute/python analyze.py&quot;</span>
+</span></code></pre></div>
 <h2 id="requirements">Requirements</h2>
 <ul>
-<li><strong>Python</strong>: 3.8 or later</li>
-<li><strong>Operating System</strong>: Linux, macOS, or Windows</li>
-<li><strong>Optional</strong>: SSH access for remote calculators, pandas for DataFrame output</li>
+<li>SLURM commands must be available: <code>sbatch</code>, <code>squeue</code>, <code>scancel</code></li>
+<li>For remote execution: SSH access with key-based authentication</li>
+<li>Python <code>paramiko</code> package for remote SSH connections</li>
 </ul>
-<h2 id="installation-methods">Installation Methods</h2>
-<h3 id="from-source-recommended">From Source (Recommended)</h3>
-<p>Install the latest development version from GitHub:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Funz/fz.git
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>fz
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
-</span></code></pre></div>
-<p>The <code>-e</code> flag installs in editable mode, which is useful for development.</p>
-<h3 id="from-pypi-coming-soon">From PyPI (Coming Soon)</h3>
-<p>Once published to PyPI, you'll be able to install with:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>funz
-</span></code></pre></div>
-<h3 id="using-virtual-environment-recommended">Using Virtual Environment (Recommended)</h3>
-<p>It's best practice to use a virtual environment:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Create virtual environment</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>fz-env
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Activate it</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># On Linux/macOS:</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nb">source</span><span class="w"> </span>fz-env/bin/activate
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># On Windows:</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>fz-env<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1"># Install FZ</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>/path/to/fz
-</span></code></pre></div>
-<h2 id="optional-dependencies">Optional Dependencies</h2>
-<p>FZ has several optional dependencies for additional features:</p>
-<h3 id="ssh-support">SSH Support</h3>
-<p>For remote calculator execution via SSH:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>pip<span class="w"> </span>install<span class="w"> </span>paramiko
-</span></code></pre></div>
-<h3 id="dataframe-support">DataFrame Support</h3>
-<p>For pandas DataFrame output (highly recommended):</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>pip<span class="w"> </span>install<span class="w"> </span>pandas
-</span></code></pre></div>
-<h3 id="all-optional-dependencies">All Optional Dependencies</h3>
-<p>Install everything at once:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pip<span class="w"> </span>install<span class="w"> </span>paramiko<span class="w"> </span>pandas
-</span></code></pre></div>
-<h2 id="verify-installation">Verify Installation</h2>
-<p>Test that FZ is properly installed:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import fz; print(&#39;FZ version:&#39;, fz.__version__)&quot;</span>
-</span></code></pre></div>
-<p>You should see output like:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>FZ version: 0.9.1
-</span></code></pre></div></p>
-<h2 id="google-colab">Google Colab</h2>
-<p>To use FZ in Google Colab, add this to your notebook:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Funz</span><span class="o">/</span><span class="n">fz</span><span class="o">.</span><span class="n">git</span>
-</span></code></pre></div>
-<p>Or for a specific version:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Funz</span><span class="o">/</span><span class="n">fz</span><span class="o">.</span><span class="n">git</span><span class="nd">@v0</span><span class="mf">.9.1</span>
-</span></code></pre></div>
-<h2 id="installing-plugins">Installing Plugins</h2>
-<p>FZ plugins are separate packages. Install them as needed:</p>
-<h3 id="fz-moret">FZ-Moret</h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Funz/fz-moret.git
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nb">cd</span><span class="w"> </span>fz-moret
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
-</span></code></pre></div>
-<h3 id="fz-mcnp">FZ-MCNP</h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Funz/fz-mcnp.git
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nb">cd</span><span class="w"> </span>fz-mcnp
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
-</span></code></pre></div>
-<h3 id="other-plugins">Other Plugins</h3>
-<p>Follow the same pattern for other plugins:</p>
+<h2 id="limitations">Limitations</h2>
 <ul>
-<li><a href="https://github.com/Funz/fz-cathare">FZ-Cathare</a></li>
-<li><a href="https://github.com/Funz/fz-cristal">FZ-Cristal</a></li>
-<li><a href="https://github.com/Funz/fz-scale">FZ-Scale</a></li>
-<li><a href="https://github.com/Funz/fz-telemac">FZ-Telemac</a></li>
+<li>Requires SLURM workload manager installed</li>
+<li>Job scheduling may introduce delays depending on cluster load</li>
+<li>Remote execution requires SSH key authentication (password auth not supported)</li>
 </ul>
-<h2 id="development-installation">Development Installation</h2>
-<p>For FZ development, install additional dependencies:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Clone the repository</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Funz/fz.git
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="nb">cd</span><span class="w"> </span>fz
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="c1"># Install with development dependencies</span>
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
-</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>
-</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="c1"># Run tests to verify</span>
-</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>pytest<span class="w"> </span>tests/
-</span></code></pre></div>
 <h2 id="troubleshooting">Troubleshooting</h2>
-<h3 id="import-error">Import Error</h3>
-<p>If you get <code>ModuleNotFoundError: No module named 'fz'</code>:</p>
-<ol>
-<li>Verify installation: <code>pip list | grep fz</code></li>
-<li>Check your Python path: <code>python -c "import sys; print(sys.path)"</code></li>
-<li>Ensure you're using the correct Python environment</li>
-</ol>
-<h3 id="ssh-connection-issues">SSH Connection Issues</h3>
-<p>If SSH calculators fail:</p>
-<ol>
-<li>Install paramiko: <code>pip install paramiko</code></li>
-<li>Test SSH manually: <code>ssh user@host</code></li>
-<li>Check host keys are accepted</li>
-<li>Verify network connectivity</li>
-</ol>
-<h3 id="permission-errors">Permission Errors</h3>
-<p>On Linux/macOS, if you get permission errors:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Use --user flag</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>pip<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>-e<span class="w"> </span>.
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Or use sudo (not recommended)</span>
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>sudo<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+<h3 id="job-submission-fails">Job Submission Fails</h3>
+<p>Check that SLURM is available:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>which<span class="w"> </span>sbatch
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>sinfo<span class="w">  </span><span class="c1"># Check partition availability</span>
 </span></code></pre></div>
-<h2 id="system-specific-notes">System-Specific Notes</h2>
-<h3 id="windows">Windows</h3>
-<ul>
-<li>Use PowerShell or Command Prompt</li>
-<li>Some shell calculators may require WSL or Git Bash</li>
-<li>Path separators are backslashes (<code>\</code>) instead of forward slashes (<code>/</code>)</li>
-</ul>
-<h3 id="macos">macOS</h3>
-<ul>
-<li>May need Xcode Command Line Tools: <code>xcode-select --install</code></li>
-<li>Use Homebrew to install Python if needed: <code>brew install python</code></li>
-</ul>
-<h3 id="linux">Linux</h3>
-<ul>
-<li>Use your distribution's package manager for Python:<ul>
-<li>Ubuntu/Debian: <code>sudo apt install python3 python3-pip</code></li>
-<li>Fedora/RHEL: <code>sudo dnf install python3 python3-pip</code></li>
-<li>Arch: <code>sudo pacman -S python python-pip</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="hpc-environments">HPC Environments</h2>
-<p>For HPC clusters, you may need to:</p>
-<ol>
-<li>Load Python module: <code>module load python/3.9</code></li>
-<li>Install to user directory: <code>pip install --user -e .</code></li>
-<li>Add to PATH: <code>export PATH=$HOME/.local/bin:$PATH</code></li>
-</ol>
-<h2 id="docker-installation-advanced">Docker Installation (Advanced)</h2>
-<p>Create a Dockerfile for containerized FZ:</p>
-<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.10-slim</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="c"># Install dependencies</span>
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="k">RUN</span><span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>git<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>/var/lib/apt/lists/*
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="c"># Install FZ</span>
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>git+https://github.com/Funz/fz.git
-</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>
-</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="c"># Set working directory</span>
-</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/workspace</span>
-</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>
-</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="c"># Default command</span>
-</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;python&quot;</span><span class="p">]</span>
+<h3 id="partition-not-found">Partition Not Found</h3>
+<p>Verify partition names:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>sinfo<span class="w"> </span>-o<span class="w"> </span><span class="s2">&quot;%P&quot;</span>
 </span></code></pre></div>
-<p>Build and run:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>fz-env<span class="w"> </span>.
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>-v<span class="w"> </span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:/workspace<span class="w"> </span>fz-env
+<h3 id="remote-connection-issues">Remote Connection Issues</h3>
+<p>Test SSH connection:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ssh<span class="w"> </span>user@cluster.example.edu
 </span></code></pre></div>
-<h2 id="next-steps">Next Steps</h2>
-<p>Once installed, proceed to:</p>
+<p>Ensure SSH key authentication is configured.</p>
+<h2 id="see-also">See Also</h2>
 <ul>
-<li><a href="../quickstart/">Quick Start Guide</a> - Your first FZ calculation</li>
-<li><a href="../concepts/">Core Concepts</a> - Understand FZ fundamentals</li>
-<li><a href="../../examples/perfectgas/">Examples</a> - See FZ in action</li>
+<li><a href="../ssh/">SSH Calculator</a> - For remote execution without SLURM</li>
+<li><a href="../shell/">Local Shell Calculator</a> - For local execution</li>
+<li><a href="../../../reference/environment/">Environment Variables</a> - Configuration options</li>
 </ul>
 
 
@@ -2999,10 +2897,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
