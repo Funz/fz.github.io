@@ -12,31 +12,31 @@
         <meta name="author" content="Funz Team">
       
       
-        <link rel="canonical" href="https://funz.github.io/fz/contributing/development/">
+        <link rel="canonical" href="https://funz.github.io/fz/user-guide/core-functions/fzl/">
       
       
-        <link rel="prev" href="../../reference/api/">
+        <link rel="prev" href="../fzr/">
       
       
-        <link rel="next" href="../testing/">
+        <link rel="next" href="../../model-definition/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
       
-        <title>Development - FZ - Parametric Scientific Computing Framework</title>
+        <title>fzl - List Models/Calculators - FZ - Parametric Scientific Computing Framework</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -55,7 +55,7 @@
       
     
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#development" class="md-skip">
+        <a href="#fzl-list-and-validate-modelscalculators" class="md-skip">
           Skip to content
         </a>
       
@@ -98,7 +98,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="FZ - Parametric Scientific Computing Framework" class="md-header__button md-logo" aria-label="FZ - Parametric Scientific Computing Framework" data-md-component="logo">
+    <a href="../../.." title="FZ - Parametric Scientific Computing Framework" class="md-header__button md-logo" aria-label="FZ - Parametric Scientific Computing Framework" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -118,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Development
+              fzl - List Models/Calculators
             
           </span>
         </div>
@@ -231,7 +231,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+      <a href="../../.." class="md-tabs__link">
         
   
   
@@ -252,7 +252,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../getting-started/installation/" class="md-tabs__link">
+        <a href="../../../getting-started/installation/" class="md-tabs__link">
           
   
   
@@ -268,6 +268,8 @@
   
   
   
+    
+  
   
     
     
@@ -275,11 +277,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../user-guide/core-functions/fzi/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../fzi/" class="md-tabs__link">
           
   
   
@@ -302,7 +306,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../plugins/" class="md-tabs__link">
+        <a href="../../../plugins/" class="md-tabs__link">
           
   
   
@@ -322,7 +326,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../examples/perfectgas/" class="md-tabs__link">
+        <a href="../../../examples/perfectgas/" class="md-tabs__link">
           
   
   
@@ -342,7 +346,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../reference/configuration/" class="md-tabs__link">
+        <a href="../../../reference/configuration/" class="md-tabs__link">
           
   
   
@@ -358,13 +362,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../../contributing/development/" class="md-tabs__link">
           
   
   
@@ -398,7 +400,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="FZ - Parametric Scientific Computing Framework" class="md-nav__button md-logo" aria-label="FZ - Parametric Scientific Computing Framework" data-md-component="logo">
+    <a href="../../.." title="FZ - Parametric Scientific Computing Framework" class="md-nav__button md-logo" aria-label="FZ - Parametric Scientific Computing Framework" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -428,7 +430,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -507,7 +509,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/installation/" class="md-nav__link">
+      <a href="../../../getting-started/installation/" class="md-nav__link">
         
   
   
@@ -535,7 +537,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/quickstart/" class="md-nav__link">
+      <a href="../../../getting-started/quickstart/" class="md-nav__link">
         
   
   
@@ -563,7 +565,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/concepts/" class="md-nav__link">
+      <a href="../../../getting-started/concepts/" class="md-nav__link">
         
   
   
@@ -595,26 +597,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   
@@ -632,7 +639,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -647,26 +654,31 @@
                 
   
   
+    
   
   
+  
     
     
     
     
       
       
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
         
           
-          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="">
             
   
   
@@ -684,7 +696,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_1">
             <span class="md-nav__icon md-icon"></span>
             
@@ -702,7 +714,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/core-functions/fzi/" class="md-nav__link">
+      <a href="../fzi/" class="md-nav__link">
         
   
   
@@ -730,7 +742,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/core-functions/fzc/" class="md-nav__link">
+      <a href="../fzc/" class="md-nav__link">
         
   
   
@@ -758,7 +770,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/core-functions/fzo/" class="md-nav__link">
+      <a href="../fzo/" class="md-nav__link">
         
   
   
@@ -786,7 +798,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/core-functions/fzr/" class="md-nav__link">
+      <a href="../fzr/" class="md-nav__link">
         
   
   
@@ -811,10 +823,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../user-guide/core-functions/fzl/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    fzl - List Models/Calculators
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -830,6 +869,164 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#command-signature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Signature
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Returns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-all-models-and-calculators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List All Models and Calculators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-specific-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List Specific Models
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validate-models-and-calculators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validate Models and Calculators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table Format
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Cases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Output
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -850,7 +1047,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/model-definition/" class="md-nav__link">
+      <a href="../../model-definition/" class="md-nav__link">
         
   
   
@@ -884,17 +1081,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
         
           
-          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
             
   
   
@@ -930,7 +1130,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/calculators/overview/" class="md-nav__link">
+      <a href="../../calculators/overview/" class="md-nav__link">
         
   
   
@@ -958,7 +1158,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/calculators/shell/" class="md-nav__link">
+      <a href="../../calculators/shell/" class="md-nav__link">
         
   
   
@@ -986,7 +1186,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/calculators/ssh/" class="md-nav__link">
+      <a href="../../calculators/ssh/" class="md-nav__link">
         
   
   
@@ -1014,7 +1214,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/calculators/slurm/" class="md-nav__link">
+      <a href="../../calculators/slurm/" class="md-nav__link">
         
   
   
@@ -1042,7 +1242,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/calculators/funz/" class="md-nav__link">
+      <a href="../../calculators/funz/" class="md-nav__link">
         
   
   
@@ -1070,7 +1270,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/calculators/cache/" class="md-nav__link">
+      <a href="../../calculators/cache/" class="md-nav__link">
         
   
   
@@ -1112,17 +1312,20 @@
       
       
         
+          
+          
+        
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
         
           
-          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
             
   
   
@@ -1158,7 +1361,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/advanced/parallel/" class="md-nav__link">
+      <a href="../../advanced/parallel/" class="md-nav__link">
         
   
   
@@ -1186,7 +1389,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/advanced/caching/" class="md-nav__link">
+      <a href="../../advanced/caching/" class="md-nav__link">
         
   
   
@@ -1214,7 +1417,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/advanced/interrupts/" class="md-nav__link">
+      <a href="../../advanced/interrupts/" class="md-nav__link">
         
   
   
@@ -1242,7 +1445,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/advanced/formulas/" class="md-nav__link">
+      <a href="../../advanced/formulas/" class="md-nav__link">
         
   
   
@@ -1337,7 +1540,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../plugins/" class="md-nav__link">
+      <a href="../../../plugins/" class="md-nav__link">
         
   
   
@@ -1365,7 +1568,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../plugins/moret/" class="md-nav__link">
+      <a href="../../../plugins/moret/" class="md-nav__link">
         
   
   
@@ -1393,7 +1596,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../plugins/mcnp/" class="md-nav__link">
+      <a href="../../../plugins/mcnp/" class="md-nav__link">
         
   
   
@@ -1421,7 +1624,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../plugins/cathare/" class="md-nav__link">
+      <a href="../../../plugins/cathare/" class="md-nav__link">
         
   
   
@@ -1449,7 +1652,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../plugins/cristal/" class="md-nav__link">
+      <a href="../../../plugins/cristal/" class="md-nav__link">
         
   
   
@@ -1477,7 +1680,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../plugins/scale/" class="md-nav__link">
+      <a href="../../../plugins/scale/" class="md-nav__link">
         
   
   
@@ -1505,7 +1708,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../plugins/telemac/" class="md-nav__link">
+      <a href="../../../plugins/telemac/" class="md-nav__link">
         
   
   
@@ -1592,7 +1795,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/perfectgas/" class="md-nav__link">
+      <a href="../../../examples/perfectgas/" class="md-nav__link">
         
   
   
@@ -1620,7 +1823,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/modelica/" class="md-nav__link">
+      <a href="../../../examples/modelica/" class="md-nav__link">
         
   
   
@@ -1648,7 +1851,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/hpc/" class="md-nav__link">
+      <a href="../../../examples/hpc/" class="md-nav__link">
         
   
   
@@ -1676,7 +1879,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../examples/colab/" class="md-nav__link">
+      <a href="../../../examples/colab/" class="md-nav__link">
         
   
   
@@ -1763,7 +1966,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/configuration/" class="md-nav__link">
+      <a href="../../../reference/configuration/" class="md-nav__link">
         
   
   
@@ -1791,7 +1994,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/environment/" class="md-nav__link">
+      <a href="../../../reference/environment/" class="md-nav__link">
         
   
   
@@ -1819,7 +2022,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/releases/" class="md-nav__link">
+      <a href="../../../reference/releases/" class="md-nav__link">
         
   
   
@@ -1847,7 +2050,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/troubleshooting/" class="md-nav__link">
+      <a href="../../../reference/troubleshooting/" class="md-nav__link">
         
   
   
@@ -1875,7 +2078,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/api/" class="md-nav__link">
+      <a href="../../../reference/api/" class="md-nav__link">
         
   
   
@@ -1907,31 +2110,26 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
             
   
   
@@ -1949,7 +2147,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1964,19 +2162,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../contributing/development/" class="md-nav__link">
         
   
   
@@ -1992,7 +2181,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -2005,7 +2193,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../testing/" class="md-nav__link">
+      <a href="../../../contributing/testing/" class="md-nav__link">
         
   
   
@@ -2053,6 +2241,152 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#command-signature" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Signature
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#returns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Returns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-all-models-and-calculators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List All Models and Calculators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#list-specific-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List Specific Models
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validate-models-and-calculators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validate Models and Calculators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON Output
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table Format
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use Cases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Output
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2071,8 +2405,75 @@
   
 
 
-<h1 id="development">Development</h1>
-<p>Contributing to FZ. See the <a href="https://github.com/Funz/fz#development">main FZ documentation</a> for complete details.</p>
+<h1 id="fzl-list-and-validate-modelscalculators">fzl - List and Validate Models/Calculators</h1>
+<p>The <code>fzl</code> function (or <code>fz list</code> command) lists and validates installed models and calculators.</p>
+<h2 id="command-signature">Command Signature</h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>fzl<span class="w"> </span><span class="o">[</span>--models<span class="w"> </span>PATTERN<span class="o">]</span><span class="w"> </span><span class="o">[</span>--calculators<span class="w"> </span>PATTERN<span class="o">]</span><span class="w"> </span><span class="o">[</span>--check<span class="o">]</span><span class="w"> </span><span class="o">[</span>--format<span class="w"> </span>FORMAT<span class="o">]</span>
+</span></code></pre></div>
+<p>Or using the main <code>fz</code> command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>fz<span class="w"> </span>list<span class="w"> </span><span class="o">[</span>--models<span class="w"> </span>PATTERN<span class="o">]</span><span class="w"> </span><span class="o">[</span>--calculators<span class="w"> </span>PATTERN<span class="o">]</span><span class="w"> </span><span class="o">[</span>--check<span class="o">]</span><span class="w"> </span><span class="o">[</span>--format<span class="w"> </span>FORMAT<span class="o">]</span>
+</span></code></pre></div>
+<h2 id="options">Options</h2>
+<ul>
+<li><code>--models PATTERN</code> - Glob pattern to filter models (default: "*")</li>
+<li><code>--calculators PATTERN</code> - Glob pattern to filter calculators (default: "*")</li>
+<li><code>--check</code> - Validate model/calculator integrity</li>
+<li><code>--format FORMAT</code> - Output format: <code>markdown</code> (default), <code>json</code>, or <code>table</code></li>
+</ul>
+<h2 id="returns">Returns</h2>
+<p>Lists installed models and calculators with:
+- Model names and supported calculators
+- Calculator URIs and supported models
+- Validation status (when <code>--check</code> is used)</p>
+<h2 id="examples">Examples</h2>
+<h3 id="list-all-models-and-calculators">List All Models and Calculators</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>fzl<span class="w"> </span>--models<span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="w"> </span>--calculators<span class="w"> </span><span class="s2">&quot;*&quot;</span>
+</span></code></pre></div>
+<h3 id="list-specific-models">List Specific Models</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>fzl<span class="w"> </span>--models<span class="w"> </span><span class="s2">&quot;perfect*&quot;</span>
+</span></code></pre></div>
+<h3 id="validate-models-and-calculators">Validate Models and Calculators</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>fzl<span class="w"> </span>--models<span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="w"> </span>--calculators<span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="w"> </span>--check
+</span></code></pre></div>
+<h3 id="json-output">JSON Output</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>fzl<span class="w"> </span>--models<span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="w"> </span>--calculators<span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="w"> </span>--format<span class="w"> </span>json
+</span></code></pre></div>
+<h3 id="table-format">Table Format</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>fzl<span class="w"> </span>--models<span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="w"> </span>--calculators<span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="w"> </span>--format<span class="w"> </span>table
+</span></code></pre></div>
+<h2 id="use-cases">Use Cases</h2>
+<ul>
+<li><strong>Discovery</strong>: Find available models and calculators</li>
+<li><strong>Validation</strong>: Check that models and calculators are properly configured</li>
+<li><strong>Integration</strong>: Verify calculator-model compatibility</li>
+<li><strong>Debugging</strong>: Identify configuration issues</li>
+</ul>
+<h2 id="example-output">Example Output</h2>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="gh"># Models</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="gu">## perfectgas</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">-</span><span class="w"> </span>Supported calculators: localhost_perfectgas, ssh://remote/perfectgas
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="gu">## mcnp</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="k">-</span><span class="w"> </span>Supported calculators: localhost_MCNP, ssh://remote/MCNP
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="gh"># Calculators</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="gu">## localhost_perfectgas</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="k">-</span><span class="w"> </span>URI: sh://bash calculate.sh
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="k">-</span><span class="w"> </span>Supported models: perfectgas
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="gu">## localhost_MCNP</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="k">-</span><span class="w"> </span>URI: sh://bash mcnp.sh
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="k">-</span><span class="w"> </span>Supported models: mcnp
+</span></code></pre></div>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../fzi/">fzi</a> - Parse input variables</li>
+<li><a href="../fzc/">fzc</a> - Compile input files</li>
+<li><a href="../fzo/">fzo</a> - Parse output files</li>
+<li><a href="../fzr/">fzr</a> - Run parametric study</li>
+</ul>
 
 
 
@@ -2157,10 +2558,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
