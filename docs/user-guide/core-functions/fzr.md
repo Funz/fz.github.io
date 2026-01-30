@@ -24,6 +24,7 @@ fz.fzr(
 | `model` | `dict` or `str` | Yes | Model definition or model alias name |
 | `calculators` | `str` or `list` | Yes | Calculator URI(s) |
 | `results_dir` | `str` | No | Output directory (default: "results") |
+| `callbacks` | `list` | No | List of callback functions for progress monitoring (new in 0.9.1) |
 
 ## Returns
 
@@ -278,6 +279,55 @@ plt.show()
 ```
 
 ## Advanced Features
+
+### Progress Callbacks (New in 0.9.1)
+
+Monitor execution progress in real-time with custom callback functions:
+
+```python
+def progress_callback(event_type, case_info):
+    """
+    Callback function for monitoring progress.
+
+    Args:
+        event_type: 'case_start', 'case_complete', or 'case_failed'
+        case_info: Dictionary with case details
+    """
+    if event_type == "case_start":
+        print(f"⏳ Starting {case_info['case_name']}")
+    elif event_type == "case_complete":
+        print(f"✓ Completed {case_info['case_name']}")
+    elif event_type == "case_failed":
+        print(f"✗ Failed {case_info['case_name']}: {case_info.get('error')}")
+
+results = fz.fzr(
+    "input.txt",
+    variables,
+    model,
+    calculators="sh://bash calc.sh",
+    callbacks=[progress_callback]
+)
+```
+
+Multiple callbacks can be registered:
+
+```python
+def logger_callback(event_type, case_info):
+    with open('execution.log', 'a') as f:
+        f.write(f"{event_type}: {case_info}\n")
+
+def metrics_callback(event_type, case_info):
+    # Send metrics to monitoring system
+    send_metric(event_type, case_info)
+
+results = fz.fzr(
+    "input.txt",
+    variables,
+    model,
+    calculators="sh://bash calc.sh",
+    callbacks=[logger_callback, metrics_callback]
+)
+```
 
 ### Parallel Execution Control
 

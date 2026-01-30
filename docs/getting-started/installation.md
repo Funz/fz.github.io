@@ -10,7 +10,21 @@ FZ is a Python package that requires Python 3.8 or later. This guide covers diff
 
 ## Installation Methods
 
-### From Source (Recommended)
+### From PyPI (Recommended)
+
+Install the latest stable version from PyPI:
+
+```bash
+pip install funz-fz
+```
+
+Or using pipx for isolated CLI tools:
+
+```bash
+pipx install funz-fz
+```
+
+### From Source
 
 Install the latest development version from GitHub:
 
@@ -21,14 +35,6 @@ pip install -e .
 ```
 
 The `-e` flag installs in editable mode, which is useful for development.
-
-### From PyPI (Coming Soon)
-
-Once published to PyPI, you'll be able to install with:
-
-```bash
-pip install funz
-```
 
 ### Using Virtual Environment (Recommended)
 
@@ -94,13 +100,13 @@ FZ version: 0.9.1
 To use FZ in Google Colab, add this to your notebook:
 
 ```python
-!pip install git+https://github.com/Funz/fz.git
+!pip install funz-fz
 ```
 
-Or for a specific version:
+Or install from GitHub for the latest development version:
 
 ```python
-!pip install git+https://github.com/Funz/fz.git@v0.9.1
+!pip install git+https://github.com/Funz/fz.git
 ```
 
 ## Installing Plugins
@@ -218,7 +224,7 @@ FROM python:3.10-slim
 RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 
 # Install FZ
-RUN pip install git+https://github.com/Funz/fz.git
+RUN pip install funz-fz
 
 # Set working directory
 WORKDIR /workspace

@@ -2,32 +2,82 @@
 
 FZ plugins extend the framework with specialized support for specific simulation codes and computational models.
 
-## Available Plugins
+## Available Model Plugins
 
 ### Nuclear & Radiation Transport
 
 #### [FZ-MCNP](mcnp.md)
 Monte Carlo N-Particle Transport Code support.
 
-- **Simulation type**: Radiation transport
-- **Repository**: [Funz/fz-mcnp](https://github.com/Funz/fz-mcnp)
+- **Simulation type**: Radiation transport, criticality calculations
+- **Repository**: [Funz/fz-MCNP](https://github.com/Funz/fz-MCNP)
+- **Installation**: `pip install git+https://github.com/Funz/fz.git` + Set `MCNP_PATH` environment variable
+- **Input syntax**: Variables `%(...)`, Formulas `@{...}`, Comments `C `
+- **Main outputs**: `mean_keff`, `sigma_keff`
 - **Use cases**: Shielding, criticality, dose calculations
+
+#### [FZ-Moret](moret.md)
+MORET Monte Carlo criticality safety calculations.
+
+- **Simulation type**: Reactor physics criticality
+- **Repository**: [Funz/fz-Moret](https://github.com/Funz/fz-Moret)
+- **Installation**: `fz.install('Moret')` + Install MORET at `/opt/MORET/scripts/moret.py`
+- **Input syntax**: Variables `${...}`, Formulas `@{...}`, Comments `*`
+- **Main outputs**: `mean_keff`, `sigma_keff`, `dkeff_pertu`, `sigma_dkeff_pertu`
+- **Use cases**: Criticality safety, parametric reactor studies
+
+#### [FZ-Cristal](cristal.md)
+French criticality package (V1 & V2).
+
+- **Simulation type**: Criticality calculations (SN KEFF, SN Normes, Pij-MC, AP2M5)
+- **Repository**: [Funz/fz-Cristal](https://github.com/Funz/fz-Cristal)
+- **Installation**: `pip install git+https://github.com/Funz/fz.git` + Set `CRISTAL_HOME` and `CRISTAL_VERSION`
+- **Input syntax**: Variables `${...}`, Formulas `@{...}`, Comments `*` (or `#` for XML)
+- **Main outputs**: `keff`, `kinf`, `M2`, `B2`, `mean_keff`, `sigma_keff` (model dependent)
+- **Use cases**: French nuclear code criticality studies
 
 #### [FZ-Scale](scale.md)
 SCALE nuclear analysis code system.
 
-- **Simulation type**: Nuclear criticality, shielding, isotopic analysis
-- **Repository**: [Funz/fz-scale](https://github.com/Funz/fz-scale)
-- **Use cases**: Reactor physics, fuel cycle, depletion
+- **Simulation type**: Nuclear criticality, shielding, isotopic analysis, sensitivity
+- **Repository**: [Funz/fz-Scale](https://github.com/Funz/fz-Scale)
+- **Installation**: `pip install git+https://github.com/Funz/fz.git` + SCALE 6.2+ at `/SCALE/scale6.2` or set `SCALE_HOME`
+- **Input syntax**: Variables `&{...}`, Formulas `@{...}`, Comments `'`
+- **Main outputs**: `mean_keff`, `sigma_keff`, `mean_E_lethargy`, `mean_nubar`, `mean_free_path`, `lambda` (XSDRNPM)
+- **Models**: Scale-keno, Scale-shift, Scale-tsunami, Scale-xsdrnpm
+- **Use cases**: Reactor physics, fuel cycle, depletion, sensitivity analysis
+
+#### [FZ-Serpent](https://github.com/Funz/fz-Serpent)
+Serpent Monte Carlo reactor physics code.
+
+- **Simulation type**: Continuous-energy Monte Carlo reactor physics
+- **Repository**: [Funz/fz-Serpent](https://github.com/Funz/fz-Serpent)
+- **Installation**: `pip install git+https://github.com/Funz/fz.git` + `pip install serpentTools` + Serpent2 installation
+- **Input syntax**: Variables `${...}`, Formulas `@{...}`, Comments `%`
+- **Main outputs**: `absKeff`, `anaKeff`, `colKeff`, `impKeff`, `burnup`, `burnDays` (JSON arrays)
+- **Use cases**: Detailed reactor physics, fuel depletion, advanced Monte Carlo simulations
+
+#### [FZ-Casmo](https://github.com/Funz/fz-Casmo)
+CASMO5 lattice physics code.
+
+- **Simulation type**: Light water reactor lattice physics
+- **Repository**: [Funz/fz-Casmo](https://github.com/Funz/fz-Casmo)
+- **Installation**: `pip install git+https://github.com/Funz/fz.git` + CASMO5 license & set `CASMO_PATH`
+- **Input syntax**: Variables `${...}`, Formulas `@{...}`, Comments `*`
+- **Main outputs**: `k_inf`, `m2`, `burnup`, `u235_wt_pct`, `fissile_pu_wt_pct`, `pin_power_peak` (depletion arrays)
+- **Use cases**: PWR/BWR assembly analysis, fuel depletion studies
 
 ### Thermal-Hydraulics
 
 #### [FZ-Cathare](cathare.md)
 CATHARE thermal-hydraulic system code.
 
-- **Simulation type**: Thermal-hydraulics
-- **Repository**: [Funz/fz-cathare](https://github.com/Funz/fz-cathare)
-- **Use cases**: Reactor safety, accident analysis
+- **Simulation type**: Thermal-hydraulics for reactor safety
+- **Repository**: [Funz/fz-Cathare](https://github.com/Funz/fz-Cathare)
+- **Installation**: `pip install fz` + CATHARE installation
+- **Input syntax**: Variables `$(...)`, Formulas `@(...)`, Comments `*`
+- **Main outputs**: EVOLUTION data from FORT07 (TIME_*, Z_* variables with time series)
+- **Use cases**: Reactor safety, accident analysis, transient simulations
 
 ### Hydrodynamics
 
@@ -35,325 +85,185 @@ CATHARE thermal-hydraulic system code.
 TELEMAC-MASCARET hydrodynamics suite.
 
 - **Simulation type**: Free surface flow, sediment transport
-- **Repository**: [Funz/fz-telemac](https://github.com/Funz/fz-telemac)
-- **Use cases**: River flow, coastal modeling, dam breaks
+- **Repository**: [Funz/fz-Telemac](https://github.com/Funz/fz-Telemac)
+- **Installation**: `pip install git+https://github.com/Funz/fz.git` + `pip install PyTelTools` + Telemac (or Docker)
+- **Input syntax**: Variables `$(...)`, Formulas `@(...)`, Comments `/`
+- **Main outputs**: `S`, `H` (water surface, depth time series at POI from CSV)
+- **Use cases**: River flow, coastal modeling, dam breaks, flood analysis
 
-### Specialized Models
+### Structural & Multi-Physics
 
-#### [FZ-Moret](moret.md)
-Moret model plugin.
+#### [FZ-Cast3M](https://github.com/Funz/fz-Cast3M)
+Cast3m finite element software.
 
-- **Simulation type**: Specialized computational model
-- **Repository**: [Funz/fz-moret](https://github.com/Funz/fz-moret)
-- **Use cases**: Domain-specific simulations
+- **Simulation type**: Structural and fluid mechanics FEM
+- **Repository**: [Funz/fz-Cast3M](https://github.com/Funz/fz-Cast3M)
+- **Installation**: `pip install git+https://github.com/Funz/fz.git` + Cast3m (castem2000/cast3m in PATH)
+- **Input syntax**: Variables `$(...)`, Formulas `%(...)`, Comments `*`
+- **Main outputs**: MESS variables, text files (*.txt), CSV files (*.csv)
+- **Use cases**: Structural mechanics, thermal analysis, coupled simulations
 
-#### [FZ-Cristal](cristal.md)
-Cristal simulation support.
+#### [FZ-Modelica](https://github.com/Funz/fz-Modelica)
+OpenModelica multi-physics simulation.
 
-- **Simulation type**: Specialized simulations
-- **Repository**: [Funz/fz-cristal](https://github.com/Funz/fz-cristal)
-- **Use cases**: Custom computational models
+- **Simulation type**: Multi-domain modeling (mechanics, thermodynamics, electrical, control)
+- **Repository**: [Funz/fz-Modelica](https://github.com/Funz/fz-Modelica)
+- **Installation**: `pip install git+https://github.com/Funz/fz.git` + OpenModelica installation
+- **Input syntax**: Variables `${...~default}`, Formulas `@{...}`, Comments `//`
+- **Main outputs**: `res` (JSON dictionary with all CSV simulation results)
+- **Use cases**: Physical system modeling, control systems, thermal analysis
+
+## Optimization & Design Plugins
+
+#### [FZ-Brent](https://github.com/Funz/fz-brent)
+Brent's method for 1D optimization.
+
+- **Type**: Optimization algorithm
+- **Repository**: [Funz/fz-brent](https://github.com/Funz/fz-brent)
+- **Language**: R
+- **Use cases**: Single-variable optimization, root finding
+
+#### [FZ-GradientDescent](https://github.com/Funz/fz-gradientdescent)
+Gradient descent optimization.
+
+- **Type**: Optimization algorithm
+- **Repository**: [Funz/fz-gradientdescent](https://github.com/Funz/fz-gradientdescent)
+- **Language**: R
+- **Use cases**: Multi-variable optimization, machine learning
+
+#### [FZ-PSO](https://github.com/Funz/fz-PSO)
+Particle Swarm Optimization.
+
+- **Type**: Optimization algorithm
+- **Repository**: [Funz/fz-PSO](https://github.com/Funz/fz-PSO)
+- **Use cases**: Global optimization, non-convex problems
+
+## Creating Your Own Plugin
+
+### [FZ-Model](https://github.com/Funz/fz-Model)
+Generic template repository for creating new fz model plugins.
+
+- **Type**: Plugin template
+- **Repository**: [Funz/fz-Model](https://github.com/Funz/fz-Model)
+- **Purpose**: Starting point for new simulation code integrations
+- **Includes**: Example structure, documentation templates, test framework
 
 ## Plugin Architecture
 
-FZ plugins provide:
+FZ plugins typically include:
 
-1. **Pre-configured models** - Ready-to-use model definitions
-2. **Input templates** - Standard input file formats
-3. **Output parsers** - Specialized result extraction
-4. **Documentation** - Domain-specific guides
-5. **Examples** - Working demonstrations
+1. **Model definition** (`.fz/models/*.json`) - Variable syntax, output parsing rules
+2. **Calculator scripts** (`.fz/calculators/*.sh`) - Execution wrapper for simulation code
+3. **Calculator configuration** (`.fz/calculators/*.json`) - URI and model mappings
+4. **Examples** - Working input files and usage demonstrations
+5. **Tests** - Validation suite for the plugin
 
-### Plugin Structure
+### Basic Plugin Usage
 
 ```python
-from fz_plugin import get_model, get_calculator
-
-# Get pre-configured model
-model = get_model('standard')
-
-# Get calculator for the code
-calculator = get_calculator('local')  # or 'cluster', 'docker', etc.
-
-# Run with FZ
 import fz
+
+# Run parametric study using a plugin
 results = fz.fzr(
-    "input_template.txt",
-    variables,
-    model,
-    calculators=calculator
+    input_path="simulation_input.ext",
+    input_variables={
+        "param1": [1.0, 2.0, 3.0],
+        "param2": [0.5, 1.0]
+    },
+    model="ModelName",  # From plugin's .fz/models/
+    calculators="localhost_ModelName",  # From plugin's .fz/calculators/
+    results_dir="my_results"
 )
 ```
 
 ## Installing Plugins
 
-### From Source
+Most plugins are used directly by cloning their repositories:
 
 ```bash
 # Clone plugin repository
-git clone https://github.com/Funz/fz-<plugin>.git
-cd fz-<plugin>
+git clone https://github.com/Funz/fz-<PluginName>.git
+cd fz-<PluginName>
 
-# Install
-pip install -e .
+# The .fz/ directory is automatically detected by fz
+# Install simulation code separately (MCNP, OpenModelica, etc.)
 ```
 
-### In Google Colab
+Some plugins provide Python installation via `fz.install()`:
 
 ```python
-!pip install git+https://github.com/Funz/fz-<plugin>.git
+import fz
+fz.install('Moret')  # Installs Moret plugin
 ```
+
+## Quick Start with a Plugin
+
+1. **Install fz framework**: `pip install git+https://github.com/Funz/fz.git`
+2. **Clone plugin**: `git clone https://github.com/Funz/fz-<PluginName>.git`
+3. **Install simulation code**: Follow plugin's README for code installation
+4. **Run example**: Check plugin's `examples/` directory or README
 
 ## Using Plugins
 
-### Basic Usage
+### Example: Running a Parametric Study
 
 ```python
 import fz
-from fz_mcnp import get_model
 
-# Use plugin model
-model = get_model('criticality')
-
-# Define parameters
-variables = {
-    "enrichment": [2.0, 3.0, 4.0, 5.0],
-    "radius": [10, 15, 20],
-    "height": [30, 40, 50]
-}
-
-# Run parametric study
+# Run parametric study with FZ-MCNP plugin
 results = fz.fzr(
-    "reactor.inp",
-    variables,
-    model,
-    calculators="sh://mcnp6 i=reactor.inp",
+    input_path="examples/godiva.inp",
+    input_variables={
+        "r": [8.5, 8.741, 9.0]  # Sphere radius
+    },
+    model="MCNP",
+    calculators="localhost_MCNP",
     results_dir="mcnp_results"
 )
+
+print(results[['r', 'mean_keff', 'sigma_keff']])
 ```
 
-### With Custom Calculator
+### Example: Remote Execution
 
 ```python
-# Define calculator for HPC
-calculator = "ssh://user@cluster.edu/module load mcnp && mcnp6"
-
+# Run on remote HPC cluster via SSH
 results = fz.fzr(
-    "reactor.inp",
-    variables,
-    model,
-    calculators=calculator,
-    results_dir="mcnp_hpc_results"
+    input_path="input.inp",
+    input_variables={"enrichment": [3.0, 4.0, 5.0]},
+    model="MCNP",
+    calculators="ssh://user@hpc.edu/bash /path/to/calculators/MCNP.sh",
+    results_dir="remote_results"
 )
 ```
 
-## Plugin Models
-
-Each plugin provides pre-configured models for common use cases.
-
-### Example: FZ-MCNP Models
+### Example: Parallel Execution
 
 ```python
-from fz_mcnp import list_models, get_model
-
-# List available models
-models = list_models()
-print(models)
-# ['criticality', 'shielding', 'dose', 'activation']
-
-# Get specific model
-criticality_model = get_model('criticality')
-print(criticality_model)
-# {
-#     'varprefix': '$',
-#     'output': {
-#         'k_eff': 'grep "final result" output | ...',
-#         'k_err': '...'
-#     }
-# }
-```
-
-## Creating Your Own Plugin
-
-### Plugin Template
-
-```python
-# fz_myplugin/__init__.py
-
-# Pre-defined models
-MODELS = {
-    'standard': {
-        'varprefix': '$',
-        'formulaprefix': '@',
-        'output': {
-            'result1': 'grep ...',
-            'result2': 'grep ...'
-        }
-    }
-}
-
-def get_model(name='standard'):
-    """Get pre-configured model"""
-    if name not in MODELS:
-        raise ValueError(f"Model {name} not found")
-    return MODELS[name]
-
-def get_calculator(env='local'):
-    """Get calculator URI for environment"""
-    calculators = {
-        'local': 'sh://mysim',
-        'cluster': 'ssh://user@cluster/mysim',
-        'docker': 'sh://docker run mysim'
-    }
-    return calculators.get(env, calculators['local'])
-```
-
-### Plugin setup.py
-
-```python
-from setuptools import setup, find_packages
-
-setup(
-    name='fz-myplugin',
-    version='0.1.0',
-    packages=find_packages(),
-    install_requires=['fz>=0.9.1'],
-    author='Your Name',
-    description='FZ plugin for MySimulation',
-    url='https://github.com/yourusername/fz-myplugin',
-)
-```
-
-## Plugin Examples
-
-### FZ-MCNP Example
-
-```python
-import fz
-from fz_mcnp import get_model
-
-model = get_model('shielding')
-
+# Use multiple local calculator instances for parallelization
 results = fz.fzr(
-    "shield.inp",
-    {
-        "thickness": [5, 10, 15, 20],  # cm
-        "material": ["concrete", "lead", "steel"]
-    },
-    model,
-    calculators="sh://mcnp6 i=shield.inp",
-    results_dir="shielding_study"
+    input_path="simulation.inp",
+    input_variables={"param": list(range(100))},
+    model="MyModel",
+    calculators=["localhost_MyModel"] * 4,  # 4 parallel workers
+    results_dir="parallel_results"
 )
-
-# Analyze dose reduction
-print(results.groupby('material')['dose_rate'].mean())
 ```
-
-### FZ-Telemac Example
-
-```python
-import fz
-from fz_telemac import get_model
-
-model = get_model('2d_flow')
-
-results = fz.fzr(
-    "river.cas",
-    {
-        "discharge": [100, 200, 500, 1000],  # m³/s
-        "roughness": [0.02, 0.03, 0.04]      # Manning's n
-    },
-    model,
-    calculators="sh://telemac2d river.cas",
-    results_dir="flood_analysis"
-)
-
-# Extract peak water level
-print(results.groupby('discharge')['max_water_level'].describe())
-```
-
-## Plugin Best Practices
-
-### 1. Provide Multiple Models
-
-```python
-MODELS = {
-    'simple': {...},      # Basic use case
-    'advanced': {...},    # Advanced features
-    'validation': {...}   # Model validation
-}
-```
-
-### 2. Include Input Templates
-
-```
-fz_myplugin/
-├── __init__.py
-├── models.py
-├── templates/
-│   ├── basic_input.txt
-│   ├── advanced_input.txt
-│   └── validation_input.txt
-└── examples/
-    └── example_study.py
-```
-
-### 3. Document Output Variables
-
-```python
-MODELS = {
-    'standard': {
-        'output': {
-            'k_eff': 'grep "k-eff" ...',     # Effective multiplication factor
-            'k_err': 'grep "error" ...',     # Statistical uncertainty
-            'runtime': 'grep "time" ...'     # Computation time (s)
-        }
-    }
-}
-```
-
-### 4. Provide Validation
-
-```python
-def validate_input(variables):
-    """Validate input parameters"""
-    if variables.get('temperature', 0) < 0:
-        raise ValueError("Temperature must be positive")
-    # More validation...
-```
-
-## Plugin Documentation
-
-Each plugin should include:
-
-- **README.md** - Overview and quick start
-- **Installation guide** - Setup instructions
-- **Model reference** - Available models and outputs
-- **Examples** - Working demonstrations
-- **API reference** - Function documentation
-
-## Community Plugins
-
-Want to contribute a plugin?
-
-1. Fork the [FZ plugin template](https://github.com/Funz/fz-plugin-template)
-2. Implement your plugin
-3. Add tests and documentation
-4. Submit a pull request
 
 ## Next Steps
 
 Explore specific plugins:
 
-- [FZ-Moret](moret.md) - Moret model
-- [FZ-MCNP](mcnp.md) - Monte Carlo N-Particle
+- [FZ-Moret](moret.md) - MORET Monte Carlo criticality
+- [FZ-MCNP](mcnp.md) - Monte Carlo N-Particle transport
 - [FZ-Cathare](cathare.md) - Thermal-hydraulics
-- [FZ-Cristal](cristal.md) - Cristal simulations
-- [FZ-Scale](scale.md) - Nuclear analysis
+- [FZ-Cristal](cristal.md) - French criticality package
+- [FZ-Scale](scale.md) - SCALE nuclear analysis
 - [FZ-Telemac](telemac.md) - Hydrodynamics
 
 Or learn more:
 
+- [Installation Guide](../getting-started/installation.md) - Get started with FZ
 - [User Guide](../user-guide/core-functions/fzi.md) - FZ fundamentals
 - [Examples](../examples/perfectgas.md) - Complete examples
-- [Contributing](../contributing/development.md) - Develop plugins
+- [Contributing](../contributing/development.md) - Develop your own plugins

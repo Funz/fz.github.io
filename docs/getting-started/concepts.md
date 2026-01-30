@@ -38,6 +38,18 @@ concentration = $conc
 
 The `$` prefix marks a variable (customizable via `varprefix`).
 
+### Variable Defaults (New in 0.9.1)
+
+Specify default values using the `${var~default}` syntax:
+
+```text
+host = ${hostname~localhost}
+port = ${port~8080}
+debug = ${debug_mode~false}
+```
+
+When a variable is not provided in `input_variables`, the default value is used. A warning is issued when defaults are applied.
+
 ### Variable Types
 
 FZ supports scalar and list values:
