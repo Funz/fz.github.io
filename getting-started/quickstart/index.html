@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
     
     
       
@@ -805,6 +805,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#beyond-fixed-grids-adaptive-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Beyond Fixed Grids: Adaptive Design
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#further-reading" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1062,6 +1073,34 @@
     
   
     fzr - Run Study
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/core-functions/fzd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    fzd - Design of Experiments
   
 
     
@@ -2518,6 +2557,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#beyond-fixed-grids-adaptive-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Beyond Fixed Grids: Adaptive Design
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#further-reading" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2815,10 +2865,22 @@
 <h2 id="google-colab-quick-start">Google Colab Quick Start</h2>
 <p>Want to try FZ without installing anything locally? Use Google Colab:</p>
 <p><a href="https://colab.research.google.com/github/Funz/fz/blob/main/notebooks/quickstart.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<h2 id="beyond-fixed-grids-adaptive-design">Beyond Fixed Grids: Adaptive Design</h2>
+<p>For optimization and uncertainty quantification, use <code>fzd</code> instead of <code>fzr</code>. Instead of specifying exact parameter values, you specify ranges and let an algorithm choose points adaptively:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">result</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzd</span><span class="p">(</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>    <span class="s2">&quot;input.txt&quot;</span><span class="p">,</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>    <span class="p">{</span><span class="s2">&quot;T_celsius&quot;</span><span class="p">:</span> <span class="s2">&quot;[0;100]&quot;</span><span class="p">,</span> <span class="s2">&quot;V_L&quot;</span><span class="p">:</span> <span class="s2">&quot;[1;5]&quot;</span><span class="p">},</span>  <span class="c1"># Ranges, not lists</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>    <span class="n">model</span><span class="p">,</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>    <span class="n">output_expression</span><span class="o">=</span><span class="s2">&quot;pressure&quot;</span><span class="p">,</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>    <span class="n">algorithm</span><span class="o">=</span><span class="s2">&quot;examples/algorithms/bfgs.py&quot;</span><span class="p">,</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>    <span class="n">calculators</span><span class="o">=</span><span class="s2">&quot;sh://bash calculate.sh&quot;</span>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="p">)</span>
+</span></code></pre></div>
+<p>See <a href="../../user-guide/core-functions/fzd/">fzd - Design of Experiments</a> for details.</p>
 <h2 id="further-reading">Further Reading</h2>
 <ul>
 <li><a href="../concepts/">Core Concepts</a> - Understand FZ fundamentals</li>
-<li><a href="../../user-guide/core-functions/fzi/">Core Functions</a> - Deep dive into fzi, fzc, fzo, fzr</li>
+<li><a href="../../user-guide/core-functions/fzi/">Core Functions</a> - Deep dive into fzi, fzc, fzo, fzr, fzd, fzl</li>
 <li><a href="../../user-guide/model-definition/">Model Definition</a> - Learn about model configuration</li>
 <li><a href="../../examples/perfectgas/">Examples</a> - More complete examples</li>
 </ul>

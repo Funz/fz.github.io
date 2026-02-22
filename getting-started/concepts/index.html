@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
     
     
       
@@ -1335,6 +1335,34 @@
     
   
     fzr - Run Study
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/core-functions/fzd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    fzd - Design of Experiments
   
 
     
@@ -3113,7 +3141,7 @@
 <li><strong>Execute</strong> - Run calculations</li>
 <li><strong>Parse</strong> - Extract results</li>
 </ol>
-<p>The <code>fzr</code> function orchestrates all four steps automatically.</p>
+<p>The <code>fzr</code> function orchestrates all four steps automatically for fixed parametric studies. For adaptive, algorithm-driven exploration, <code>fzd</code> iteratively selects new parameter points based on previous results.</p>
 <h2 id="variables">Variables</h2>
 <p>Variables are placeholders in input templates that get replaced with actual values.</p>
 <h3 id="variable-syntax">Variable Syntax</h3>
@@ -3236,6 +3264,16 @@
 <td><strong>SSH</strong></td>
 <td><code>ssh://user@host/command</code></td>
 <td>Remote execution</td>
+</tr>
+<tr>
+<td><strong>SLURM</strong></td>
+<td><code>slurm://partition/command</code></td>
+<td>HPC cluster execution</td>
+</tr>
+<tr>
+<td><strong>Funz</strong></td>
+<td><code>funz://host:port</code></td>
+<td>Legacy Funz server</td>
 </tr>
 <tr>
 <td><strong>Cache</strong></td>
@@ -3453,7 +3491,7 @@
 <h2 id="next-steps">Next Steps</h2>
 <p>Now that you understand the core concepts:</p>
 <ul>
-<li><a href="../../user-guide/core-functions/fzi/">Core Functions</a> - Deep dive into fzi, fzc, fzo, fzr</li>
+<li><a href="../../user-guide/core-functions/fzi/">Core Functions</a> - Deep dive into fzi, fzc, fzo, fzr, fzd, fzl</li>
 <li><a href="../../user-guide/model-definition/">Model Definition</a> - Advanced model configuration</li>
 <li><a href="../../user-guide/calculators/overview/">Calculators</a> - Master calculator types</li>
 <li><a href="../../examples/perfectgas/">Examples</a> - See concepts in action</li>

@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
     
     
       
@@ -794,6 +794,34 @@
     
   
     fzr - Run Study
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/core-functions/fzd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    fzd - Design of Experiments
   
 
     
@@ -1908,6 +1936,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#fzd-design-of-experiments-with-adaptive-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fzd - Design of Experiments with Adaptive Algorithms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#fzl-command-list-and-validate-modelscalculators" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2000,6 +2039,17 @@
   
     <nav class="md-nav" aria-label="Improvements">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#protocol-specific-error-reporting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protocol-Specific Error Reporting
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#enhanced-argument-parsing" class="md-nav__link">
@@ -2387,6 +2437,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#fzd-design-of-experiments-with-adaptive-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fzd - Design of Experiments with Adaptive Algorithms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#fzl-command-list-and-validate-modelscalculators" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2479,6 +2540,17 @@
   
     <nav class="md-nav" aria-label="Improvements">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#protocol-specific-error-reporting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protocol-Specific Error Reporting
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#enhanced-argument-parsing" class="md-nav__link">
@@ -2651,6 +2723,18 @@
 <h1 id="release-notes">Release Notes</h1>
 <h2 id="version-091-2026-01-25">Version 0.9.1 (2026-01-25)</h2>
 <h3 id="new-features">New Features</h3>
+<h4 id="fzd-design-of-experiments-with-adaptive-algorithms"><code>fzd</code> - Design of Experiments with Adaptive Algorithms</h4>
+<ul>
+<li><strong>New function and CLI command</strong>: <code>fzd</code> (or <code>fz design</code>) for iterative design of experiments</li>
+<li>Algorithm-driven exploration: algorithms choose which points to evaluate next</li>
+<li>Variable ranges: <code>{"x": "[0;10]"}</code> instead of fixed value lists</li>
+<li>Custom output expressions: combine multiple outputs with math operators</li>
+<li>Pluggable algorithm interface with <code>get_initial_design</code>, <code>get_next_design</code>, <code>get_analysis</code></li>
+<li>Built-in algorithms: Random Sampling, Brent's Method (1D), BFGS (multi-D), Monte Carlo</li>
+<li>Algorithm options via dict, JSON string, or JSON file</li>
+<li>Full CLI support: <code>fzd -i input/ -v '{"x": "[-2;2]"}' -e "result" -a algorithm.py</code></li>
+<li>Analysis results with HTML reports and plots</li>
+</ul>
 <h4 id="fzl-command-list-and-validate-modelscalculators"><code>fzl</code> Command - List and Validate Models/Calculators</h4>
 <ul>
 <li><strong>New CLI command</strong>: <code>fzl</code> (or <code>fz list</code>) for listing and validating installed models and calculators</li>
@@ -2729,6 +2813,13 @@
 </span></code></pre></div></li>
 </ul>
 <h3 id="improvements">Improvements</h3>
+<h4 id="protocol-specific-error-reporting">Protocol-Specific Error Reporting</h4>
+<ul>
+<li>Descriptive error messages for each calculator protocol (shell, SSH, SLURM, Funz)</li>
+<li>Error classification: connection, authentication, timeout, execution, file transfer</li>
+<li>Error details recorded in <code>history/info.txt</code> for each case</li>
+<li>Error context preserved in DataFrame <code>error</code> column</li>
+</ul>
 <h4 id="enhanced-argument-parsing">Enhanced Argument Parsing</h4>
 <ul>
 <li>CLI arguments now support three formats:</li>

@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
     
     
       
@@ -794,6 +794,34 @@
     
   
     fzr - Run Study
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/core-functions/fzd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    fzd - Design of Experiments
   
 
     
@@ -1861,6 +1889,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1877,6 +1923,58 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Issues
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-cross-platform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows / Cross-Platform
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debug-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debug Mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2053,6 +2151,47 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Issues
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-cross-platform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows / Cross-Platform
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debug-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Debug Mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2072,7 +2211,53 @@
 
 
 <h1 id="troubleshooting">Troubleshooting</h1>
-<p>Common issues and solutions. See the <a href="https://github.com/Funz/fz#troubleshooting">main FZ documentation</a> for complete details.</p>
+<h2 id="common-issues">Common Issues</h2>
+<p><strong>Calculations fail with "command not found"</strong></p>
+<p>Use absolute paths in calculator URIs:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nv">calculators</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;sh://bash /full/path/to/script.sh&quot;</span>
+</span></code></pre></div>
+<p><strong>SSH calculations hang</strong></p>
+<p>Increase timeout or verify SSH connectivity:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Test manually</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>ssh<span class="w"> </span>user@host<span class="w"> </span><span class="s2">&quot;bash script.sh&quot;</span>
+</span></code></pre></div>
+<p><strong>Cache not working</strong></p>
+<p>Check <code>.fz_hash</code> files exist in cache directories. Enable debug logging:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;FZ_LOG_LEVEL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;DEBUG&#39;</span>
+</span></code></pre></div>
+<p><strong>Out of memory with many parallel cases</strong></p>
+<p>Limit parallel workers:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">FZ_MAX_WORKERS</span><span class="o">=</span><span class="m">2</span>
+</span></code></pre></div>
+<h2 id="windows-cross-platform">Windows / Cross-Platform</h2>
+<p><strong>Shell commands fail on Windows</strong></p>
+<p>Install MSYS2 and set <code>FZ_SHELL_PATH</code> to point to its binaries:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nv">$env:FZ_SHELL_PATH</span> <span class="p">=</span> <span class="s2">&quot;C:\msys64\usr\bin;C:\msys64\mingw64\bin&quot;</span>
+</span></code></pre></div>
+<p>See <a href="https://github.com/Funz/fz/blob/main/examples/shell_path_example.md">FZ_SHELL_PATH configuration</a> for details.</p>
+<p><strong>Line ending issues on Windows</strong></p>
+<p>Write input files with Unix line endings:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;input.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</span></code></pre></div>
+<p><strong><code>chmod</code> has no effect on Windows</strong></p>
+<p>This is expected — Windows does not support Unix file permissions. Shell scripts run via <code>sh://</code> do not need <code>chmod</code> on Windows.</p>
+<h2 id="debug-mode">Debug Mode</h2>
+<p>Enable detailed logging:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;FZ_LOG_LEVEL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;DEBUG&#39;</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>  <span class="c1"># Will show detailed execution logs</span>
+</span></code></pre></div>
+<p>Debug output includes:</p>
+<ul>
+<li>Calculator selection and locking</li>
+<li>File operations and command execution</li>
+<li>Cache matching</li>
+<li>Thread pool management</li>
+</ul>
+<p>See the <a href="https://github.com/Funz/fz#troubleshooting">main FZ documentation</a> for more details.</p>
 
 
 
