@@ -4,6 +4,7 @@
 - [fzc](../user-guide/core-functions/fzc.md) - Compile input files
 - [fzo](../user-guide/core-functions/fzo.md) - Parse output files
 - [fzr](../user-guide/core-functions/fzr.md) - Run parametric study
+- [fzd](../user-guide/core-functions/fzd.md) - Design of experiments with adaptive algorithms
 - [fzl](../user-guide/core-functions/fzl.md) - List and validate models/calculators
 
 See the [main FZ documentation](https://github.com/Funz/fz) for complete API details.

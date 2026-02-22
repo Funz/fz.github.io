@@ -328,9 +328,26 @@ Want to try FZ without installing anything locally? Use Google Colab:
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Funz/fz/blob/main/notebooks/quickstart.ipynb)
 
+## Beyond Fixed Grids: Adaptive Design
+
+For optimization and uncertainty quantification, use `fzd` instead of `fzr`. Instead of specifying exact parameter values, you specify ranges and let an algorithm choose points adaptively:
+
+```python
+result = fz.fzd(
+    "input.txt",
+    {"T_celsius": "[0;100]", "V_L": "[1;5]"},  # Ranges, not lists
+    model,
+    output_expression="pressure",
+    algorithm="examples/algorithms/bfgs.py",
+    calculators="sh://bash calculate.sh"
+)
+```
+
+See [fzd - Design of Experiments](../user-guide/core-functions/fzd.md) for details.
+
 ## Further Reading
 
 - [Core Concepts](concepts.md) - Understand FZ fundamentals
-- [Core Functions](../user-guide/core-functions/fzi.md) - Deep dive into fzi, fzc, fzo, fzr
+- [Core Functions](../user-guide/core-functions/fzi.md) - Deep dive into fzi, fzc, fzo, fzr, fzd, fzl
 - [Model Definition](../user-guide/model-definition.md) - Learn about model configuration
 - [Examples](../examples/perfectgas.md) - More complete examples

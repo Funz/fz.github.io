@@ -24,6 +24,8 @@ Or using pipx for isolated CLI tools:
 pipx install funz-fz
 ```
 
+This installs the `fz` command along with standalone commands: `fzi`, `fzc`, `fzo`, `fzr`, `fzd`, and `fzl`.
+
 ### From Source
 
 Install the latest development version from GitHub:
@@ -190,8 +192,12 @@ sudo pip install -e .
 ### Windows
 
 - Use PowerShell or Command Prompt
-- Some shell calculators may require WSL or Git Bash
+- Shell calculators require MSYS2 or Git Bash — set `FZ_SHELL_PATH` to point to the binaries:
+  ```powershell
+  $env:FZ_SHELL_PATH = "C:\msys64\usr\bin;C:\msys64\mingw64\bin"
+  ```
 - Path separators are backslashes (`\`) instead of forward slashes (`/`)
+- Write input files with Unix line endings (`newline='\n'`) to avoid issues
 
 ### macOS
 

@@ -13,6 +13,10 @@ A powerful Python package for parametric simulations and computational experimen
     - **Shell Path Config**: Custom binary resolution with `FZ_SHELL_PATH`
     - **Progress Callbacks**: Monitor execution with custom callbacks
     - **Variable Defaults**: Syntax for default values `${var~default}`
+    - **fzd**: Iterative design of experiments with adaptive algorithms
+    - **fzl / fzd CLI**: Standalone `fzl` and `fzd` commands
+    - **Error Reporting**: Protocol-specific error classification with descriptive messages
+    - **Cross-Platform**: Windows support via MSYS2/Git Bash with `FZ_SHELL_PATH`
 
     [See full release notes](reference/releases.md)
 
@@ -26,9 +30,9 @@ FZ is a framework that simplifies running parametric computational studies. Whet
 - 🌐 **Execute remotely** - Run calculations on remote servers via SSH
 - 📊 **Structure output** - Get results as pandas DataFrames with automatic type conversion
 
-## Four Core Functions
+## Six Core Functions
 
-FZ provides four fundamental functions that cover the entire workflow:
+FZ provides six functions that cover the entire workflow:
 
 | Function | Purpose | Description |
 |----------|---------|-------------|
@@ -36,6 +40,8 @@ FZ provides four fundamental functions that cover the entire workflow:
 | **[fzc](user-guide/core-functions/fzc.md)** | **C**ompile | Substitute variable values in templates |
 | **[fzo](user-guide/core-functions/fzo.md)** | Parse **O**utput | Extract results from output files |
 | **[fzr](user-guide/core-functions/fzr.md)** | **R**un | Execute complete parametric studies |
+| **[fzd](user-guide/core-functions/fzd.md)** | **D**esign | Iterative design of experiments with adaptive algorithms |
+| **[fzl](user-guide/core-functions/fzl.md)** | **L**ist | List and validate installed models and calculators |
 
 ## Quick Example
 

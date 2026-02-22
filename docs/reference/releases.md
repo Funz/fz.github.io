@@ -4,6 +4,17 @@
 
 ### New Features
 
+#### `fzd` - Design of Experiments with Adaptive Algorithms
+- **New function and CLI command**: `fzd` (or `fz design`) for iterative design of experiments
+- Algorithm-driven exploration: algorithms choose which points to evaluate next
+- Variable ranges: `{"x": "[0;10]"}` instead of fixed value lists
+- Custom output expressions: combine multiple outputs with math operators
+- Pluggable algorithm interface with `get_initial_design`, `get_next_design`, `get_analysis`
+- Built-in algorithms: Random Sampling, Brent's Method (1D), BFGS (multi-D), Monte Carlo
+- Algorithm options via dict, JSON string, or JSON file
+- Full CLI support: `fzd -i input/ -v '{"x": "[-2;2]"}' -e "result" -a algorithm.py`
+- Analysis results with HTML reports and plots
+
 #### `fzl` Command - List and Validate Models/Calculators
 - **New CLI command**: `fzl` (or `fz list`) for listing and validating installed models and calculators
 - Supports glob patterns for filtering: `fzl --models "perfect*" --calculators "ssh*"`
@@ -82,6 +93,12 @@
   ```
 
 ### Improvements
+
+#### Protocol-Specific Error Reporting
+- Descriptive error messages for each calculator protocol (shell, SSH, SLURM, Funz)
+- Error classification: connection, authentication, timeout, execution, file transfer
+- Error details recorded in `history/info.txt` for each case
+- Error context preserved in DataFrame `error` column
 
 #### Enhanced Argument Parsing
 - CLI arguments now support three formats:

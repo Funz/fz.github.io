@@ -89,6 +89,7 @@ nav:
       - fzc - Compile: user-guide/core-functions/fzc.md
       - fzo - Parse Output: user-guide/core-functions/fzo.md
       - fzr - Run Study: user-guide/core-functions/fzr.md
+      - fzd - Design of Experiments: user-guide/core-functions/fzd.md
       - fzl - List Models/Calculators: user-guide/core-functions/fzl.md
     - Model Definition: user-guide/model-definition.md
     - Calculators:

@@ -95,3 +95,4 @@ fzl --models "*" --calculators "*" --format table
 - [fzc](fzc.md) - Compile input files
 - [fzo](fzo.md) - Parse output files
 - [fzr](fzr.md) - Run parametric study
+- [fzd](fzd.md) - Design of experiments with adaptive algorithms

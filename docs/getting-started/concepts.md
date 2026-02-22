@@ -12,7 +12,7 @@ graph LR
     B -->|fzc| C[Compile Cases]
     C -->|Calculator| D[Execute]
     D -->|fzo| E[Parse Results]
-    
+
     style A fill:#e1f5fe
     style E fill:#c8e6c9
 ```
@@ -22,7 +22,7 @@ graph LR
 3. **Execute** - Run calculations
 4. **Parse** - Extract results
 
-The `fzr` function orchestrates all four steps automatically.
+The `fzr` function orchestrates all four steps automatically for fixed parametric studies. For adaptive, algorithm-driven exploration, `fzd` iteratively selects new parameter points based on previous results.
 
 ## Variables
 
@@ -171,6 +171,8 @@ Calculators define **where** and **how** calculations are executed.
 |------|------------|---------|
 | **Shell** | `sh://command args` | Local execution |
 | **SSH** | `ssh://user@host/command` | Remote execution |
+| **SLURM** | `slurm://partition/command` | HPC cluster execution |
+| **Funz** | `funz://host:port` | Legacy Funz server |
 | **Cache** | `cache://directory` | Reuse previous results |
 
 ### Calculator Examples
@@ -451,7 +453,7 @@ Include comments in model definitions:
 
 Now that you understand the core concepts:
 
-- [Core Functions](../user-guide/core-functions/fzi.md) - Deep dive into fzi, fzc, fzo, fzr
+- [Core Functions](../user-guide/core-functions/fzi.md) - Deep dive into fzi, fzc, fzo, fzr, fzd, fzl
 - [Model Definition](../user-guide/model-definition.md) - Advanced model configuration
 - [Calculators](../user-guide/calculators/overview.md) - Master calculator types
 - [Examples](../examples/perfectgas.md) - See concepts in action
