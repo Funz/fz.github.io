@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -2482,17 +2482,15 @@
 <h1 id="fz-parametric-scientific-computing-framework">FZ - Parametric Scientific Computing Framework</h1>
 <p><a href="https://github.com/Funz/fz/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Funz/fz/workflows/CI/badge.svg" /></a>
 <a href="https://opensource.org/licenses/BSD-3-Clause"><img alt="License" src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg" /></a>
-<a href="https://github.com/Funz/fz/releases"><img alt="Version" src="https://img.shields.io/badge/version-0.9.1-blue.svg" /></a></p>
+<a href="https://github.com/Funz/fz/releases"><img alt="Version" src="https://img.shields.io/badge/version-1.0-blue.svg" /></a></p>
 <p>A powerful Python package for parametric simulations and computational experiments. <strong>FZ</strong> wraps your simulation codes to automatically run parametric studies, manage input/output files, handle parallel execution, and collect results in structured DataFrames.</p>
 <div class="admonition info">
-<p class="admonition-title">What's New in 0.9.1</p>
+<p class="admonition-title">What's New in 1.0</p>
 <ul>
-<li><strong>SLURM Calculator</strong>: Execute on HPC clusters with workload management</li>
-<li><strong>Funz Server</strong>: Connect to legacy Java Funz calculator servers  </li>
-<li><strong>R Interpreter</strong>: Use R for statistical formula evaluation</li>
-<li><strong>Shell Path Config</strong>: Custom binary resolution with <code>FZ_SHELL_PATH</code></li>
-<li><strong>Progress Callbacks</strong>: Monitor execution with custom callbacks</li>
-<li><strong>Variable Defaults</strong>: Syntax for default values <code>${var~default}</code></li>
+<li><strong>fzd batch deduplication</strong>: duplicate design points in a batch are evaluated once and results reused</li>
+<li><strong>fzd cross-iteration caching</strong>: points from previous iterations are never re-evaluated</li>
+<li><strong>fzd re-run resume</strong>: existing <code>analysis_dir</code> is renamed with timestamp; its cache is still consulted</li>
+<li><strong>Formula variable prefix fix</strong>: configurable <code>varprefix</code> now correctly applied inside <code>@{...}</code> formulas</li>
 <li><strong>fzd</strong>: Iterative design of experiments with adaptive algorithms</li>
 <li><strong>fzl / fzd CLI</strong>: Standalone <code>fzl</code> and <code>fzd</code> commands</li>
 <li><strong>Error Reporting</strong>: Protocol-specific error classification with descriptive messages</li>
