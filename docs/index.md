@@ -2,17 +2,15 @@
 
 [![CI](https://github.com/Funz/fz/workflows/CI/badge.svg)](https://github.com/Funz/fz/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![Version](https://img.shields.io/badge/version-0.9.1-blue.svg)](https://github.com/Funz/fz/releases)
+[![Version](https://img.shields.io/badge/version-1.0-blue.svg)](https://github.com/Funz/fz/releases)
 
 A powerful Python package for parametric simulations and computational experiments. **FZ** wraps your simulation codes to automatically run parametric studies, manage input/output files, handle parallel execution, and collect results in structured DataFrames.
 
-!!! info "What's New in 0.9.1"
-    - **SLURM Calculator**: Execute on HPC clusters with workload management
-    - **Funz Server**: Connect to legacy Java Funz calculator servers  
-    - **R Interpreter**: Use R for statistical formula evaluation
-    - **Shell Path Config**: Custom binary resolution with `FZ_SHELL_PATH`
-    - **Progress Callbacks**: Monitor execution with custom callbacks
-    - **Variable Defaults**: Syntax for default values `${var~default}`
+!!! info "What's New in 1.0"
+    - **fzd batch deduplication**: duplicate design points in a batch are evaluated once and results reused
+    - **fzd cross-iteration caching**: points from previous iterations are never re-evaluated
+    - **fzd re-run resume**: existing `analysis_dir` is renamed with timestamp; its cache is still consulted
+    - **Formula variable prefix fix**: configurable `varprefix` now correctly applied inside `@{...}` formulas
     - **fzd**: Iterative design of experiments with adaptive algorithms
     - **fzl / fzd CLI**: Standalone `fzl` and `fzd` commands
     - **Error Reporting**: Protocol-specific error classification with descriptive messages

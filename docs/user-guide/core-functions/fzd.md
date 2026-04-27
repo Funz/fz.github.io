@@ -81,7 +81,7 @@ fz design --input_dir DIR --input_vars VARS --model MODEL \
 | `--input_vars` | `-v` | Yes | Variable ranges (JSON file or inline JSON) |
 | `--model` | `-m` | Yes | Model definition (JSON file, inline JSON, or alias) |
 | `--output_expression` | `-e` | Yes | Output expression to optimize |
-| `--algorithm` | `-a` | Yes | Algorithm file path |
+| `--algorithm` | `-a` | Yes | Algorithm name (`randomsampling`, `brent`, `bfgs`, ...) or file path |
 | `--results_dir` | `-r` | No | Results directory (default: `results_fzd`) |
 | `--calculators` | `-c` | No | Calculator specifications |
 | `--options` | `-o` | No | Algorithm options (JSON file or inline JSON) |
@@ -244,6 +244,48 @@ Algorithm options can be provided in three formats:
     ```bash
     --options algo_config.json
     ```
+
+## Input Variables: Ranges vs Fixed Values
+
+`input_variables` accepts two kinds of entries:
+
+| Format | Example | Behaviour |
+|--------|---------|-----------|
+| Range | `"[min;max]"` or `"[min,max]"` | Handed to the algorithm; it decides which values to sample |
+| Fixed | `"5.0"` (a plain number string) | Constant — merged into every design point unchanged, never varied |
+
+```python
+# x and y are explored; z is fixed at 1.5 for every evaluation
+result = fz.fzd(
+    input_path="input/",
+    input_variables={"x": "[-2;2]", "y": "[-2;2]", "z": "1.5"},
+    ...
+)
+```
+
+## Automatic Behaviors
+
+### Batch Deduplication
+
+Within each iteration, duplicate design points proposed by the algorithm are evaluated only once. The results are re-mapped so the algorithm receives the correct output for every point it requested, including duplicates. This prevents redundant expensive evaluations when an algorithm proposes the same point twice.
+
+### Cross-Iteration Caching
+
+Results from previous iterations are automatically reused — a point evaluated in iteration 2 is never re-run in iteration 5. No extra configuration is required.
+
+### Re-Run Resume
+
+If `analysis_dir` already exists when `fzd` starts, it is **renamed** with a timestamp suffix (e.g., `analysis_2026-04-27_10-30-00`) and the original path is used for the new run. The renamed directory's iteration subdirectories are still added to the cache, so a re-run with different algorithm options benefits from all prior computations automatically.
+
+```python
+# Re-run after an interrupted or exploratory first run — prior results reused as cache
+result = fz.fzd(
+    input_path="input/",
+    input_variables={"x": "[-2;2]"},
+    algorithm="examples/algorithms/bfgs.py",
+    analysis_dir="my_analysis"   # if exists → renamed; its cache still consulted
+)
+```
 
 ## Available Algorithms
 

@@ -1,5 +1,25 @@
 # Release Notes
 
+## Version 1.0 (2026-04-27)
+
+### New Features
+
+#### `fzd` — Batch Deduplication
+Duplicate design points proposed by an algorithm within the same iteration are evaluated only once; results are re-mapped to all occurrences.
+
+#### `fzd` — Cross-Iteration Caching
+Results from previous iterations are automatically reused — a point evaluated in iteration 2 is never re-run in iteration 5. No extra configuration required.
+
+#### `fzd` — Re-Run Resume
+If `analysis_dir` already exists it is renamed with a timestamp suffix and its cached results are still consulted, so a re-run with different options benefits from all prior computations.
+
+### Bug Fixes
+
+#### Formula variable prefix (`interpreter.py`)
+`evaluate_formulas` now uses the model's configured `varprefix` (and `var_delim`) when replacing variables inside `@{...}` expressions, instead of the previously hardcoded `$`.
+
+---
+
 ## Version 0.9.1 (2026-01-25)
 
 ### New Features
