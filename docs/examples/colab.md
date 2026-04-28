@@ -8,91 +8,77 @@ Run FZ examples directly in your browser with Google Colab - no installation req
 
 ## Available Notebooks
 
-### 1. Perfect Gas Example
+### 1. Getting Started
 
-Learn FZ basics with the ideal gas law.
+Core FZ workflow: `fzl`, `fzi`, `fzc`, `fzo`, `fzr` — Perfect Gas PV=nRT end-to-end example.
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Funz/fz.github.io/blob/main/notebooks/perfectgas_example.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Funz/fz/blob/main/examples/01_getting_started.ipynb)
 
 **What you'll learn:**
 
 - Installing FZ in Colab
-- Creating input templates with variables and formulas
-- Running parametric studies
-- Analyzing results with pandas
-- Visualizing with matplotlib
+- Listing available models with `fzl`
+- Parsing variables with `fzi`
+- Compiling templates with `fzc`
+- Running parametric studies with `fzr`
+- Parsing outputs with `fzo`
+- Visualizing results with matplotlib
 
-### 2. OpenModelica Integration
+### 2. Variable Syntax & Formulas
 
-Use FZ with OpenModelica for dynamic system simulations.
+All variable syntaxes, `@{}` formula expressions, `#@` context code, and delimiter styles.
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Funz/fz.github.io/blob/main/notebooks/modelica_example.ipynb)
-
-**What you'll learn:**
-
-- Installing OpenModelica in Colab
-- Creating Modelica models
-- Parametric simulation with FZ
-- Analyzing dynamic system responses
-
-**Example model:**
-
-```modelica
-model SimpleOscillator
-  parameter Real omega = $omega;  // Natural frequency
-  parameter Real zeta = $zeta;    // Damping ratio
-  
-  Real x(start=1.0);  // Position
-  Real v(start=0.0);  // Velocity
-  
-equation
-  der(x) = v;
-  der(v) = -omega^2 * x - 2*zeta*omega*v;
-end SimpleOscillator;
-```
-
-### 3. MCNP Plugin Example
-
-Monte Carlo radiation transport with FZ-MCNP.
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Funz/fz.github.io/blob/main/notebooks/mcnp_example.ipynb)
-
-**Prerequisites:**
-
-- MCNP license (demo uses simplified examples)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Funz/fz/blob/main/examples/02_variable_syntax_and_formulas.ipynb)
 
 **What you'll learn:**
 
-- Installing FZ-MCNP plugin
-- Setting up MCNP input files
-- Running parametric studies for shielding analysis
-- Extracting tallies and analyzing results
+- `$name`, `${name}`, `${name~default}` variable forms
+- `@{expr}` inline formula evaluation (Python & R)
+- `#@ code` context blocks and `#@: static` constants
+- Legacy `?(name)` syntax
+- Custom delimiter styles: `()`, `{}`, `[]`, `<>`
 
-### 4. Parallel Processing Demo
+### 3. Parametric Studies (fzr)
 
-Understand FZ's parallel execution capabilities.
+Grid and DataFrame inputs, progress callbacks, parallel calculators.
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Funz/fz.github.io/blob/main/notebooks/parallel_demo.ipynb)
-
-**What you'll learn:**
-
-- Configuring multiple calculators
-- Load balancing
-- Performance comparison: serial vs parallel
-- Monitoring execution
-
-### 5. Caching and Resume
-
-Learn to reuse results and resume interrupted studies.
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Funz/fz.github.io/blob/main/notebooks/caching_demo.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Funz/fz/blob/main/examples/03_parametric_studies_fzr.ipynb)
 
 **What you'll learn:**
 
-- How FZ caching works
-- Setting up cache calculators
-- Resuming interrupted runs
-- Extending previous studies
+- Factorial grid inputs (dict of lists)
+- Explicit scenario inputs (DataFrame)
+- All callback signatures (`on_start`, `on_case_start`, `on_case_complete`, `on_progress`, `on_complete`)
+- Running cases across multiple parallel calculators
+
+### 4. Design of Experiments (fzd)
+
+Adaptive sampling, 1D minimization, N-D optimization, and Monte Carlo.
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Funz/fz/blob/main/examples/04_design_of_experiments_fzd.ipynb)
+
+**What you'll learn:**
+
+- Random sampling over a parameter space
+- 1D minimization with Brent's method
+- N-D optimization with BFGS (Rosenbrock function)
+- Monte Carlo estimation of π with convergence analysis
+
+### 5. Caching & Advanced Features
+
+Cache reuse, multi-output models, logging, coarse-to-fine DOE.
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Funz/fz/blob/main/examples/05_caching_and_advanced.ipynb)
+
+**What you'll learn:**
+
+- Cold vs warm cache speed comparison
+- Numpy array inputs
+- Multi-output model parsing
+- Logging levels and `print_config()`
+- `fzl(check=True)` model validation
+- `algorithm_options` tuning
+- Coarse-to-fine DOE with `cache://` reuse
 
 ## Creating Your Own Colab Notebook
 
