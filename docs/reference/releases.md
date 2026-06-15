@@ -1,5 +1,58 @@
 # Release Notes
 
+## Version 1.1 (2026-06-15)
+
+### New Features
+
+#### `fzd` CLI — `--input_path` / `--input_variables` Aliases
+`fzd` (and `fz design`) now accept the same flag names used by `fzi`, `fzc`, and `fzr`:
+`--input_path` (alias for `--input_dir`) and `--input_variables` / `--variables` (aliases for `--input_vars`).
+All flag forms remain accepted for backward compatibility.
+
+#### `fzd` — Calculator Auto-Discovery
+`fzd` now auto-discovers the installed calculator alias that matches the model id, exactly like `fzr`.
+When a model wrapper has been installed with `fz install model <code>`, you can omit `calculators`
+in `fzd` calls and the correct calculator is selected automatically.
+
+#### Calculator Bare Alias Names
+`--calculators <alias>` now works in all commands. Previously only full URIs were accepted.
+
+#### Script-Friendly Output Streams
+Results are printed to **stdout**; logs, progress bar, and errors go to **stderr**.
+The progress bar is automatically suppressed when stderr is not a terminal (CI pipelines, redirected output).
+
+```bash
+fzr input.txt --model perfectgas --variables '{"x": [1,2]}' \
+    --calculator "sh://bash calc.sh" --format json > results.json 2> run.log
+```
+
+Exit codes: `0` on success, non-zero on argument/file errors. `fzr` exits `1` when no case
+succeeded; partial success exits `0` with per-case details in the `status` column.
+
+### Bug Fixes
+
+#### Recursive Directory Staging
+Case subdirectories are now correctly staged into and out of the run directory. Studies
+whose input is organized as a directory tree (e.g. OpenFOAM cases) no longer silently
+drop nested files.
+
+#### `fzd` / `fz design` CLI Argument Forwarding
+Arguments were incorrectly forwarded to the core `fzd()` function, causing unexpected
+errors. The CLI now filters and maps arguments correctly.
+
+#### `fzd` Results Directory
+The `--results_dir` flag was ignored in some code paths; it is now consistently applied.
+
+#### Calculator Discovery
+Several bugs in model/calculator alias resolution have been fixed, making `fz list --check`
+and alias-based calculator lookup more reliable.
+
+#### Funz UDP Discovery Fallback
+A UDP discovery miss (no Funz server found on the network) no longer counts as a hard
+calculator failure. `fzr`/`fzd` now fall back to the next calculator in the list.
+
+---
+
 ## Version 1.0 (2026-04-27)
 
 ### New Features

@@ -113,40 +113,108 @@ OpenModelica multi-physics simulation.
 - **Main outputs**: `res` (JSON dictionary with all CSV simulation results)
 - **Use cases**: Physical system modeling, control systems, thermal analysis
 
-## Optimization & Design Plugins
+## Algorithm Plugins
+
+Algorithm plugins are used with [`fzd`](../user-guide/core-functions/fzd.md) for adaptive,
+iterative design of experiments. Install them from their GitHub repositories:
+
+```bash
+fz install algorithm brent           # → https://github.com/Funz/fz-brent
+fz install algorithm gradientdescent # → https://github.com/Funz/fz-gradientdescent
+fz install algorithm PSO             # → https://github.com/Funz/fz-PSO
+```
+
+!!! note "R requirement"
+    These algorithm plugins are implemented in **R**. You need R installed on your system
+    plus the `rpy2` Python bridge: `pip install rpy2`.
 
 #### [FZ-Brent](https://github.com/Funz/fz-brent)
-Brent's method for 1D optimization.
+Brent's method for 1D root finding / inversion.
 
-- **Type**: Optimization algorithm
 - **Repository**: [Funz/fz-brent](https://github.com/Funz/fz-brent)
-- **Language**: R
-- **Use cases**: Single-variable optimization, root finding
+- **Dimensions**: 1D only
+- **Use cases**: Find the input value that produces a target output (inversion/calibration)
+- **Key options**:
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `ytarget` | `0.0` | Target output value |
+| `ytol` | `0.1` | Convergence precision on output |
+| `xtol` | `0.01` | Convergence precision on input |
+| `max_iterations` | `100` | Maximum iterations |
+
+```python
+result = fz.fzd("input.txt", {"x": "[0;1]"}, model,
+    output_expression="y", algorithm="brent",
+    algorithm_options={"ytarget": 0.5, "ytol": 0.01})
+```
 
 #### [FZ-GradientDescent](https://github.com/Funz/fz-gradientdescent)
-Gradient descent optimization.
+First-order local optimization via gradient descent (minimization or maximization).
 
-- **Type**: Optimization algorithm
 - **Repository**: [Funz/fz-gradientdescent](https://github.com/Funz/fz-gradientdescent)
-- **Language**: R
-- **Use cases**: Multi-variable optimization, machine learning
+- **Dimensions**: Multi-dimensional
+- **Use cases**: Local optimization of smooth functions; gradient estimated by finite differences
+- **Key options**:
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `yminimization` | `true` | `false` to maximize |
+| `max_iterations` | `100` | Maximum iterations |
+| `ytol` | `0.1` | Convergence tolerance on output |
+| `delta` | `1` | Initial gradient step factor (auto-adjusted) |
+| `epsilon` | `0.01` | Finite-difference step for gradient estimation |
+| `x0` | `""` | Starting point (comma-separated), e.g. `"0.5,0.5"` |
+
+```python
+result = fz.fzd("input.txt", {"x1": "[0;1]", "x2": "[0;1]"}, model,
+    output_expression="y", algorithm="gradientdescent",
+    algorithm_options={"yminimization": True, "max_iterations": 50})
+```
 
 #### [FZ-PSO](https://github.com/Funz/fz-PSO)
-Particle Swarm Optimization.
+Particle Swarm Optimization — global stochastic optimizer.
 
-- **Type**: Optimization algorithm
 - **Repository**: [Funz/fz-PSO](https://github.com/Funz/fz-PSO)
-- **Use cases**: Global optimization, non-convex problems
+- **Dimensions**: Multi-dimensional
+- **Use cases**: Global optimization, non-convex or noisy objectives
+- **Key options**:
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `yminimization` | `true` | `false` to maximize |
+| `max_iterations` | `30` | Maximum iterations |
+| `nparticles` | auto | Swarm size (default: `10 + 2√d`) |
+| `seed` | `123` | Random seed |
+| `w` | `0.7213` | Inertia weight |
+| `c_p` | `1.1931` | Cognitive (personal best) coefficient |
+| `c_g` | `1.1931` | Social (global best) coefficient |
+
+```python
+result = fz.fzd("input.txt", {"x1": "[0;1]", "x2": "[0;1]"}, model,
+    output_expression="y", algorithm="PSO",
+    algorithm_options={"yminimization": True, "max_iterations": 30, "nparticles": 20})
+```
 
 ## Creating Your Own Plugin
 
 ### [FZ-Model](https://github.com/Funz/fz-Model)
 Generic template repository for creating new fz model plugins.
 
-- **Type**: Plugin template
+- **Type**: Model plugin template
 - **Repository**: [Funz/fz-Model](https://github.com/Funz/fz-Model)
 - **Purpose**: Starting point for new simulation code integrations
 - **Includes**: Example structure, documentation templates, test framework
+
+### [FZ-Algorithm](https://github.com/Funz/fz-Algorithm) / [FZ-AlgorithmR](https://github.com/Funz/fz-AlgorithmR)
+Template repositories for writing custom `fzd` algorithm plugins.
+
+- **Type**: Algorithm plugin template
+- **Repositories**: [Funz/fz-Algorithm](https://github.com/Funz/fz-Algorithm) (Python), [Funz/fz-AlgorithmR](https://github.com/Funz/fz-AlgorithmR) (R)
+- **Purpose**: Starting point for new optimization, sampling, or calibration algorithms
+- **Interface**: implement `get_initial_design`, `get_next_design`, `get_analysis`
+
+See also [Writing Custom Algorithms](../user-guide/core-functions/fzd.md#writing-custom-algorithms) in the fzd docs.
 
 ## Plugin Architecture
 
@@ -254,12 +322,20 @@ results = fz.fzr(
 
 Explore specific plugins:
 
+**Model plugins**
+
 - [FZ-Moret](moret.md) - MORET Monte Carlo criticality
 - [FZ-MCNP](mcnp.md) - Monte Carlo N-Particle transport
 - [FZ-Cathare](cathare.md) - Thermal-hydraulics
 - [FZ-Cristal](cristal.md) - French criticality package
 - [FZ-Scale](scale.md) - SCALE nuclear analysis
 - [FZ-Telemac](telemac.md) - Hydrodynamics
+
+**Algorithm plugins**
+
+- [FZ-Brent](https://github.com/Funz/fz-brent) - 1D root finding / inversion
+- [FZ-GradientDescent](https://github.com/Funz/fz-gradientdescent) - Local gradient-based optimization
+- [FZ-PSO](https://github.com/Funz/fz-PSO) - Global particle swarm optimization
 
 Or learn more:
 

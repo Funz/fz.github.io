@@ -2,19 +2,17 @@
 
 [![CI](https://github.com/Funz/fz/workflows/CI/badge.svg)](https://github.com/Funz/fz/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![Version](https://img.shields.io/badge/version-1.0-blue.svg)](https://github.com/Funz/fz/releases)
+[![Version](https://img.shields.io/badge/version-1.1-blue.svg)](https://github.com/Funz/fz/releases)
 
 A powerful Python package for parametric simulations and computational experiments. **FZ** wraps your simulation codes to automatically run parametric studies, manage input/output files, handle parallel execution, and collect results in structured DataFrames.
 
-!!! info "What's New in 1.0"
-    - **fzd batch deduplication**: duplicate design points in a batch are evaluated once and results reused
-    - **fzd cross-iteration caching**: points from previous iterations are never re-evaluated
-    - **fzd re-run resume**: existing `analysis_dir` is renamed with timestamp; its cache is still consulted
-    - **Formula variable prefix fix**: configurable `varprefix` now correctly applied inside `@{...}` formulas
-    - **fzd**: Iterative design of experiments with adaptive algorithms
-    - **fzl / fzd CLI**: Standalone `fzl` and `fzd` commands
-    - **Error Reporting**: Protocol-specific error classification with descriptive messages
-    - **Cross-Platform**: Windows support via MSYS2/Git Bash with `FZ_SHELL_PATH`
+!!! info "What's New in 1.1"
+    - **fzd CLI aliases**: `fzd` now accepts `--input_path` / `--input_variables` like all other commands
+    - **fzd calculator auto-discovery**: omit `calculators` in `fzd` and the installed alias is used (same as `fzr`)
+    - **Calculator bare aliases**: `--calculators <alias>` now works in all commands
+    - **Recursive directory staging**: case subdirectories are correctly staged in and out of the run directory
+    - **Funz UDP fallback**: a UDP discovery miss no longer counts as a hard failure; fz falls back to other calculators
+    - **Script-friendly output**: results on stdout, logs/progress on stderr; progress bar suppressed in CI/pipes
 
     [See full release notes](reference/releases.md)
 
@@ -153,6 +151,21 @@ FZ includes plugins for various simulation codes:
 - **[FZ-Cristal](plugins/cristal.md)** - Cristal simulation plugin
 - **[FZ-Scale](plugins/scale.md)** - Scale nuclear analysis code
 - **[FZ-Telemac](plugins/telemac.md)** - Hydrodynamics simulation system
+
+## AI Agent Skill (Claude Code)
+
+FZ ships a **Claude Code skill** that teaches AI coding agents the full fz workflow — parameterizing input files, defining models, choosing calculators, and running parametric studies or optimizations.
+
+Install it directly from Claude Code:
+
+```
+/plugin marketplace add Funz/fz
+/plugin install fz@funz
+```
+
+Once installed, just describe what you want in plain language — *"wrap my simulation and run a parameter sweep over mesh_size and timestep"* — and the agent handles the rest.
+
+The skill covers the complete workflow: `fzi` → `fzc` → `fzo` → `fzr`/`fzd`, calculator selection (local, SSH, SLURM), caching, and writing custom model wrappers or algorithms.
 
 ## Google Colab Integration
 

@@ -61,7 +61,7 @@ Returns a dictionary with:
 ### Command Signature
 
 ```bash
-fzd --input_dir DIR --input_vars VARS --model MODEL \
+fzd --input_path DIR --input_variables VARS --model MODEL \
     --output_expression EXPR --algorithm ALGO \
     [--results_dir DIR] [--calculators CALC] [--options OPTS]
 ```
@@ -69,7 +69,7 @@ fzd --input_dir DIR --input_vars VARS --model MODEL \
 Or using the main `fz` command:
 
 ```bash
-fz design --input_dir DIR --input_vars VARS --model MODEL \
+fz design --input_path DIR --input_variables VARS --model MODEL \
     --output_expression EXPR --algorithm ALGO [...]
 ```
 
@@ -77,14 +77,18 @@ fz design --input_dir DIR --input_vars VARS --model MODEL \
 
 | Option | Short | Required | Description |
 |--------|-------|----------|-------------|
-| `--input_dir` | `-i` | Yes | Input directory path |
-| `--input_vars` | `-v` | Yes | Variable ranges (JSON file or inline JSON) |
+| `--input_path` / `--input_dir` | `-i` | Yes | Input file or directory path |
+| `--input_variables` / `--input_vars` / `--variables` | `-v` | Yes | Variable ranges (JSON file or inline JSON) |
 | `--model` | `-m` | Yes | Model definition (JSON file, inline JSON, or alias) |
 | `--output_expression` | `-e` | Yes | Output expression to optimize |
 | `--algorithm` | `-a` | Yes | Algorithm name (`randomsampling`, `brent`, `bfgs`, ...) or file path |
 | `--results_dir` | `-r` | No | Results directory (default: `results_fzd`) |
-| `--calculators` | `-c` | No | Calculator specifications |
+| `--calculators` | `-c` | No | Calculator specifications (URI, alias, or JSON list) |
 | `--options` | `-o` | No | Algorithm options (JSON file or inline JSON) |
+
+!!! note "Flag aliases (since 1.1)"
+    `--input_path` and `--input_variables` are the preferred names, consistent with `fzi`, `fzc`, and `fzr`.
+    The old `--input_dir` and `--input_vars` names remain accepted for backward compatibility.
 
 ## Examples
 
@@ -202,21 +206,21 @@ Available expression operators: `+`, `-`, `*`, `/`, `**`, `abs()`, `min()`, `max
 
 ```bash
 # Random sampling
-fzd -i input/ -m perfectgas \
-  -v '{"x": "[-2;2]", "y": "[-2;2]"}' \
-  -e "result" \
-  -a examples/algorithms/randomsampling.py \
-  -o '{"nvalues": 20, "seed": 42}'
+fzd --input_path input/ --model perfectgas \
+  --input_variables '{"x": "[-2;2]", "y": "[-2;2]"}' \
+  --output_expression "result" \
+  --algorithm examples/algorithms/randomsampling.py \
+  --options '{"nvalues": 20, "seed": 42}'
 
 # Algorithm options from a JSON file
-fzd -i input/ -m perfectgas \
-  -v '{"x": "[-2;2]"}' \
-  -e "result" \
-  -a examples/algorithms/brent.py \
-  -o algo_config.json \
-  -r optimization_results/
+fzd --input_path input/ --model perfectgas \
+  --input_variables '{"x": "[-2;2]"}' \
+  --output_expression "result" \
+  --algorithm examples/algorithms/brent.py \
+  --options algo_config.json \
+  --results_dir optimization_results/
 
-# As fz subcommand
+# As fz subcommand (short flags)
 fz design -i input/ -m perfectgas \
   -v '{"x": "[-2;2]", "y": "[-2;2]"}' \
   -e "result" \

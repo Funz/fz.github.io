@@ -94,7 +94,7 @@ python -c "import fz; print('FZ version:', fz.__version__)"
 
 You should see output like:
 ```
-FZ version: 1.0
+FZ version: 1.1
 ```
 
 ## Google Colab
