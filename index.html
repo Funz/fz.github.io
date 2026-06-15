@@ -12,7 +12,7 @@
         <meta name="author" content="Funz Team">
       
       
-        <link rel="canonical" href="https://funz.github.io/fz/">
+        <link rel="canonical" href="https://funz.github.io/fz.github.io/">
       
       
       
@@ -595,6 +595,17 @@
     <span class="md-ellipsis">
       
         Plugins
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ai-agent-skill-claude-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AI Agent Skill (Claude Code)
       
     </span>
   </a>
@@ -2405,6 +2416,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ai-agent-skill-claude-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AI Agent Skill (Claude Code)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#google-colab-integration" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2482,19 +2504,17 @@
 <h1 id="fz-parametric-scientific-computing-framework">FZ - Parametric Scientific Computing Framework</h1>
 <p><a href="https://github.com/Funz/fz/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Funz/fz/workflows/CI/badge.svg" /></a>
 <a href="https://opensource.org/licenses/BSD-3-Clause"><img alt="License" src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg" /></a>
-<a href="https://github.com/Funz/fz/releases"><img alt="Version" src="https://img.shields.io/badge/version-1.0-blue.svg" /></a></p>
+<a href="https://github.com/Funz/fz/releases"><img alt="Version" src="https://img.shields.io/badge/version-1.1-blue.svg" /></a></p>
 <p>A powerful Python package for parametric simulations and computational experiments. <strong>FZ</strong> wraps your simulation codes to automatically run parametric studies, manage input/output files, handle parallel execution, and collect results in structured DataFrames.</p>
 <div class="admonition info">
-<p class="admonition-title">What's New in 1.0</p>
+<p class="admonition-title">What's New in 1.1</p>
 <ul>
-<li><strong>fzd batch deduplication</strong>: duplicate design points in a batch are evaluated once and results reused</li>
-<li><strong>fzd cross-iteration caching</strong>: points from previous iterations are never re-evaluated</li>
-<li><strong>fzd re-run resume</strong>: existing <code>analysis_dir</code> is renamed with timestamp; its cache is still consulted</li>
-<li><strong>Formula variable prefix fix</strong>: configurable <code>varprefix</code> now correctly applied inside <code>@{...}</code> formulas</li>
-<li><strong>fzd</strong>: Iterative design of experiments with adaptive algorithms</li>
-<li><strong>fzl / fzd CLI</strong>: Standalone <code>fzl</code> and <code>fzd</code> commands</li>
-<li><strong>Error Reporting</strong>: Protocol-specific error classification with descriptive messages</li>
-<li><strong>Cross-Platform</strong>: Windows support via MSYS2/Git Bash with <code>FZ_SHELL_PATH</code></li>
+<li><strong>fzd CLI aliases</strong>: <code>fzd</code> now accepts <code>--input_path</code> / <code>--input_variables</code> like all other commands</li>
+<li><strong>fzd calculator auto-discovery</strong>: omit <code>calculators</code> in <code>fzd</code> and the installed alias is used (same as <code>fzr</code>)</li>
+<li><strong>Calculator bare aliases</strong>: <code>--calculators &lt;alias&gt;</code> now works in all commands</li>
+<li><strong>Recursive directory staging</strong>: case subdirectories are correctly staged in and out of the run directory</li>
+<li><strong>Funz UDP fallback</strong>: a UDP discovery miss no longer counts as a hard failure; fz falls back to other calculators</li>
+<li><strong>Script-friendly output</strong>: results on stdout, logs/progress on stderr; progress bar suppressed in CI/pipes</li>
 </ul>
 <p><a href="reference/releases/">See full release notes</a></p>
 </div>
@@ -2651,6 +2671,14 @@
 <li><strong><a href="plugins/scale/">FZ-Scale</a></strong> - Scale nuclear analysis code</li>
 <li><strong><a href="plugins/telemac/">FZ-Telemac</a></strong> - Hydrodynamics simulation system</li>
 </ul>
+<h2 id="ai-agent-skill-claude-code">AI Agent Skill (Claude Code)</h2>
+<p>FZ ships a <strong>Claude Code skill</strong> that teaches AI coding agents the full fz workflow — parameterizing input files, defining models, choosing calculators, and running parametric studies or optimizations.</p>
+<p>Install it directly from Claude Code:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/plugin marketplace add Funz/fz
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/plugin install fz@funz
+</span></code></pre></div>
+<p>Once installed, just describe what you want in plain language — <em>"wrap my simulation and run a parameter sweep over mesh_size and timestep"</em> — and the agent handles the rest.</p>
+<p>The skill covers the complete workflow: <code>fzi</code> → <code>fzc</code> → <code>fzo</code> → <code>fzr</code>/<code>fzd</code>, calculator selection (local, SSH, SLURM), caching, and writing custom model wrappers or algorithms.</p>
 <h2 id="google-colab-integration">Google Colab Integration</h2>
 <p>Try FZ directly in your browser with our Google Colab notebooks:</p>
 <ul>
@@ -2677,13 +2705,13 @@
 <p>FZ is released under the <a href="https://opensource.org/licenses/BSD-3-Clause">BSD 3-Clause License</a>.</p>
 <h2 id="citation">Citation</h2>
 <p>If you use FZ in your research, please cite:</p>
-<div class="language-bibtex highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nc">@software</span><span class="p">{</span><span class="nl">fz</span><span class="p">,</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="na">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{FZ: Parametric Scientific Computing Framework}</span><span class="p">,</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="na">designers</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{[Yann Richet]}</span><span class="p">,</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="na">authors</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{[Claude Sonnet, Yann Richet]}</span><span class="p">,</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="na">year</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{2025}</span><span class="p">,</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="na">url</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{https://github.com/Funz/fz}</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">}</span>
+<div class="language-bibtex highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nc">@software</span><span class="p">{</span><span class="nl">fz</span><span class="p">,</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="na">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{FZ: Parametric Scientific Computing Framework}</span><span class="p">,</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="na">designers</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{[Yann Richet]}</span><span class="p">,</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="na">authors</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{[Claude Sonnet, Yann Richet]}</span><span class="p">,</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="na">year</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{2025}</span><span class="p">,</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="na">url</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{https://github.com/Funz/fz}</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">}</span>
 </span></code></pre></div>
 
 

@@ -12,7 +12,7 @@
         <meta name="author" content="Funz Team">
       
       
-        <link rel="canonical" href="https://funz.github.io/fz/plugins/">
+        <link rel="canonical" href="https://funz.github.io/fz.github.io/plugins/">
       
       
         <link rel="prev" href="../user-guide/advanced/formulas/">
@@ -1625,15 +1625,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#optimization-design-plugins" class="md-nav__link">
+  <a href="#algorithm-plugins" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Optimization &amp; Design Plugins
+        Algorithm Plugins
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Optimization &amp; Design Plugins">
+    <nav class="md-nav" aria-label="Algorithm Plugins">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1691,6 +1691,17 @@
     <span class="md-ellipsis">
       
         FZ-Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fz-algorithm-fz-algorithmr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FZ-Algorithm / FZ-AlgorithmR
       
     </span>
   </a>
@@ -2704,15 +2715,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#optimization-design-plugins" class="md-nav__link">
+  <a href="#algorithm-plugins" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Optimization &amp; Design Plugins
+        Algorithm Plugins
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Optimization &amp; Design Plugins">
+    <nav class="md-nav" aria-label="Algorithm Plugins">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2770,6 +2781,17 @@
     <span class="md-ellipsis">
       
         FZ-Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fz-algorithm-fz-algorithmr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FZ-Algorithm / FZ-AlgorithmR
       
     </span>
   </a>
@@ -3020,39 +3042,190 @@
 <li><strong>Main outputs</strong>: <code>res</code> (JSON dictionary with all CSV simulation results)</li>
 <li><strong>Use cases</strong>: Physical system modeling, control systems, thermal analysis</li>
 </ul>
-<h2 id="optimization-design-plugins">Optimization &amp; Design Plugins</h2>
+<h2 id="algorithm-plugins">Algorithm Plugins</h2>
+<p>Algorithm plugins are used with <a href="../user-guide/core-functions/fzd/"><code>fzd</code></a> for adaptive,
+iterative design of experiments. Install them from their GitHub repositories:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>fz<span class="w"> </span>install<span class="w"> </span>algorithm<span class="w"> </span>brent<span class="w">           </span><span class="c1"># → https://github.com/Funz/fz-brent</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>fz<span class="w"> </span>install<span class="w"> </span>algorithm<span class="w"> </span>gradientdescent<span class="w"> </span><span class="c1"># → https://github.com/Funz/fz-gradientdescent</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>fz<span class="w"> </span>install<span class="w"> </span>algorithm<span class="w"> </span>PSO<span class="w">             </span><span class="c1"># → https://github.com/Funz/fz-PSO</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">R requirement</p>
+<p>These algorithm plugins are implemented in <strong>R</strong>. You need R installed on your system
+plus the <code>rpy2</code> Python bridge: <code>pip install rpy2</code>.</p>
+</div>
 <h4 id="fz-brent"><a href="https://github.com/Funz/fz-brent">FZ-Brent</a></h4>
-<p>Brent's method for 1D optimization.</p>
+<p>Brent's method for 1D root finding / inversion.</p>
 <ul>
-<li><strong>Type</strong>: Optimization algorithm</li>
 <li><strong>Repository</strong>: <a href="https://github.com/Funz/fz-brent">Funz/fz-brent</a></li>
-<li><strong>Language</strong>: R</li>
-<li><strong>Use cases</strong>: Single-variable optimization, root finding</li>
+<li><strong>Dimensions</strong>: 1D only</li>
+<li><strong>Use cases</strong>: Find the input value that produces a target output (inversion/calibration)</li>
+<li><strong>Key options</strong>:</li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ytarget</code></td>
+<td><code>0.0</code></td>
+<td>Target output value</td>
+</tr>
+<tr>
+<td><code>ytol</code></td>
+<td><code>0.1</code></td>
+<td>Convergence precision on output</td>
+</tr>
+<tr>
+<td><code>xtol</code></td>
+<td><code>0.01</code></td>
+<td>Convergence precision on input</td>
+</tr>
+<tr>
+<td><code>max_iterations</code></td>
+<td><code>100</code></td>
+<td>Maximum iterations</td>
+</tr>
+</tbody>
+</table>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">result</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzd</span><span class="p">(</span><span class="s2">&quot;input.txt&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="s2">&quot;[0;1]&quot;</span><span class="p">},</span> <span class="n">model</span><span class="p">,</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">output_expression</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="s2">&quot;brent&quot;</span><span class="p">,</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">algorithm_options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;ytarget&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;ytol&quot;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">})</span>
+</span></code></pre></div>
 <h4 id="fz-gradientdescent"><a href="https://github.com/Funz/fz-gradientdescent">FZ-GradientDescent</a></h4>
-<p>Gradient descent optimization.</p>
+<p>First-order local optimization via gradient descent (minimization or maximization).</p>
 <ul>
-<li><strong>Type</strong>: Optimization algorithm</li>
 <li><strong>Repository</strong>: <a href="https://github.com/Funz/fz-gradientdescent">Funz/fz-gradientdescent</a></li>
-<li><strong>Language</strong>: R</li>
-<li><strong>Use cases</strong>: Multi-variable optimization, machine learning</li>
+<li><strong>Dimensions</strong>: Multi-dimensional</li>
+<li><strong>Use cases</strong>: Local optimization of smooth functions; gradient estimated by finite differences</li>
+<li><strong>Key options</strong>:</li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>yminimization</code></td>
+<td><code>true</code></td>
+<td><code>false</code> to maximize</td>
+</tr>
+<tr>
+<td><code>max_iterations</code></td>
+<td><code>100</code></td>
+<td>Maximum iterations</td>
+</tr>
+<tr>
+<td><code>ytol</code></td>
+<td><code>0.1</code></td>
+<td>Convergence tolerance on output</td>
+</tr>
+<tr>
+<td><code>delta</code></td>
+<td><code>1</code></td>
+<td>Initial gradient step factor (auto-adjusted)</td>
+</tr>
+<tr>
+<td><code>epsilon</code></td>
+<td><code>0.01</code></td>
+<td>Finite-difference step for gradient estimation</td>
+</tr>
+<tr>
+<td><code>x0</code></td>
+<td><code>""</code></td>
+<td>Starting point (comma-separated), e.g. <code>"0.5,0.5"</code></td>
+</tr>
+</tbody>
+</table>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">result</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzd</span><span class="p">(</span><span class="s2">&quot;input.txt&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;x1&quot;</span><span class="p">:</span> <span class="s2">&quot;[0;1]&quot;</span><span class="p">,</span> <span class="s2">&quot;x2&quot;</span><span class="p">:</span> <span class="s2">&quot;[0;1]&quot;</span><span class="p">},</span> <span class="n">model</span><span class="p">,</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">output_expression</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="s2">&quot;gradientdescent&quot;</span><span class="p">,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">algorithm_options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;yminimization&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;max_iterations&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">})</span>
+</span></code></pre></div>
 <h4 id="fz-pso"><a href="https://github.com/Funz/fz-PSO">FZ-PSO</a></h4>
-<p>Particle Swarm Optimization.</p>
+<p>Particle Swarm Optimization — global stochastic optimizer.</p>
 <ul>
-<li><strong>Type</strong>: Optimization algorithm</li>
 <li><strong>Repository</strong>: <a href="https://github.com/Funz/fz-PSO">Funz/fz-PSO</a></li>
-<li><strong>Use cases</strong>: Global optimization, non-convex problems</li>
+<li><strong>Dimensions</strong>: Multi-dimensional</li>
+<li><strong>Use cases</strong>: Global optimization, non-convex or noisy objectives</li>
+<li><strong>Key options</strong>:</li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>yminimization</code></td>
+<td><code>true</code></td>
+<td><code>false</code> to maximize</td>
+</tr>
+<tr>
+<td><code>max_iterations</code></td>
+<td><code>30</code></td>
+<td>Maximum iterations</td>
+</tr>
+<tr>
+<td><code>nparticles</code></td>
+<td>auto</td>
+<td>Swarm size (default: <code>10 + 2√d</code>)</td>
+</tr>
+<tr>
+<td><code>seed</code></td>
+<td><code>123</code></td>
+<td>Random seed</td>
+</tr>
+<tr>
+<td><code>w</code></td>
+<td><code>0.7213</code></td>
+<td>Inertia weight</td>
+</tr>
+<tr>
+<td><code>c_p</code></td>
+<td><code>1.1931</code></td>
+<td>Cognitive (personal best) coefficient</td>
+</tr>
+<tr>
+<td><code>c_g</code></td>
+<td><code>1.1931</code></td>
+<td>Social (global best) coefficient</td>
+</tr>
+</tbody>
+</table>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">result</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzd</span><span class="p">(</span><span class="s2">&quot;input.txt&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;x1&quot;</span><span class="p">:</span> <span class="s2">&quot;[0;1]&quot;</span><span class="p">,</span> <span class="s2">&quot;x2&quot;</span><span class="p">:</span> <span class="s2">&quot;[0;1]&quot;</span><span class="p">},</span> <span class="n">model</span><span class="p">,</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">output_expression</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="s2">&quot;PSO&quot;</span><span class="p">,</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">algorithm_options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;yminimization&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;max_iterations&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s2">&quot;nparticles&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+</span></code></pre></div>
 <h2 id="creating-your-own-plugin">Creating Your Own Plugin</h2>
 <h3 id="fz-model"><a href="https://github.com/Funz/fz-Model">FZ-Model</a></h3>
 <p>Generic template repository for creating new fz model plugins.</p>
 <ul>
-<li><strong>Type</strong>: Plugin template</li>
+<li><strong>Type</strong>: Model plugin template</li>
 <li><strong>Repository</strong>: <a href="https://github.com/Funz/fz-Model">Funz/fz-Model</a></li>
 <li><strong>Purpose</strong>: Starting point for new simulation code integrations</li>
 <li><strong>Includes</strong>: Example structure, documentation templates, test framework</li>
 </ul>
+<h3 id="fz-algorithm-fz-algorithmr"><a href="https://github.com/Funz/fz-Algorithm">FZ-Algorithm</a> / <a href="https://github.com/Funz/fz-AlgorithmR">FZ-AlgorithmR</a></h3>
+<p>Template repositories for writing custom <code>fzd</code> algorithm plugins.</p>
+<ul>
+<li><strong>Type</strong>: Algorithm plugin template</li>
+<li><strong>Repositories</strong>: <a href="https://github.com/Funz/fz-Algorithm">Funz/fz-Algorithm</a> (Python), <a href="https://github.com/Funz/fz-AlgorithmR">Funz/fz-AlgorithmR</a> (R)</li>
+<li><strong>Purpose</strong>: Starting point for new optimization, sampling, or calibration algorithms</li>
+<li><strong>Interface</strong>: implement <code>get_initial_design</code>, <code>get_next_design</code>, <code>get_analysis</code></li>
+</ul>
+<p>See also <a href="../user-guide/core-functions/fzd/#writing-custom-algorithms">Writing Custom Algorithms</a> in the fzd docs.</p>
 <h2 id="plugin-architecture">Plugin Architecture</h2>
 <p>FZ plugins typically include:</p>
 <ol>
@@ -3063,32 +3236,32 @@
 <li><strong>Tests</strong> - Validation suite for the plugin</li>
 </ol>
 <h3 id="basic-plugin-usage">Basic Plugin Usage</h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">fz</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># Run parametric study using a plugin</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">&quot;simulation_input.ext&quot;</span><span class="p">,</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">input_variables</span><span class="o">=</span><span class="p">{</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        <span class="s2">&quot;param1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        <span class="s2">&quot;param2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="p">},</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;ModelName&quot;</span><span class="p">,</span>  <span class="c1"># From plugin&#39;s .fz/models/</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="n">calculators</span><span class="o">=</span><span class="s2">&quot;localhost_ModelName&quot;</span><span class="p">,</span>  <span class="c1"># From plugin&#39;s .fz/calculators/</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="n">results_dir</span><span class="o">=</span><span class="s2">&quot;my_results&quot;</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">fz</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="c1"># Run parametric study using a plugin</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">&quot;simulation_input.ext&quot;</span><span class="p">,</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">input_variables</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>        <span class="s2">&quot;param1&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        <span class="s2">&quot;param2&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="p">},</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;ModelName&quot;</span><span class="p">,</span>  <span class="c1"># From plugin&#39;s .fz/models/</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="n">calculators</span><span class="o">=</span><span class="s2">&quot;localhost_ModelName&quot;</span><span class="p">,</span>  <span class="c1"># From plugin&#39;s .fz/calculators/</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    <span class="n">results_dir</span><span class="o">=</span><span class="s2">&quot;my_results&quot;</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="p">)</span>
 </span></code></pre></div>
 <h2 id="installing-plugins">Installing Plugins</h2>
 <p>Most plugins are used directly by cloning their repositories:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Clone plugin repository</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Funz/fz-&lt;PluginName&gt;.git
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">cd</span><span class="w"> </span>fz-&lt;PluginName&gt;
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># The .fz/ directory is automatically detected by fz</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1"># Install simulation code separately (MCNP, OpenModelica, etc.)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Clone plugin repository</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Funz/fz-&lt;PluginName&gt;.git
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="nb">cd</span><span class="w"> </span>fz-&lt;PluginName&gt;
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1"># The .fz/ directory is automatically detected by fz</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1"># Install simulation code separately (MCNP, OpenModelica, etc.)</span>
 </span></code></pre></div>
 <p>Some plugins provide Python installation via <code>fz.install()</code>:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">fz</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">fz</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="s1">&#39;Moret&#39;</span><span class="p">)</span>  <span class="c1"># Installs Moret plugin</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">fz</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">fz</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="s1">&#39;Moret&#39;</span><span class="p">)</span>  <span class="c1"># Installs Moret plugin</span>
 </span></code></pre></div>
 <h2 id="quick-start-with-a-plugin">Quick Start with a Plugin</h2>
 <ol>
@@ -3099,43 +3272,44 @@
 </ol>
 <h2 id="using-plugins">Using Plugins</h2>
 <h3 id="example-running-a-parametric-study">Example: Running a Parametric Study</h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">fz</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># Run parametric study with FZ-MCNP plugin</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">&quot;examples/godiva.inp&quot;</span><span class="p">,</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">input_variables</span><span class="o">=</span><span class="p">{</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        <span class="s2">&quot;r&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">8.5</span><span class="p">,</span> <span class="mf">8.741</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">]</span>  <span class="c1"># Sphere radius</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="p">},</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;MCNP&quot;</span><span class="p">,</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="n">calculators</span><span class="o">=</span><span class="s2">&quot;localhost_MCNP&quot;</span><span class="p">,</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="n">results_dir</span><span class="o">=</span><span class="s2">&quot;mcnp_results&quot;</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="p">)</span>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;mean_keff&#39;</span><span class="p">,</span> <span class="s1">&#39;sigma_keff&#39;</span><span class="p">]])</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">fz</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1"># Run parametric study with FZ-MCNP plugin</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">&quot;examples/godiva.inp&quot;</span><span class="p">,</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="n">input_variables</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>        <span class="s2">&quot;r&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">8.5</span><span class="p">,</span> <span class="mf">8.741</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">]</span>  <span class="c1"># Sphere radius</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    <span class="p">},</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;MCNP&quot;</span><span class="p">,</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>    <span class="n">calculators</span><span class="o">=</span><span class="s2">&quot;localhost_MCNP&quot;</span><span class="p">,</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    <span class="n">results_dir</span><span class="o">=</span><span class="s2">&quot;mcnp_results&quot;</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="p">)</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;mean_keff&#39;</span><span class="p">,</span> <span class="s1">&#39;sigma_keff&#39;</span><span class="p">]])</span>
 </span></code></pre></div>
 <h3 id="example-remote-execution">Example: Remote Execution</h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Run on remote HPC cluster via SSH</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">&quot;input.inp&quot;</span><span class="p">,</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">input_variables</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;enrichment&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">]},</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;MCNP&quot;</span><span class="p">,</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">calculators</span><span class="o">=</span><span class="s2">&quot;ssh://user@hpc.edu/bash /path/to/calculators/MCNP.sh&quot;</span><span class="p">,</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">results_dir</span><span class="o">=</span><span class="s2">&quot;remote_results&quot;</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Run on remote HPC cluster via SSH</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">&quot;input.inp&quot;</span><span class="p">,</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="n">input_variables</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;enrichment&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">]},</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;MCNP&quot;</span><span class="p">,</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="n">calculators</span><span class="o">=</span><span class="s2">&quot;ssh://user@hpc.edu/bash /path/to/calculators/MCNP.sh&quot;</span><span class="p">,</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    <span class="n">results_dir</span><span class="o">=</span><span class="s2">&quot;remote_results&quot;</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="example-parallel-execution">Example: Parallel Execution</h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Use multiple local calculator instances for parallelization</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">&quot;simulation.inp&quot;</span><span class="p">,</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">input_variables</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;param&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">))},</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;MyModel&quot;</span><span class="p">,</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">calculators</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;localhost_MyModel&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span>  <span class="c1"># 4 parallel workers</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="n">results_dir</span><span class="o">=</span><span class="s2">&quot;parallel_results&quot;</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Use multiple local calculator instances for parallelization</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">&quot;simulation.inp&quot;</span><span class="p">,</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="n">input_variables</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;param&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">))},</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;MyModel&quot;</span><span class="p">,</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="n">calculators</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;localhost_MyModel&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span>  <span class="c1"># 4 parallel workers</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>    <span class="n">results_dir</span><span class="o">=</span><span class="s2">&quot;parallel_results&quot;</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="p">)</span>
 </span></code></pre></div>
 <h2 id="next-steps">Next Steps</h2>
 <p>Explore specific plugins:</p>
+<p><strong>Model plugins</strong></p>
 <ul>
 <li><a href="moret/">FZ-Moret</a> - MORET Monte Carlo criticality</li>
 <li><a href="mcnp/">FZ-MCNP</a> - Monte Carlo N-Particle transport</li>
@@ -3143,6 +3317,12 @@
 <li><a href="cristal/">FZ-Cristal</a> - French criticality package</li>
 <li><a href="scale/">FZ-Scale</a> - SCALE nuclear analysis</li>
 <li><a href="telemac/">FZ-Telemac</a> - Hydrodynamics</li>
+</ul>
+<p><strong>Algorithm plugins</strong></p>
+<ul>
+<li><a href="https://github.com/Funz/fz-brent">FZ-Brent</a> - 1D root finding / inversion</li>
+<li><a href="https://github.com/Funz/fz-gradientdescent">FZ-GradientDescent</a> - Local gradient-based optimization</li>
+<li><a href="https://github.com/Funz/fz-PSO">FZ-PSO</a> - Global particle swarm optimization</li>
 </ul>
 <p>Or learn more:</p>
 <ul>
