@@ -1,6 +1,7 @@
 # Formula Evaluation
 
-Use Python or R expressions in input templates. See the [main FZ documentation](https://github.com/Funz/fz#formula-evaluation) for complete details.
+FZ can evaluate **Python or R expressions** inside input templates, so a template can
+derive quantities from its variables instead of you precomputing them.
 
 ## Basic Syntax
 
@@ -52,3 +53,9 @@ sci=1.23E05
 Set `model["interpreter"] = "R"` (or `FZ_INTERPRETER=R`) to evaluate formulas with R —
 `mean()`, `sd()`, `rnorm()`, and multi-line function definitions in `#@` context lines.
 Requires the `rpy2` package and an R installation.
+
+## See Also
+
+- [Model Definition](../model-definition.md) — `varprefix` / `formulaprefix` / `delim` / `commentline`
+- [fzc](../core-functions/fzc.md) — where formulas are evaluated
+- [Formulas & interpreters reference in the FZ repo](https://github.com/Funz/fz/blob/main/doc/formulas-and-interpreters.md)

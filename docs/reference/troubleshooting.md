@@ -79,4 +79,8 @@ Debug output includes:
 - Cache matching
 - Thread pool management
 
-See the [main FZ documentation](https://github.com/Funz/fz#troubleshooting) for more details.
+## See Also
+
+- [Environment Variables](environment.md) · [Configuration](configuration.md)
+- [`fzl --check`](../user-guide/core-functions/fzl.md) — validate installed models and calculators
+- [Interrupt Handling](../user-guide/advanced/interrupts.md)

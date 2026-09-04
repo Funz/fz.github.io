@@ -79,4 +79,8 @@ model = {
     form also unwraps a single-element array to a scalar — prefer `python://` / `jq://` /
     `yq://` / `xpath://` when a vector's length can legitimately be 1.
 
-See the [main FZ documentation](https://github.com/Funz/fz) for complete details.
+## See Also
+
+- [Model Definition](../model-definition.md) — the `output` field in context
+- [fzr](fzr.md) — runs `fzo` automatically at the end of a study
+- [Output extraction reference in the FZ repo](https://github.com/Funz/fz/blob/main/doc/model-definition.md)

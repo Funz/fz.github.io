@@ -1,6 +1,8 @@
 # Model Definition
 
-A model defines how FZ parses inputs and extracts outputs. See the [main FZ documentation](https://github.com/Funz/fz#model-definition) for complete details.
+A **model** tells FZ how to read variables out of your input templates and how to pull
+results out of the output files. It is a plain `dict` (or a JSON alias in
+`.fz/models/`).
 
 ## Common Fields
 
@@ -27,3 +29,10 @@ Each `output` entry says how to pull one result from a case's files. The spec ca
 
 Any of these may resolve to a **list** for vector-valued outputs (time series, profiles,
 spectra). Full details and helper reference: [fzo — Output Command Forms](core-functions/fzo.md#output-command-forms).
+
+## See Also
+
+- [fzi](core-functions/fzi.md) / [fzc](core-functions/fzc.md) — variable parsing and substitution
+- [fzo — Output Command Forms](core-functions/fzo.md#output-command-forms)
+- [Formula Evaluation](advanced/formulas.md) — `@{...}` expressions, interpreters, number formatting
+- [Model syntax reference in the FZ repo](https://github.com/Funz/fz/blob/main/doc/model-definition.md)
