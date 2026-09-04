@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -870,6 +870,34 @@
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-command-forms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Command Forms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Output Command Forms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vector-array-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vector (Array) Outputs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2225,6 +2253,34 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#output-command-forms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Command Forms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Output Command Forms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vector-array-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vector (Array) Outputs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2261,14 +2317,86 @@
 <div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">fz</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">model</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="p">{</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="s2">&quot;pressure&quot;</span><span class="p">:</span> <span class="s2">&quot;grep &#39;Pressure:&#39; output.txt | awk &#39;{print $2}&#39;&quot;</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="s2">"output"</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="s2">"pressure"</span><span class="p">:</span> <span class="s2">"grep 'Pressure:' output.txt | awk '{print $2}'"</span>
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="p">}</span>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">}</span>
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzo</span><span class="p">(</span><span class="s2">&quot;results&quot;</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzo</span><span class="p">(</span><span class="s2">"results"</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
 </span></code></pre></div>
+<h2 id="output-command-forms">Output Command Forms</h2>
+<p>Each entry in <code>model["output"]</code> names a result column and says how to extract it. Since
+<strong>1.2</strong>, several forms are available and can be freely mixed in one model:</p>
+<table>
+<thead>
+<tr>
+<th>Form</th>
+<th>Example</th>
+<th>Requires</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shell command (implicit default, or <code>bash://</code>)</td>
+<td><code>"grep 'P:' out.txt \| awk '{print $2}'"</code></td>
+<td>bash + Unix tools</td>
+</tr>
+<tr>
+<td><code>python://</code> — native Python expression</td>
+<td><code>"python://grep(r'P: (\\S+)', 'out.txt')"</code></td>
+<td>nothing</td>
+</tr>
+<tr>
+<td><code>jq://</code> — JSON via a <a href="https://jqlang.org/">jq</a> filter</td>
+<td><code>"jq://.energy results.json"</code></td>
+<td><code>jq</code> on <code>PATH</code></td>
+</tr>
+<tr>
+<td><code>yq://</code> — YAML/JSON/XML/TOML via <a href="https://github.com/mikefarah/yq">mikefarah/yq</a></td>
+<td><code>"yq://.metadata.version config.yaml"</code></td>
+<td><code>yq</code> on <code>PATH</code></td>
+</tr>
+<tr>
+<td><code>xpath://</code> — XML via <code>xmllint --xpath</code></td>
+<td><code>"xpath://'//result/T/text()' out.xml"</code></td>
+<td><code>xmllint</code> on <code>PATH</code></td>
+</tr>
+<tr>
+<td>Python callable (Python API only)</td>
+<td><code>lambda d: float((d / "final.txt").read_text())</code></td>
+<td>nothing</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>python://</code> helpers available in expressions: <code>read(path)</code>, <code>lines(path)</code>,
+<code>line(path, n)</code>, <code>grep(pattern, path, group=None, all=False, cast=True)</code>,
+<code>json_file(path)</code>, <code>csv_file(path, column=None)</code>, <code>hdf5_file(path, dataset=None)</code> (needs
+the optional <code>h5py</code> package), plus the modules <code>re</code>, <code>json</code>, <code>math</code>, <code>statistics</code>, <code>np</code>,
+<code>pd</code>, and <code>Path</code>. Relative paths resolve against the case result directory. <code>grep</code>
+returns the first capture group, cast to int/float when possible; <code>all=True</code> returns a
+list of every match.</p>
+<p>The shell-free forms (<code>python://</code>, <code>jq://</code>, <code>yq://</code>, <code>xpath://</code>) need no bash and are
+fully portable on Windows.</p>
+<h3 id="vector-array-outputs">Vector (Array) Outputs</h3>
+<p>An output entry may resolve to a <strong>list</strong> rather than a scalar — a time series, a
+spatial profile, a spectrum. <code>fzo</code> / <code>fzr</code> store the full list per case as-is, with no
+flattening, truncation, or padding; different cases may have different lengths.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">model</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="s2">"output"</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>        <span class="s2">"T_series"</span><span class="p">:</span>  <span class="s2">"python://csv_file('temps.csv', column='T')"</span><span class="p">,</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        <span class="s2">"spectrum"</span><span class="p">:</span>  <span class="s2">"jq://.spectrum results.json"</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        <span class="s2">"residuals"</span><span class="p">:</span> <span class="s2">"python://grep(r'res=(</span><span class="se">\\</span><span class="s2">S+)', 'log.txt', all=True)"</span><span class="p">,</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="p">}</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Persisting vectors</p>
+<p><code>--format csv</code> / <code>to_csv()</code> stringifies lists (<code>"[1, 2, 3]"</code>). Use <code>--format json</code>,
+<code>to_pickle</code>, or <code>to_parquet</code> for a lossless round trip. The plain-shell / <code>bash://</code>
+form also unwraps a single-element array to a scalar — prefer <code>python://</code> / <code>jq://</code> /
+<code>yq://</code> / <code>xpath://</code> when a vector's length can legitimately be 1.</p>
+</div>
 <p>See the <a href="https://github.com/Funz/fz">main FZ documentation</a> for complete details.</p>
 
 
@@ -2357,7 +2485,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

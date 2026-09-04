@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2852,10 +2852,10 @@
 </span></code></pre></div>
 <h2 id="verify-installation">Verify Installation</h2>
 <p>Test that FZ is properly installed:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import fz; print(&#39;FZ version:&#39;, fz.__version__)&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">"import fz; print('FZ version:', fz.__version__)"</span>
 </span></code></pre></div>
 <p>You should see output like:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>FZ version: 1.1
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>FZ version: 1.2
 </span></code></pre></div></p>
 <h2 id="google-colab">Google Colab</h2>
 <p>To use FZ in Google Colab, add this to your notebook:</p>
@@ -2891,7 +2891,7 @@
 </span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="nb">cd</span><span class="w"> </span>fz
 </span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
 </span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="c1"># Install with development dependencies</span>
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">".[dev]"</span>
 </span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
 </span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="c1"># Run tests to verify</span>
 </span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>pytest<span class="w"> </span>tests/
@@ -2924,8 +2924,12 @@
 <h3 id="windows">Windows</h3>
 <ul>
 <li>Use PowerShell or Command Prompt</li>
-<li>Shell calculators require MSYS2 or Git Bash — set <code>FZ_SHELL_PATH</code> to point to the binaries:
-  <div class="language-powershell highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nv">$env:FZ_SHELL_PATH</span> <span class="p">=</span> <span class="s2">&quot;C:\msys64\usr\bin;C:\msys64\mingw64\bin&quot;</span>
+<li>Since <strong>1.2</strong>, <code>import fz</code> works on Windows without bash. Only genuinely shell-dependent
+  features (legacy shell-command outputs, <code>sh://</code> calculators) need it; shell-free
+  workflows (<code>python://</code>, <code>jq://</code>, <code>yq://</code>, <code>xpath://</code> outputs) run with no bash at all.</li>
+<li>Shell calculators and <code>bash://</code> outputs still require MSYS2 or Git Bash — set
+  <code>FZ_SHELL_PATH</code> to point to the binaries:
+  <div class="language-powershell highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nv">$env:FZ_SHELL_PATH</span> <span class="p">=</span> <span class="s2">"C:\msys64\usr\bin;C:\msys64\mingw64\bin"</span>
 </span></code></pre></div></li>
 <li>Path separators are backslashes (<code>\</code>) instead of forward slashes (<code>/</code>)</li>
 <li>Write input files with Unix line endings (<code>newline='\n'</code>) to avoid issues</li>
@@ -2965,7 +2969,7 @@
 </span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/workspace</span>
 </span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>
 </span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="c"># Default command</span>
-</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;python&quot;</span><span class="p">]</span>
+</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"python"</span><span class="p">]</span>
 </span></code></pre></div>
 <p>Build and run:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>fz-env<span class="w"> </span>.
@@ -3065,7 +3069,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
@@ -568,6 +568,17 @@
     <span class="md-ellipsis">
       
         Formula Evaluation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell-free-output-extraction-new-in-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shell-Free Output Extraction (New in 1.2)
       
     </span>
   </a>
@@ -2388,6 +2399,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#shell-free-output-extraction-new-in-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shell-Free Output Extraction (New in 1.2)
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2504,17 +2526,19 @@
 <h1 id="fz-parametric-scientific-computing-framework">FZ - Parametric Scientific Computing Framework</h1>
 <p><a href="https://github.com/Funz/fz/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Funz/fz/workflows/CI/badge.svg" /></a>
 <a href="https://opensource.org/licenses/BSD-3-Clause"><img alt="License" src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg" /></a>
-<a href="https://github.com/Funz/fz/releases"><img alt="Version" src="https://img.shields.io/badge/version-1.1-blue.svg" /></a></p>
+<a href="https://github.com/Funz/fz/releases"><img alt="Version" src="https://img.shields.io/badge/version-1.2-blue.svg" /></a></p>
 <p>A powerful Python package for parametric simulations and computational experiments. <strong>FZ</strong> wraps your simulation codes to automatically run parametric studies, manage input/output files, handle parallel execution, and collect results in structured DataFrames.</p>
 <div class="admonition info">
-<p class="admonition-title">What's New in 1.1</p>
+<p class="admonition-title">What's New in 1.2</p>
 <ul>
-<li><strong>fzd CLI aliases</strong>: <code>fzd</code> now accepts <code>--input_path</code> / <code>--input_variables</code> like all other commands</li>
-<li><strong>fzd calculator auto-discovery</strong>: omit <code>calculators</code> in <code>fzd</code> and the installed alias is used (same as <code>fzr</code>)</li>
-<li><strong>Calculator bare aliases</strong>: <code>--calculators &lt;alias&gt;</code> now works in all commands</li>
-<li><strong>Recursive directory staging</strong>: case subdirectories are correctly staged in and out of the run directory</li>
-<li><strong>Funz UDP fallback</strong>: a UDP discovery miss no longer counts as a hard failure; fz falls back to other calculators</li>
-<li><strong>Script-friendly output</strong>: results on stdout, logs/progress on stderr; progress bar suppressed in CI/pipes</li>
+<li><strong>Shell-free output extraction</strong>: <code>python://</code>, <code>jq://</code>, <code>yq://</code>, <code>xpath://</code> output prefixes — no bash/grep/awk, fully portable on Windows</li>
+<li><strong>Vector (array) outputs</strong>: an output entry can resolve to a full list (time series, profiles, spectra) — stored as-is by <code>fzr</code>/<code>fzo</code></li>
+<li><strong>Multi-objective <code>fzd</code></strong>: <code>output_expression</code> also accepts a list of expressions; new NSGA-II example algorithm</li>
+<li><strong>Shared static files</strong>: new <code>input_static</code> parameter for files identical across every case — never re-hashed or duplicated per case</li>
+<li><strong>Configurable case naming</strong>: <code>case_naming</code> = <code>"path"</code> / <code>"hash"</code> / <code>"index"</code> to avoid filesystem filename-length limits</li>
+<li><strong>1 h default run timeout</strong>: <code>FZ_RUN_TIMEOUT</code> default is now 3600 s, with a per-model <code>"timeout"</code> override</li>
+<li><strong>Formula number formatting</strong>: full <code>DecimalFormat</code> subset — <code>@{3.0 | #.###}</code> → <code>3</code>, <code>@{123456.789 | 0.00E00}</code> → <code>1.23E05</code></li>
+<li><strong>Claude Code plugin</strong>: four slash commands — <code>/fz:wrap</code>, <code>/fz:run</code>, <code>/fz:design</code>, <code>/fz:install</code></li>
 </ul>
 <p><a href="reference/releases/">See full release notes</a></p>
 </div>
@@ -2576,23 +2600,23 @@
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># Define the model</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">model</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="s2">&quot;varprefix&quot;</span><span class="p">:</span> <span class="s2">&quot;$&quot;</span><span class="p">,</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="p">{</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        <span class="s2">&quot;pressure&quot;</span><span class="p">:</span> <span class="s2">&quot;grep &#39;pressure = &#39; output.txt | awk &#39;{print $3}&#39;&quot;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="s2">"varprefix"</span><span class="p">:</span> <span class="s2">"$"</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="s2">"output"</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        <span class="s2">"pressure"</span><span class="p">:</span> <span class="s2">"grep 'pressure = ' output.txt | awk '{print $3}'"</span>
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="p">}</span>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p">}</span>
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># Run all combinations (4 × 3 = 12 cases)</span>
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="s2">&quot;input.txt&quot;</span><span class="p">,</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="s2">"input.txt"</span><span class="p">,</span>
 </span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="p">{</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        <span class="s2">&quot;T_celsius&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span>  <span class="c1"># 4 temperatures</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        <span class="s2">&quot;V_L&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>                <span class="c1"># 3 volumes</span>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        <span class="s2">&quot;n_mol&quot;</span><span class="p">:</span> <span class="mf">1.0</span>                     <span class="c1"># fixed amount</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        <span class="s2">"T_celsius"</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span>  <span class="c1"># 4 temperatures</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        <span class="s2">"V_L"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>                <span class="c1"># 3 volumes</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        <span class="s2">"n_mol"</span><span class="p">:</span> <span class="mf">1.0</span>                     <span class="c1"># fixed amount</span>
 </span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="p">},</span>
 </span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    <span class="n">model</span><span class="p">,</span>
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>    <span class="n">calculators</span><span class="o">=</span><span class="s2">&quot;sh://bash calculate.sh&quot;</span><span class="p">,</span>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>    <span class="n">results_dir</span><span class="o">=</span><span class="s2">&quot;results&quot;</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>    <span class="n">calculators</span><span class="o">=</span><span class="s2">"sh://bash calculate.sh"</span><span class="p">,</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>    <span class="n">results_dir</span><span class="o">=</span><span class="s2">"results"</span>
 </span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="p">)</span>
 </span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
 </span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>  <span class="c1"># pandas DataFrame with all results</span>
@@ -2620,8 +2644,18 @@
 <h3 id="formula-evaluation">Formula Evaluation</h3>
 <p>Use Python or R expressions directly in input templates for calculated parameters:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Temperature: $T_celsius C
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a># Calculated value
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>T_kelvin: @($T_celsius + 273.15) K
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a># Calculated value, formatted with a DecimalFormat pattern
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>T_kelvin: @{$T_celsius + 273.15 | 0.00} K
+</span></code></pre></div>
+<h3 id="shell-free-output-extraction-new-in-12">Shell-Free Output Extraction (New in 1.2)</h3>
+<p>Pull results out of output files with native, portable extractors — no bash/grep/awk needed:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">model</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="s2">"output"</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>        <span class="s2">"pressure"</span><span class="p">:</span> <span class="s2">"python://grep(r'Pressure: (</span><span class="se">\\</span><span class="s2">S+)', 'output.txt')"</span><span class="p">,</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        <span class="s2">"energy"</span><span class="p">:</span>   <span class="s2">"jq://.energy results.json"</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        <span class="s2">"T_series"</span><span class="p">:</span> <span class="s2">"python://csv_file('temps.csv', column='T')"</span><span class="p">,</span>  <span class="c1"># vector output</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="p">}</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">}</span>
 </span></code></pre></div>
 <h2 id="getting-started">Getting Started</h2>
 <p>Ready to get started? Check out our guides:</p>
@@ -2672,12 +2706,39 @@
 <li><strong><a href="plugins/telemac/">FZ-Telemac</a></strong> - Hydrodynamics simulation system</li>
 </ul>
 <h2 id="ai-agent-skill-claude-code">AI Agent Skill (Claude Code)</h2>
-<p>FZ ships a <strong>Claude Code skill</strong> that teaches AI coding agents the full fz workflow — parameterizing input files, defining models, choosing calculators, and running parametric studies or optimizations.</p>
+<p>FZ ships a <strong>Claude Code plugin</strong> that teaches AI coding agents the full fz workflow — parameterizing input files, defining models, choosing calculators, and running parametric studies or optimizations.</p>
 <p>Install it directly from Claude Code:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>/plugin marketplace add Funz/fz
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>/plugin install fz@funz
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>/plugin marketplace add Funz/fz
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>/plugin install fz@funz
 </span></code></pre></div>
-<p>Once installed, just describe what you want in plain language — <em>"wrap my simulation and run a parameter sweep over mesh_size and timestep"</em> — and the agent handles the rest.</p>
+<p>Since <strong>1.2</strong> the plugin also provides four slash commands alongside the Agent Skill:</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/fz:wrap</code></td>
+<td>Wrap a simulation code and verify it step by step</td>
+</tr>
+<tr>
+<td><code>/fz:run</code></td>
+<td>Run a parametric study (<code>fzr</code>)</td>
+</tr>
+<tr>
+<td><code>/fz:design</code></td>
+<td>Adaptive design of experiments / optimization / calibration (<code>fzd</code>)</td>
+</tr>
+<tr>
+<td><code>/fz:install</code></td>
+<td>Find and install an official <code>fz-&lt;code&gt;</code> wrapper or algorithm</td>
+</tr>
+</tbody>
+</table>
+<p>Or just describe what you want in plain language — <em>"wrap my simulation and run a parameter sweep over mesh_size and timestep"</em> — and the agent handles the rest.</p>
 <p>The skill covers the complete workflow: <code>fzi</code> → <code>fzc</code> → <code>fzo</code> → <code>fzr</code>/<code>fzd</code>, calculator selection (local, SSH, SLURM), caching, and writing custom model wrappers or algorithms.</p>
 <h2 id="google-colab-integration">Google Colab Integration</h2>
 <p>Try FZ directly in your browser with our Google Colab notebooks:</p>
@@ -2705,13 +2766,13 @@
 <p>FZ is released under the <a href="https://opensource.org/licenses/BSD-3-Clause">BSD 3-Clause License</a>.</p>
 <h2 id="citation">Citation</h2>
 <p>If you use FZ in your research, please cite:</p>
-<div class="language-bibtex highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nc">@software</span><span class="p">{</span><span class="nl">fz</span><span class="p">,</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="na">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{FZ: Parametric Scientific Computing Framework}</span><span class="p">,</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="na">designers</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{[Yann Richet]}</span><span class="p">,</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="na">authors</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{[Claude Sonnet, Yann Richet]}</span><span class="p">,</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="na">year</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{2025}</span><span class="p">,</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="na">url</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{https://github.com/Funz/fz}</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">}</span>
+<div class="language-bibtex highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nc">@software</span><span class="p">{</span><span class="nl">fz</span><span class="p">,</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="na">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{FZ: Parametric Scientific Computing Framework}</span><span class="p">,</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="na">designers</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{[Yann Richet]}</span><span class="p">,</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="na">authors</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{[Claude Sonnet, Yann Richet]}</span><span class="p">,</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="na">year</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{2025}</span><span class="p">,</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="na">url</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{https://github.com/Funz/fz}</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">}</span>
 </span></code></pre></div>
 
 
@@ -2800,7 +2861,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

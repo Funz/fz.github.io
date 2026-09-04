@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -897,6 +897,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Definition
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -913,6 +931,47 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#common-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Fields
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-extraction-updated-in-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Extraction (updated in 1.2)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2092,6 +2151,36 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#common-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Fields
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output-extraction-updated-in-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output Extraction (updated in 1.2)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2112,6 +2201,65 @@
 
 <h1 id="model-definition">Model Definition</h1>
 <p>A model defines how FZ parses inputs and extracts outputs. See the <a href="https://github.com/Funz/fz#model-definition">main FZ documentation</a> for complete details.</p>
+<h2 id="common-fields">Common Fields</h2>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Default</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>varprefix</code></td>
+<td><code>$</code></td>
+<td>Marks a variable in input templates (<code>$x</code>, <code>${x}</code>, <code>${x~default}</code>)</td>
+</tr>
+<tr>
+<td><code>formulaprefix</code></td>
+<td><code>@</code></td>
+<td>Marks a formula (<code>@{expr}</code>)</td>
+</tr>
+<tr>
+<td><code>delim</code></td>
+<td><code>{}</code></td>
+<td>Delimiters around variable names / formula expressions</td>
+</tr>
+<tr>
+<td><code>commentline</code></td>
+<td><code>#</code></td>
+<td>Comment marker introducing a formula-context line (<code>#@ ...</code>)</td>
+</tr>
+<tr>
+<td><code>interpreter</code></td>
+<td><code>python</code></td>
+<td>Formula interpreter — <code>python</code> or <code>R</code></td>
+</tr>
+<tr>
+<td><code>output</code></td>
+<td>—</td>
+<td>Map of result column → extraction spec (see below)</td>
+</tr>
+<tr>
+<td><code>timeout</code></td>
+<td>—</td>
+<td>Per-model run timeout in seconds; overrides <code>FZ_RUN_TIMEOUT</code>. <code>None</code>/<code>0</code> disables it. (New in 1.2)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="output-extraction-updated-in-12">Output Extraction (updated in 1.2)</h2>
+<p>Each <code>output</code> entry says how to pull one result from a case's files. The spec can be:</p>
+<ul>
+<li>a <strong>shell command</strong> (implicit default, or explicit <code>bash://</code>) — <code>"grep 'P:' out.txt | awk '{print $2}'"</code></li>
+<li><code>python://&lt;expression&gt;</code> — native Python, no shell required</li>
+<li><code>jq://&lt;filter&gt; &lt;file&gt;</code> — JSON via <a href="https://jqlang.org/">jq</a></li>
+<li><code>yq://&lt;filter&gt; &lt;file&gt;</code> — YAML/JSON/XML/TOML via <a href="https://github.com/mikefarah/yq">mikefarah/yq</a></li>
+<li><code>xpath://&lt;expr&gt; &lt;file&gt;</code> — XML via <code>xmllint --xpath</code></li>
+<li>a <strong>Python callable</strong> (Python API only) receiving the case directory as a <code>pathlib.Path</code></li>
+</ul>
+<p>Any of these may resolve to a <strong>list</strong> for vector-valued outputs (time series, profiles,
+spectra). Full details and helper reference: <a href="../core-functions/fzo/#output-command-forms">fzo — Output Command Forms</a>.</p>
 
 
 
@@ -2199,7 +2347,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

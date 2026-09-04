@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -2214,17 +2214,17 @@
 <h2 id="common-issues">Common Issues</h2>
 <p><strong>Calculations fail with "command not found"</strong></p>
 <p>Use absolute paths in calculator URIs:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nv">calculators</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;sh://bash /full/path/to/script.sh&quot;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nv">calculators</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"sh://bash /full/path/to/script.sh"</span>
 </span></code></pre></div>
 <p><strong>SSH calculations hang</strong></p>
 <p>Increase timeout or verify SSH connectivity:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Test manually</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>ssh<span class="w"> </span>user@host<span class="w"> </span><span class="s2">&quot;bash script.sh&quot;</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>ssh<span class="w"> </span>user@host<span class="w"> </span><span class="s2">"bash script.sh"</span>
 </span></code></pre></div>
 <p><strong>Cache not working</strong></p>
 <p>Check <code>.fz_hash</code> files exist in cache directories. Enable debug logging:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;FZ_LOG_LEVEL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;DEBUG&#39;</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'FZ_LOG_LEVEL'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'DEBUG'</span>
 </span></code></pre></div>
 <p><strong>Out of memory with many parallel cases</strong></p>
 <p>Limit parallel workers:</p>
@@ -2233,12 +2233,12 @@
 <h2 id="windows-cross-platform">Windows / Cross-Platform</h2>
 <p><strong>Shell commands fail on Windows</strong></p>
 <p>Install MSYS2 and set <code>FZ_SHELL_PATH</code> to point to its binaries:</p>
-<div class="language-powershell highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nv">$env:FZ_SHELL_PATH</span> <span class="p">=</span> <span class="s2">&quot;C:\msys64\usr\bin;C:\msys64\mingw64\bin&quot;</span>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nv">$env:FZ_SHELL_PATH</span> <span class="p">=</span> <span class="s2">"C:\msys64\usr\bin;C:\msys64\mingw64\bin"</span>
 </span></code></pre></div>
 <p>See <a href="https://github.com/Funz/fz/blob/main/examples/shell_path_example.md">FZ_SHELL_PATH configuration</a> for details.</p>
 <p><strong>Line ending issues on Windows</strong></p>
 <p>Write input files with Unix line endings:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;input.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"input.txt"</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
 </span></code></pre></div>
 <p><strong><code>chmod</code> has no effect on Windows</strong></p>
@@ -2246,7 +2246,7 @@
 <h2 id="debug-mode">Debug Mode</h2>
 <p>Enable detailed logging:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;FZ_LOG_LEVEL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;DEBUG&#39;</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'FZ_LOG_LEVEL'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'DEBUG'</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>  <span class="c1"># Will show detailed execution logs</span>
 </span></code></pre></div>
@@ -2345,7 +2345,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

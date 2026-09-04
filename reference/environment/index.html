@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1935,10 +1935,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#fz_execution_timeout" class="md-nav__link">
+  <a href="#fz_run_timeout-renamed-in-12-default-raised-to-1-h" class="md-nav__link">
     <span class="md-ellipsis">
       
-        FZ_EXECUTION_TIMEOUT
+        FZ_RUN_TIMEOUT (renamed in 1.2, default raised to 1 h)
       
     </span>
   </a>
@@ -1989,6 +1989,45 @@
     <span class="md-ellipsis">
       
         FZ_SHELL_PATH (New in 0.9.1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#case-layout-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Case Layout Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Case Layout Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fz_case_naming-new-in-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FZ_CASE_NAMING (New in 1.2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fz_static_candidate_min_size-new-in-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FZ_STATIC_CANDIDATE_MIN_SIZE (New in 1.2)
       
     </span>
   </a>
@@ -2455,10 +2494,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#fz_execution_timeout" class="md-nav__link">
+  <a href="#fz_run_timeout-renamed-in-12-default-raised-to-1-h" class="md-nav__link">
     <span class="md-ellipsis">
       
-        FZ_EXECUTION_TIMEOUT
+        FZ_RUN_TIMEOUT (renamed in 1.2, default raised to 1 h)
       
     </span>
   </a>
@@ -2509,6 +2548,45 @@
     <span class="md-ellipsis">
       
         FZ_SHELL_PATH (New in 0.9.1)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#case-layout-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Case Layout Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Case Layout Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fz_case_naming-new-in-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FZ_CASE_NAMING (New in 1.2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fz_static_candidate_min_size-new-in-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FZ_STATIC_CANDIDATE_MIN_SIZE (New in 1.2)
       
     </span>
   </a>
@@ -2708,7 +2786,7 @@
 <h3 id="fz_log_level"><code>FZ_LOG_LEVEL</code></h3>
 <p><strong>Description</strong>: Controls the verbosity of FZ logging output.</p>
 <p><strong>Values</strong>: <code>DEBUG</code>, <code>INFO</code>, <code>WARNING</code>, <code>ERROR</code>, <code>CRITICAL</code></p>
-<p><strong>Default</strong>: <code>INFO</code></p>
+<p><strong>Default</strong>: <code>ERROR</code></p>
 <p><strong>Example</strong>:
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">FZ_LOG_LEVEL</span><span class="o">=</span>DEBUG
 </span></code></pre></div></p>
@@ -2720,19 +2798,25 @@
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">FZ_INTERPRETER</span><span class="o">=</span>R
 </span></code></pre></div></p>
 <h2 id="execution-configuration">Execution Configuration</h2>
-<h3 id="fz_execution_timeout"><code>FZ_EXECUTION_TIMEOUT</code></h3>
-<p><strong>Description</strong>: Default timeout in seconds for calculator execution. Can be overridden by model configuration or calculator URI parameters.</p>
-<p><strong>Values</strong>: Positive integer (seconds)</p>
-<p><strong>Default</strong>: <code>None</code> (no timeout)</p>
+<h3 id="fz_run_timeout-renamed-in-12-default-raised-to-1-h"><code>FZ_RUN_TIMEOUT</code> (renamed in 1.2, default raised to 1 h)</h3>
+<p><strong>Description</strong>: Default timeout in seconds for a single case run. A model can override
+it with its own <code>"timeout"</code> entry (<code>None</code>/<code>null</code>/<code>0</code> disables the timeout for that
+model); an explicit <code>timeout=</code> argument to <code>fzr()</code> / <code>fzc()</code> overrides both.</p>
+<p><strong>Values</strong>: Positive integer (seconds), or <code>0</code> to disable</p>
+<p><strong>Default</strong>: <code>3600</code> (1 hour — was <code>600</code> before 1.2)</p>
 <p><strong>Example</strong>:
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">FZ_EXECUTION_TIMEOUT</span><span class="o">=</span><span class="m">300</span><span class="w">  </span><span class="c1"># 5 minutes</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">FZ_RUN_TIMEOUT</span><span class="o">=</span><span class="m">300</span><span class="w">  </span><span class="c1"># 5 minutes</span>
 </span></code></pre></div></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Earlier releases named this variable <code>FZ_EXECUTION_TIMEOUT</code>. Use <code>FZ_RUN_TIMEOUT</code>.</p>
+</div>
 <h3 id="fz_max_retries"><code>FZ_MAX_RETRIES</code></h3>
 <p><strong>Description</strong>: Maximum number of retry attempts when a calculator fails.</p>
 <p><strong>Values</strong>: Non-negative integer</p>
-<p><strong>Default</strong>: <code>3</code></p>
+<p><strong>Default</strong>: <code>5</code></p>
 <p><strong>Example</strong>:
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">FZ_MAX_RETRIES</span><span class="o">=</span><span class="m">5</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">FZ_MAX_RETRIES</span><span class="o">=</span><span class="m">3</span>
 </span></code></pre></div></p>
 <h3 id="fz_max_workers"><code>FZ_MAX_WORKERS</code></h3>
 <p><strong>Description</strong>: Maximum number of parallel workers for concurrent execution.</p>
@@ -2759,13 +2843,36 @@
 - Automatic <code>.exe</code> extension handling on Windows
 - Binary path caching for performance
 - Overrides system PATH priority</p>
+<h2 id="case-layout-configuration">Case Layout Configuration</h2>
+<h3 id="fz_case_naming-new-in-12"><code>FZ_CASE_NAMING</code> (New in 1.2)</h3>
+<p><strong>Description</strong>: How each case's result/temp subdirectory is named. <code>"path"</code> produces
+<code>var1=val1,var2=val2,...</code> (human-readable, but can exceed the ~255-char filename limit
+with many variables); <code>"hash"</code> uses a short content hash of the variable combination;
+<code>"index"</code> uses <code>case_&lt;i&gt;</code>. With <code>"hash"</code> / <code>"index"</code> a <code>cases.csv</code> manifest mapping each
+directory to its variables is written at the results root. Overridden by the
+<code>case_naming=</code> argument / <code>--case_naming</code> flag.</p>
+<p><strong>Values</strong>: <code>path</code>, <code>hash</code>, <code>index</code></p>
+<p><strong>Default</strong>: <code>path</code></p>
+<p><strong>Example</strong>:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">FZ_CASE_NAMING</span><span class="o">=</span><span class="nb">hash</span>
+</span></code></pre></div></p>
+<h3 id="fz_static_candidate_min_size-new-in-12"><code>FZ_STATIC_CANDIDATE_MIN_SIZE</code> (New in 1.2)</h3>
+<p><strong>Description</strong>: Size threshold in bytes above which an <code>input_path</code> file with no
+variables triggers a one-time warning suggesting it be passed via <code>input_static</code>
+instead (it is otherwise re-read, re-copied, and re-hashed on every case). Set to <code>0</code>
+to disable the warning.</p>
+<p><strong>Values</strong>: Non-negative integer (bytes)</p>
+<p><strong>Default</strong>: <code>1048576</code> (1 MiB)</p>
+<p><strong>Example</strong>:
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">FZ_STATIC_CANDIDATE_MIN_SIZE</span><span class="o">=</span><span class="m">0</span>
+</span></code></pre></div></p>
 <h2 id="ssh-configuration">SSH Configuration</h2>
 <h3 id="fz_ssh_keepalive"><code>FZ_SSH_KEEPALIVE</code></h3>
 <p><strong>Description</strong>: Interval in seconds for SSH keepalive packets to prevent connection timeout.</p>
 <p><strong>Values</strong>: Positive integer (seconds)</p>
-<p><strong>Default</strong>: <code>60</code></p>
+<p><strong>Default</strong>: <code>300</code></p>
 <p><strong>Example</strong>:
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">FZ_SSH_KEEPALIVE</span><span class="o">=</span><span class="m">30</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">FZ_SSH_KEEPALIVE</span><span class="o">=</span><span class="m">30</span>
 </span></code></pre></div></p>
 <h2 id="cache-configuration">Cache Configuration</h2>
 <h3 id="fz_cache_dir"><code>FZ_CACHE_DIR</code></h3>
@@ -2773,7 +2880,7 @@
 <p><strong>Values</strong>: Valid directory path</p>
 <p><strong>Default</strong>: <code>.fz/cache</code> in working directory</p>
 <p><strong>Example</strong>:
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">FZ_CACHE_DIR</span><span class="o">=</span>/tmp/fz_cache
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">FZ_CACHE_DIR</span><span class="o">=</span>/tmp/fz_cache
 </span></code></pre></div></p>
 <h2 id="discovery-configuration">Discovery Configuration</h2>
 <h3 id="fz_udp_discovery_port"><code>FZ_UDP_DISCOVERY_PORT</code></h3>
@@ -2781,7 +2888,7 @@
 <p><strong>Values</strong>: Valid port number</p>
 <p><strong>Default</strong>: <code>21001</code></p>
 <p><strong>Example</strong>:
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">FZ_UDP_DISCOVERY_PORT</span><span class="o">=</span><span class="m">21001</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">FZ_UDP_DISCOVERY_PORT</span><span class="o">=</span><span class="m">21001</span>
 </span></code></pre></div></p>
 <h2 id="configuration-files">Configuration Files</h2>
 <h3 id="model-and-calculator-aliases">Model and Calculator Aliases</h3>
@@ -2792,19 +2899,19 @@
 </ul>
 <p>Configuration files use JSON format:</p>
 <p><strong>Model Example</strong> (<code>~/.fz/models/perfectgas.json</code>):
-<div class="language-json highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">&quot;varprefix&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;$&quot;</span><span class="p">,</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">&quot;interpreter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="nt">&quot;output&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">    </span><span class="nt">&quot;pressure&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;grep &#39;P =&#39; output.txt | awk &#39;{print $3}&#39;&quot;</span>
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">{</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="nt">"varprefix"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$"</span><span class="p">,</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="nt">"interpreter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"python"</span><span class="p">,</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span><span class="nt">"output"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">    </span><span class="nt">"pressure"</span><span class="p">:</span><span class="w"> </span><span class="s2">"grep 'P =' output.txt | awk '{print $3}'"</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="p">}</span>
 </span></code></pre></div></p>
 <p><strong>Calculator Example</strong> (<code>~/.fz/calculators/compute.json</code>):
-<div class="language-json highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">&quot;uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ssh://user@cluster.example.edu/bash&quot;</span><span class="p">,</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="nt">&quot;models&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;perfectgas&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;simulation&quot;</span><span class="p">]</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="p">}</span>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="p">{</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">  </span><span class="nt">"uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ssh://user@cluster.example.edu/bash"</span><span class="p">,</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">  </span><span class="nt">"models"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"perfectgas"</span><span class="p">,</span><span class="w"> </span><span class="s2">"simulation"</span><span class="p">]</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="p">}</span>
 </span></code></pre></div></p>
 <h2 id="platform-specific-notes">Platform-Specific Notes</h2>
 <h3 id="windows">Windows</h3>
@@ -2912,7 +3019,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

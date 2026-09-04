@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1046,6 +1046,17 @@
     <span class="md-ellipsis">
       
         Example 5: Custom Output Expression
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-multi-objective-vector-objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: Multi-Objective (Vector Objective)
       
     </span>
   </a>
@@ -2610,6 +2621,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#example-7-multi-objective-vector-objective" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example 7: Multi-Objective (Vector Objective)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#example-6-cli-usage" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2813,7 +2835,7 @@
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">algorithm</span><span class="p">,</span>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">calculators</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="n">algorithm_options</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="n">analysis_dir</span><span class="o">=</span><span class="s2">&quot;analysis&quot;</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="n">analysis_dir</span><span class="o">=</span><span class="s2">"analysis"</span>
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="parameters">Parameters</h3>
@@ -2843,8 +2865,8 @@
 </tr>
 <tr>
 <td><code>output_expression</code></td>
-<td><code>str</code></td>
-<td>Expression to evaluate (e.g., <code>"pressure"</code> or <code>"r1 + r2 * 2"</code>)</td>
+<td><code>str</code> or <code>list</code></td>
+<td>Expression to evaluate (e.g., <code>"pressure"</code> or <code>"r1 + r2 * 2"</code>). A <strong>list</strong> of expressions (since 1.2) makes each case yield one scalar per expression — a vector objective for multi-objective algorithms.</td>
 </tr>
 <tr>
 <td><code>algorithm</code></td>
@@ -2980,6 +3002,12 @@
 <td>No</td>
 <td>Algorithm options (JSON file or inline JSON)</td>
 </tr>
+<tr>
+<td><code>--input_static</code></td>
+<td></td>
+<td>No</td>
+<td>Shared static file (repeatable), never templated or re-hashed per case (new in 1.2)</td>
+</tr>
 </tbody>
 </table>
 <div class="admonition note">
@@ -2993,126 +3021,147 @@ The old <code>--input_dir</code> and <code>--input_vars</code> names remain acce
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">fz</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">model</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="s2">&quot;varprefix&quot;</span><span class="p">:</span> <span class="s2">&quot;$&quot;</span><span class="p">,</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="s2">&quot;delim&quot;</span><span class="p">:</span> <span class="s2">&quot;()&quot;</span><span class="p">,</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="s2">&quot;run&quot;</span><span class="p">:</span> <span class="s2">&quot;bash -c &#39;source input.txt &amp;&amp; result=$(echo </span><span class="se">\&quot;</span><span class="s2">scale=6; $x * $x + $y * $y</span><span class="se">\&quot;</span><span class="s2"> | bc) &amp;&amp; echo </span><span class="se">\&quot;</span><span class="s2">result = $result</span><span class="se">\&quot;</span><span class="s2"> &gt; output.txt&#39;&quot;</span><span class="p">,</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="s2">&quot;output&quot;</span><span class="p">:</span> <span class="p">{</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        <span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="s2">&quot;grep &#39;result = &#39; output.txt | cut -d &#39;=&#39; -f2 | tr -d &#39; &#39;&quot;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="s2">"varprefix"</span><span class="p">:</span> <span class="s2">"$"</span><span class="p">,</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="s2">"delim"</span><span class="p">:</span> <span class="s2">"()"</span><span class="p">,</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="s2">"run"</span><span class="p">:</span> <span class="s2">"bash -c 'source input.txt &amp;&amp; result=$(echo </span><span class="se">\"</span><span class="s2">scale=6; $x * $x + $y * $y</span><span class="se">\"</span><span class="s2"> | bc) &amp;&amp; echo </span><span class="se">\"</span><span class="s2">result = $result</span><span class="se">\"</span><span class="s2"> &gt; output.txt'"</span><span class="p">,</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="s2">"output"</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        <span class="s2">"result"</span><span class="p">:</span> <span class="s2">"grep 'result = ' output.txt | cut -d '=' -f2 | tr -d ' '"</span>
 </span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="p">}</span>
 </span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p">}</span>
 </span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
 </span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="n">result</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzd</span><span class="p">(</span>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">&quot;input/&quot;</span><span class="p">,</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="n">input_variables</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="s2">&quot;[-2;2]&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="s2">&quot;[-2;2]&quot;</span><span class="p">},</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">"input/"</span><span class="p">,</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="n">input_variables</span><span class="o">=</span><span class="p">{</span><span class="s2">"x"</span><span class="p">:</span> <span class="s2">"[-2;2]"</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">:</span> <span class="s2">"[-2;2]"</span><span class="p">},</span>
 </span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    <span class="n">output_expression</span><span class="o">=</span><span class="s2">&quot;result&quot;</span><span class="p">,</span>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    <span class="n">algorithm</span><span class="o">=</span><span class="s2">&quot;examples/algorithms/randomsampling.py&quot;</span><span class="p">,</span>
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>    <span class="n">algorithm_options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;nvalues&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s2">&quot;seed&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">}</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    <span class="n">output_expression</span><span class="o">=</span><span class="s2">"result"</span><span class="p">,</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    <span class="n">algorithm</span><span class="o">=</span><span class="s2">"examples/algorithms/randomsampling.py"</span><span class="p">,</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>    <span class="n">algorithm_options</span><span class="o">=</span><span class="p">{</span><span class="s2">"nvalues"</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s2">"seed"</span><span class="p">:</span> <span class="mi">42</span><span class="p">}</span>
 </span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="p">)</span>
 </span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>
-</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total evaluations: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">&#39;total_evaluations&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="n">df</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;XY&#39;</span><span class="p">]</span>
-</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="n">best</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()]</span>
-</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Best: x=</span><span class="si">{</span><span class="n">best</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, y=</span><span class="si">{</span><span class="n">best</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, result=</span><span class="si">{</span><span class="n">best</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total evaluations: </span><span class="si">{</span><span class="n">result</span><span class="p">[</span><span class="s1">'total_evaluations'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="n">df</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">'XY'</span><span class="p">]</span>
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="n">best</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">'result'</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()]</span>
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Best: x=</span><span class="si">{</span><span class="n">best</span><span class="p">[</span><span class="s1">'x'</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, y=</span><span class="si">{</span><span class="n">best</span><span class="p">[</span><span class="s1">'y'</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, result=</span><span class="si">{</span><span class="n">best</span><span class="p">[</span><span class="s1">'result'</span><span class="p">]</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="example-2-1d-optimization-brents-method">Example 2: 1D Optimization (Brent's Method)</h3>
 <p>Find the minimum of a 1D function:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">result</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzd</span><span class="p">(</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">&quot;input/&quot;</span><span class="p">,</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">input_variables</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="s2">&quot;[0;2]&quot;</span><span class="p">},</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">"input/"</span><span class="p">,</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">input_variables</span><span class="o">=</span><span class="p">{</span><span class="s2">"x"</span><span class="p">:</span> <span class="s2">"[0;2]"</span><span class="p">},</span>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">model</span><span class="o">=</span><span class="n">model_1d</span><span class="p">,</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">output_expression</span><span class="o">=</span><span class="s2">&quot;result&quot;</span><span class="p">,</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">algorithm</span><span class="o">=</span><span class="s2">&quot;examples/algorithms/brent.py&quot;</span><span class="p">,</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">algorithm_options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;max_iter&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s2">&quot;tol&quot;</span><span class="p">:</span> <span class="mf">1e-3</span><span class="p">}</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">output_expression</span><span class="o">=</span><span class="s2">"result"</span><span class="p">,</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">algorithm</span><span class="o">=</span><span class="s2">"examples/algorithms/brent.py"</span><span class="p">,</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">algorithm_options</span><span class="o">=</span><span class="p">{</span><span class="s2">"max_iter"</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s2">"tol"</span><span class="p">:</span> <span class="mf">1e-3</span><span class="p">}</span>
 </span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="p">)</span>
 </span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="n">df</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;XY&#39;</span><span class="p">]</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="n">best</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()]</span>
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Optimal x = </span><span class="si">{</span><span class="n">best</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> (expected: 0.7)&quot;</span><span class="p">)</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="n">df</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">'XY'</span><span class="p">]</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="n">best</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">'result'</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()]</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Optimal x = </span><span class="si">{</span><span class="n">best</span><span class="p">[</span><span class="s1">'x'</span><span class="p">]</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2"> (expected: 0.7)"</span><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="example-3-multi-dimensional-optimization-bfgs">Example 3: Multi-dimensional Optimization (BFGS)</h3>
 <p>Find the minimum of a multi-dimensional function with parallel evaluations:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">result</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzd</span><span class="p">(</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">&quot;input/&quot;</span><span class="p">,</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">input_variables</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="s2">&quot;[-2;2]&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="s2">&quot;[-2;2]&quot;</span><span class="p">},</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">"input/"</span><span class="p">,</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">input_variables</span><span class="o">=</span><span class="p">{</span><span class="s2">"x"</span><span class="p">:</span> <span class="s2">"[-2;2]"</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">:</span> <span class="s2">"[-2;2]"</span><span class="p">},</span>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">output_expression</span><span class="o">=</span><span class="s2">&quot;result&quot;</span><span class="p">,</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">algorithm</span><span class="o">=</span><span class="s2">&quot;examples/algorithms/bfgs.py&quot;</span><span class="p">,</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="n">algorithm_options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;max_iter&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s2">&quot;tol&quot;</span><span class="p">:</span> <span class="mf">1e-4</span><span class="p">},</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="n">calculators</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sh://bash calc.sh&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span>  <span class="c1"># 4 parallel evaluators</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">output_expression</span><span class="o">=</span><span class="s2">"result"</span><span class="p">,</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">algorithm</span><span class="o">=</span><span class="s2">"examples/algorithms/bfgs.py"</span><span class="p">,</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="n">algorithm_options</span><span class="o">=</span><span class="p">{</span><span class="s2">"max_iter"</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s2">"tol"</span><span class="p">:</span> <span class="mf">1e-4</span><span class="p">},</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="n">calculators</span><span class="o">=</span><span class="p">[</span><span class="s2">"sh://bash calc.sh"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span>  <span class="c1"># 4 parallel evaluators</span>
 </span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="example-4-monte-carlo-with-convergence">Example 4: Monte Carlo with Convergence</h3>
 <p>Run Monte Carlo sampling until a confidence interval target is reached:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">result</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzd</span><span class="p">(</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">&quot;input.txt&quot;</span><span class="p">,</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">"input.txt"</span><span class="p">,</span>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">input_variables</span><span class="o">=</span><span class="p">{</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>        <span class="s2">&quot;n_mol&quot;</span><span class="p">:</span> <span class="s2">&quot;[0;10]&quot;</span><span class="p">,</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>        <span class="s2">&quot;T_celsius&quot;</span><span class="p">:</span> <span class="s2">&quot;[0;100]&quot;</span><span class="p">,</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>        <span class="s2">&quot;V_L&quot;</span><span class="p">:</span> <span class="s2">&quot;[1;5]&quot;</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>        <span class="s2">"n_mol"</span><span class="p">:</span> <span class="s2">"[0;10]"</span><span class="p">,</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>        <span class="s2">"T_celsius"</span><span class="p">:</span> <span class="s2">"[0;100]"</span><span class="p">,</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>        <span class="s2">"V_L"</span><span class="p">:</span> <span class="s2">"[1;5]"</span>
 </span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    <span class="p">},</span>
 </span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="n">model</span><span class="o">=</span><span class="n">perfectgas_model</span><span class="p">,</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    <span class="n">output_expression</span><span class="o">=</span><span class="s2">&quot;pressure + 1&quot;</span><span class="p">,</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="n">algorithm</span><span class="o">=</span><span class="s2">&quot;examples/algorithms/montecarlo_uniform.py&quot;</span><span class="p">,</span>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="n">calculators</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sh://bash PerfectGazPressure.sh&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span><span class="p">,</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    <span class="n">output_expression</span><span class="o">=</span><span class="s2">"pressure + 1"</span><span class="p">,</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="n">algorithm</span><span class="o">=</span><span class="s2">"examples/algorithms/montecarlo_uniform.py"</span><span class="p">,</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="n">calculators</span><span class="o">=</span><span class="p">[</span><span class="s2">"sh://bash PerfectGazPressure.sh"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">10</span><span class="p">,</span>
 </span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    <span class="n">algorithm_options</span><span class="o">=</span><span class="p">{</span>
-</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>        <span class="s2">&quot;batch_sample_size&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
-</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>        <span class="s2">&quot;max_iterations&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
-</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>        <span class="s2">&quot;confidence&quot;</span><span class="p">:</span> <span class="mf">0.90</span><span class="p">,</span>
-</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>        <span class="s2">&quot;target_confidence_range&quot;</span><span class="p">:</span> <span class="mi">1000000</span><span class="p">,</span>
-</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>        <span class="s2">&quot;seed&quot;</span><span class="p">:</span> <span class="mi">123</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>        <span class="s2">"batch_sample_size"</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>        <span class="s2">"max_iterations"</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>        <span class="s2">"confidence"</span><span class="p">:</span> <span class="mf">0.90</span><span class="p">,</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>        <span class="s2">"target_confidence_range"</span><span class="p">:</span> <span class="mi">1000000</span><span class="p">,</span>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>        <span class="s2">"seed"</span><span class="p">:</span> <span class="mi">123</span>
 </span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>    <span class="p">},</span>
-</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>    <span class="n">analysis_dir</span><span class="o">=</span><span class="s2">&quot;fzd_analysis&quot;</span>
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>    <span class="n">analysis_dir</span><span class="o">=</span><span class="s2">"fzd_analysis"</span>
 </span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="example-5-custom-output-expression">Example 5: Custom Output Expression</h3>
 <p>Combine multiple model outputs in an expression:</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">result</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzd</span><span class="p">(</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">&quot;input/&quot;</span><span class="p">,</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">input_variables</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="s2">&quot;[-2;2]&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="s2">&quot;[-2;2]&quot;</span><span class="p">},</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">"input/"</span><span class="p">,</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">input_variables</span><span class="o">=</span><span class="p">{</span><span class="s2">"x"</span><span class="p">:</span> <span class="s2">"[-2;2]"</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">:</span> <span class="s2">"[-2;2]"</span><span class="p">},</span>
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">model</span><span class="o">=</span><span class="n">model_multi_output</span><span class="p">,</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">output_expression</span><span class="o">=</span><span class="s2">&quot;r1 + r2 * 2&quot;</span><span class="p">,</span>  <span class="c1"># Custom expression</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="n">algorithm</span><span class="o">=</span><span class="s2">&quot;examples/algorithms/randomsampling.py&quot;</span><span class="p">,</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="n">algorithm_options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;nvalues&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s2">&quot;seed&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">}</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">output_expression</span><span class="o">=</span><span class="s2">"r1 + r2 * 2"</span><span class="p">,</span>  <span class="c1"># Custom expression</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="n">algorithm</span><span class="o">=</span><span class="s2">"examples/algorithms/randomsampling.py"</span><span class="p">,</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="n">algorithm_options</span><span class="o">=</span><span class="p">{</span><span class="s2">"nvalues"</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s2">"seed"</span><span class="p">:</span> <span class="mi">42</span><span class="p">}</span>
 </span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="p">)</span>
 </span></code></pre></div>
 <p>Available expression operators: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>**</code>, <code>abs()</code>, <code>min()</code>, <code>max()</code>, <code>sqrt()</code>, <code>exp()</code>, <code>log()</code>, <code>pi</code>, <code>e</code>.</p>
+<p>Since <strong>1.2</strong>, if a model output is itself vector-valued (a time series, a profile), the
+expression can reduce it to a scalar with <code>sum()</code>, <code>len()</code>, <code>sorted()</code>, <code>mean()</code>,
+<code>median()</code>, <code>stdev()</code>, <code>variance()</code>, indexing/slicing (<code>T_series[-1]</code>), and <code>zip()</code> — e.g.
+<code>sqrt(sum((x - y) ** 2 for x, y in zip(sim, ref)) / len(sim))</code> for an RMSE against a
+reference series. Referencing a vector output without reducing it raises a clear
+<code>ValueError</code> for that point (reported as a failed evaluation, non-fatal).</p>
+<h3 id="example-7-multi-objective-vector-objective">Example 7: Multi-Objective (Vector Objective)</h3>
+<p>Pass a <strong>list</strong> of expressions — each case yields one scalar per expression, handed
+as-is to a multi-objective algorithm such as NSGA-II:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">result</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzd</span><span class="p">(</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">"input/"</span><span class="p">,</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="n">input_variables</span><span class="o">=</span><span class="p">{</span><span class="s2">"x"</span><span class="p">:</span> <span class="s2">"[-2;2]"</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">:</span> <span class="s2">"[-2;2]"</span><span class="p">},</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="n">output_expression</span><span class="o">=</span><span class="p">[</span><span class="s2">"f1"</span><span class="p">,</span> <span class="s2">"-f2"</span><span class="p">],</span>   <span class="c1"># minimise f1, maximise f2 (negated)</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="n">algorithm</span><span class="o">=</span><span class="s2">"examples/algorithms/nsga2.py"</span><span class="p">,</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    <span class="n">algorithm_options</span><span class="o">=</span><span class="p">{</span><span class="s2">"pop_size"</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span> <span class="s2">"generations"</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span> <span class="s2">"seed"</span><span class="p">:</span> <span class="mi">42</span><span class="p">},</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="p">)</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="c1"># result['XY'] gains one column per objective;</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="c1"># the Pareto front is in result['analysis']['data'] and nsga2_pareto.csv</span>
+</span></code></pre></div>
+<p>All objectives are minimised — negate an expression to maximise it.</p>
 <h3 id="example-6-cli-usage">Example 6: CLI Usage</h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Random sampling</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>fzd<span class="w"> </span>--input_path<span class="w"> </span>input/<span class="w"> </span>--model<span class="w"> </span>perfectgas<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span>--input_variables<span class="w"> </span><span class="s1">&#39;{&quot;x&quot;: &quot;[-2;2]&quot;, &quot;y&quot;: &quot;[-2;2]&quot;}&#39;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span>--output_expression<span class="w"> </span><span class="s2">&quot;result&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span>--algorithm<span class="w"> </span>examples/algorithms/randomsampling.py<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">  </span>--options<span class="w"> </span><span class="s1">&#39;{&quot;nvalues&quot;: 20, &quot;seed&quot;: 42}&#39;</span>
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="c1"># Algorithm options from a JSON file</span>
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>fzd<span class="w"> </span>--input_path<span class="w"> </span>input/<span class="w"> </span>--model<span class="w"> </span>perfectgas<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">  </span>--input_variables<span class="w"> </span><span class="s1">&#39;{&quot;x&quot;: &quot;[-2;2]&quot;}&#39;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">  </span>--output_expression<span class="w"> </span><span class="s2">&quot;result&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">  </span>--algorithm<span class="w"> </span>examples/algorithms/brent.py<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">  </span>--options<span class="w"> </span>algo_config.json<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">  </span>--results_dir<span class="w"> </span>optimization_results/
-</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>
-</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="c1"># As fz subcommand (short flags)</span>
-</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>fz<span class="w"> </span>design<span class="w"> </span>-i<span class="w"> </span>input/<span class="w"> </span>-m<span class="w"> </span>perfectgas<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="w">  </span>-v<span class="w"> </span><span class="s1">&#39;{&quot;x&quot;: &quot;[-2;2]&quot;, &quot;y&quot;: &quot;[-2;2]&quot;}&#39;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="w">  </span>-e<span class="w"> </span><span class="s2">&quot;result&quot;</span><span class="w"> </span><span class="se">\</span>
-</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="w">  </span>-a<span class="w"> </span>examples/algorithms/bfgs.py
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Random sampling</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>fzd<span class="w"> </span>--input_path<span class="w"> </span>input/<span class="w"> </span>--model<span class="w"> </span>perfectgas<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span>--input_variables<span class="w"> </span><span class="s1">'{"x": "[-2;2]", "y": "[-2;2]"}'</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span>--output_expression<span class="w"> </span><span class="s2">"result"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span>--algorithm<span class="w"> </span>examples/algorithms/randomsampling.py<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">  </span>--options<span class="w"> </span><span class="s1">'{"nvalues": 20, "seed": 42}'</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="c1"># Algorithm options from a JSON file</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>fzd<span class="w"> </span>--input_path<span class="w"> </span>input/<span class="w"> </span>--model<span class="w"> </span>perfectgas<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">  </span>--input_variables<span class="w"> </span><span class="s1">'{"x": "[-2;2]"}'</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">  </span>--output_expression<span class="w"> </span><span class="s2">"result"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">  </span>--algorithm<span class="w"> </span>examples/algorithms/brent.py<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">  </span>--options<span class="w"> </span>algo_config.json<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">  </span>--results_dir<span class="w"> </span>optimization_results/
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="c1"># As fz subcommand (short flags)</span>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>fz<span class="w"> </span>design<span class="w"> </span>-i<span class="w"> </span>input/<span class="w"> </span>-m<span class="w"> </span>perfectgas<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="w">  </span>-v<span class="w"> </span><span class="s1">'{"x": "[-2;2]", "y": "[-2;2]"}'</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="w">  </span>-e<span class="w"> </span><span class="s2">"result"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="w">  </span>-a<span class="w"> </span>examples/algorithms/bfgs.py
 </span></code></pre></div>
 <h2 id="algorithm-options-formats">Algorithm Options Formats</h2>
 <p>Algorithm options can be provided in three formats:</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Dict (Python API)</label><label for="__tabbed_1_2">JSON String (CLI)</label><label for="__tabbed_1_3">JSON File</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">algorithm_options</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;batch_size&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s2">&quot;max_iterations&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;seed&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">}</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">algorithm_options</span><span class="o">=</span><span class="p">{</span><span class="s2">"batch_size"</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s2">"max_iterations"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">"seed"</span><span class="p">:</span> <span class="mi">42</span><span class="p">}</span>
 </span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>--options<span class="w"> </span><span class="s1">&#39;{&quot;batch_size&quot;: 20, &quot;max_iterations&quot;: 10, &quot;seed&quot;: 42}&#39;</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>--options<span class="w"> </span><span class="s1">'{"batch_size": 20, "max_iterations": 10, "seed": 42}'</span>
 </span></code></pre></div>
 </div>
 <div class="tabbed-block">
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>--options<span class="w"> </span>algo_config.json
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>--options<span class="w"> </span>algo_config.json
 </span></code></pre></div>
 </div>
 </div>
@@ -3140,12 +3189,12 @@ The old <code>--input_dir</code> and <code>--input_vars</code> names remain acce
 </tr>
 </tbody>
 </table>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># x and y are explored; z is fixed at 1.5 for every evaluation</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">result</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzd</span><span class="p">(</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">&quot;input/&quot;</span><span class="p">,</span>
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    <span class="n">input_variables</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="s2">&quot;[-2;2]&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="s2">&quot;[-2;2]&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="s2">&quot;1.5&quot;</span><span class="p">},</span>
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    <span class="o">...</span>
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># x and y are explored; z is fixed at 1.5 for every evaluation</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">result</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzd</span><span class="p">(</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">"input/"</span><span class="p">,</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    <span class="n">input_variables</span><span class="o">=</span><span class="p">{</span><span class="s2">"x"</span><span class="p">:</span> <span class="s2">"[-2;2]"</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">:</span> <span class="s2">"[-2;2]"</span><span class="p">,</span> <span class="s2">"z"</span><span class="p">:</span> <span class="s2">"1.5"</span><span class="p">},</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>    <span class="o">...</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="p">)</span>
 </span></code></pre></div>
 <h2 id="automatic-behaviors">Automatic Behaviors</h2>
 <h3 id="batch-deduplication">Batch Deduplication</h3>
@@ -3154,13 +3203,13 @@ The old <code>--input_dir</code> and <code>--input_vars</code> names remain acce
 <p>Results from previous iterations are automatically reused — a point evaluated in iteration 2 is never re-run in iteration 5. No extra configuration is required.</p>
 <h3 id="re-run-resume">Re-Run Resume</h3>
 <p>If <code>analysis_dir</code> already exists when <code>fzd</code> starts, it is <strong>renamed</strong> with a timestamp suffix (e.g., <code>analysis_2026-04-27_10-30-00</code>) and the original path is used for the new run. The renamed directory's iteration subdirectories are still added to the cache, so a re-run with different algorithm options benefits from all prior computations automatically.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Re-run after an interrupted or exploratory first run — prior results reused as cache</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">result</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzd</span><span class="p">(</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">&quot;input/&quot;</span><span class="p">,</span>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    <span class="n">input_variables</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="s2">&quot;[-2;2]&quot;</span><span class="p">},</span>
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>    <span class="n">algorithm</span><span class="o">=</span><span class="s2">&quot;examples/algorithms/bfgs.py&quot;</span><span class="p">,</span>
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    <span class="n">analysis_dir</span><span class="o">=</span><span class="s2">&quot;my_analysis&quot;</span>   <span class="c1"># if exists → renamed; its cache still consulted</span>
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Re-run after an interrupted or exploratory first run — prior results reused as cache</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="n">result</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzd</span><span class="p">(</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="n">input_path</span><span class="o">=</span><span class="s2">"input/"</span><span class="p">,</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    <span class="n">input_variables</span><span class="o">=</span><span class="p">{</span><span class="s2">"x"</span><span class="p">:</span> <span class="s2">"[-2;2]"</span><span class="p">},</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>    <span class="n">algorithm</span><span class="o">=</span><span class="s2">"examples/algorithms/bfgs.py"</span><span class="p">,</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    <span class="n">analysis_dir</span><span class="o">=</span><span class="s2">"my_analysis"</span>   <span class="c1"># if exists → renamed; its cache still consulted</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="p">)</span>
 </span></code></pre></div>
 <h2 id="available-algorithms">Available Algorithms</h2>
 <p>FZ ships with example algorithms in <code>examples/algorithms/</code>:</p>
@@ -3198,6 +3247,12 @@ The old <code>--input_dir</code> and <code>--input_vars</code> names remain acce
 <td>Integration</td>
 <td>Uncertainty quantification</td>
 </tr>
+<tr>
+<td>NSGA-II</td>
+<td><code>nsga2.py</code></td>
+<td>Multi-objective optimization</td>
+<td>Pareto fronts — requires a <strong>list</strong> <code>output_expression</code> (new in 1.2)</td>
+</tr>
 </tbody>
 </table>
 <div class="admonition tip">
@@ -3211,56 +3266,56 @@ The old <code>--input_dir</code> and <code>--input_vars</code> names remain acce
 </div>
 <h2 id="writing-custom-algorithms">Writing Custom Algorithms</h2>
 <p>Custom algorithms must implement a Python class with the following interface:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyAlgorithm</span><span class="p">:</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize with algorithm-specific options dict.&quot;&quot;&quot;</span>
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;batch_size&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_initial_design</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_variables</span><span class="p">,</span> <span class="n">output_variables</span><span class="p">):</span>
-</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return initial list of sample points.</span>
-</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>
-</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="sd">        Args:</span>
-</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="sd">            input_variables: dict of {&quot;var_name&quot;: &quot;[min;max]&quot;} ranges</span>
-</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="sd">            output_variables: list of output variable names</span>
-</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>
-</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="sd">        Returns:</span>
-</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="sd">            List of dicts, each dict is one sample point:</span>
-</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="sd">            [{&quot;x&quot;: 1.0, &quot;y&quot;: 2.0}, {&quot;x&quot;: 3.0, &quot;y&quot;: 4.0}, ...]</span>
-</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>        <span class="k">pass</span>
-</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>
-</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_next_design</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
-</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return next sample points or None to stop.</span>
-</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a>
-</span><span id="__span-14-23"><a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a><span class="sd">        Args:</span>
-</span><span id="__span-14-24"><a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a><span class="sd">            X: list of input dicts evaluated so far</span>
-</span><span id="__span-14-25"><a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a><span class="sd">            Y: list of output values evaluated so far</span>
-</span><span id="__span-14-26"><a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a>
-</span><span id="__span-14-27"><a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a><span class="sd">        Returns:</span>
-</span><span id="__span-14-28"><a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a><span class="sd">            List of dicts for next batch, or None to stop iteration.</span>
-</span><span id="__span-14-29"><a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="__span-14-30"><a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a>        <span class="k">pass</span>
-</span><span id="__span-14-31"><a id="__codelineno-14-31" name="__codelineno-14-31" href="#__codelineno-14-31"></a>
-</span><span id="__span-14-32"><a id="__codelineno-14-32" name="__codelineno-14-32" href="#__codelineno-14-32"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
-</span><span id="__span-14-33"><a id="__codelineno-14-33" name="__codelineno-14-33" href="#__codelineno-14-33"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Return analysis results (called at end).</span>
-</span><span id="__span-14-34"><a id="__codelineno-14-34" name="__codelineno-14-34" href="#__codelineno-14-34"></a>
-</span><span id="__span-14-35"><a id="__codelineno-14-35" name="__codelineno-14-35" href="#__codelineno-14-35"></a><span class="sd">        Args:</span>
-</span><span id="__span-14-36"><a id="__codelineno-14-36" name="__codelineno-14-36" href="#__codelineno-14-36"></a><span class="sd">            X: all input dicts</span>
-</span><span id="__span-14-37"><a id="__codelineno-14-37" name="__codelineno-14-37" href="#__codelineno-14-37"></a><span class="sd">            Y: all output values</span>
-</span><span id="__span-14-38"><a id="__codelineno-14-38" name="__codelineno-14-38" href="#__codelineno-14-38"></a>
-</span><span id="__span-14-39"><a id="__codelineno-14-39" name="__codelineno-14-39" href="#__codelineno-14-39"></a><span class="sd">        Returns:</span>
-</span><span id="__span-14-40"><a id="__codelineno-14-40" name="__codelineno-14-40" href="#__codelineno-14-40"></a><span class="sd">            HTML string, dict, or any serializable result.</span>
-</span><span id="__span-14-41"><a id="__codelineno-14-41" name="__codelineno-14-41" href="#__codelineno-14-41"></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="__span-14-42"><a id="__codelineno-14-42" name="__codelineno-14-42" href="#__codelineno-14-42"></a>        <span class="k">pass</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">MyAlgorithm</span><span class="p">:</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">):</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">        </span><span class="sd">"""Initialize with algorithm-specific options dict."""</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"batch_size"</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_initial_design</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_variables</span><span class="p">,</span> <span class="n">output_variables</span><span class="p">):</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">        </span><span class="sd">"""Return initial list of sample points.</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="sd">        Args:</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="sd">            input_variables: dict of {"var_name": "[min;max]"} ranges</span>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="sd">            output_variables: list of output variable names</span>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="sd">        Returns:</span>
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="sd">            List of dicts, each dict is one sample point:</span>
+</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="sd">            [{"x": 1.0, "y": 2.0}, {"x": 3.0, "y": 4.0}, ...]</span>
+</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="sd">        """</span>
+</span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a>        <span class="k">pass</span>
+</span><span id="__span-15-19"><a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a>
+</span><span id="__span-15-20"><a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_next_design</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+</span><span id="__span-15-21"><a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a><span class="w">        </span><span class="sd">"""Return next sample points or None to stop.</span>
+</span><span id="__span-15-22"><a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a>
+</span><span id="__span-15-23"><a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a><span class="sd">        Args:</span>
+</span><span id="__span-15-24"><a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a><span class="sd">            X: list of input dicts evaluated so far</span>
+</span><span id="__span-15-25"><a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a><span class="sd">            Y: list of output values evaluated so far</span>
+</span><span id="__span-15-26"><a id="__codelineno-15-26" name="__codelineno-15-26" href="#__codelineno-15-26"></a>
+</span><span id="__span-15-27"><a id="__codelineno-15-27" name="__codelineno-15-27" href="#__codelineno-15-27"></a><span class="sd">        Returns:</span>
+</span><span id="__span-15-28"><a id="__codelineno-15-28" name="__codelineno-15-28" href="#__codelineno-15-28"></a><span class="sd">            List of dicts for next batch, or None to stop iteration.</span>
+</span><span id="__span-15-29"><a id="__codelineno-15-29" name="__codelineno-15-29" href="#__codelineno-15-29"></a><span class="sd">        """</span>
+</span><span id="__span-15-30"><a id="__codelineno-15-30" name="__codelineno-15-30" href="#__codelineno-15-30"></a>        <span class="k">pass</span>
+</span><span id="__span-15-31"><a id="__codelineno-15-31" name="__codelineno-15-31" href="#__codelineno-15-31"></a>
+</span><span id="__span-15-32"><a id="__codelineno-15-32" name="__codelineno-15-32" href="#__codelineno-15-32"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+</span><span id="__span-15-33"><a id="__codelineno-15-33" name="__codelineno-15-33" href="#__codelineno-15-33"></a><span class="w">        </span><span class="sd">"""Return analysis results (called at end).</span>
+</span><span id="__span-15-34"><a id="__codelineno-15-34" name="__codelineno-15-34" href="#__codelineno-15-34"></a>
+</span><span id="__span-15-35"><a id="__codelineno-15-35" name="__codelineno-15-35" href="#__codelineno-15-35"></a><span class="sd">        Args:</span>
+</span><span id="__span-15-36"><a id="__codelineno-15-36" name="__codelineno-15-36" href="#__codelineno-15-36"></a><span class="sd">            X: all input dicts</span>
+</span><span id="__span-15-37"><a id="__codelineno-15-37" name="__codelineno-15-37" href="#__codelineno-15-37"></a><span class="sd">            Y: all output values</span>
+</span><span id="__span-15-38"><a id="__codelineno-15-38" name="__codelineno-15-38" href="#__codelineno-15-38"></a>
+</span><span id="__span-15-39"><a id="__codelineno-15-39" name="__codelineno-15-39" href="#__codelineno-15-39"></a><span class="sd">        Returns:</span>
+</span><span id="__span-15-40"><a id="__codelineno-15-40" name="__codelineno-15-40" href="#__codelineno-15-40"></a><span class="sd">            HTML string, dict, or any serializable result.</span>
+</span><span id="__span-15-41"><a id="__codelineno-15-41" name="__codelineno-15-41" href="#__codelineno-15-41"></a><span class="sd">        """</span>
+</span><span id="__span-15-42"><a id="__codelineno-15-42" name="__codelineno-15-42" href="#__codelineno-15-42"></a>        <span class="k">pass</span>
 </span></code></pre></div>
 <h3 id="algorithm-file-header">Algorithm File Header</h3>
 <p>Algorithm files should include metadata in comments:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1">#title: My Algorithm Name</span>
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="c1">#author: Author Name</span>
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="c1">#type: sampling|optimization</span>
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1">#options: batch_size=10;max_iterations=100;seed=42</span>
-</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="c1">#require: numpy;scipy</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1">#title: My Algorithm Name</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="c1">#author: Author Name</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="c1">#type: sampling|optimization</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="c1">#options: batch_size=10;max_iterations=100;seed=42</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="c1">#require: numpy;scipy</span>
 </span></code></pre></div>
 <h2 id="see-also">See Also</h2>
 <ul>
@@ -3357,7 +3412,7 @@ The old <code>--input_dir</code> and <code>--input_vars</code> names remain acce
       <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
