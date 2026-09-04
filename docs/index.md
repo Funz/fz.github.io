@@ -2,17 +2,19 @@
 
 [![CI](https://github.com/Funz/fz/workflows/CI/badge.svg)](https://github.com/Funz/fz/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![Version](https://img.shields.io/badge/version-1.1-blue.svg)](https://github.com/Funz/fz/releases)
+[![Version](https://img.shields.io/badge/version-1.2-blue.svg)](https://github.com/Funz/fz/releases)
 
 A powerful Python package for parametric simulations and computational experiments. **FZ** wraps your simulation codes to automatically run parametric studies, manage input/output files, handle parallel execution, and collect results in structured DataFrames.
 
-!!! info "What's New in 1.1"
-    - **fzd CLI aliases**: `fzd` now accepts `--input_path` / `--input_variables` like all other commands
-    - **fzd calculator auto-discovery**: omit `calculators` in `fzd` and the installed alias is used (same as `fzr`)
-    - **Calculator bare aliases**: `--calculators <alias>` now works in all commands
-    - **Recursive directory staging**: case subdirectories are correctly staged in and out of the run directory
-    - **Funz UDP fallback**: a UDP discovery miss no longer counts as a hard failure; fz falls back to other calculators
-    - **Script-friendly output**: results on stdout, logs/progress on stderr; progress bar suppressed in CI/pipes
+!!! info "What's New in 1.2"
+    - **Shell-free output extraction**: `python://`, `jq://`, `yq://`, `xpath://` output prefixes — no bash/grep/awk, fully portable on Windows
+    - **Vector (array) outputs**: an output entry can resolve to a full list (time series, profiles, spectra) — stored as-is by `fzr`/`fzo`
+    - **Multi-objective `fzd`**: `output_expression` also accepts a list of expressions; new NSGA-II example algorithm
+    - **Shared static files**: new `input_static` parameter for files identical across every case — never re-hashed or duplicated per case
+    - **Configurable case naming**: `case_naming` = `"path"` / `"hash"` / `"index"` to avoid filesystem filename-length limits
+    - **1 h default run timeout**: `FZ_RUN_TIMEOUT` default is now 3600 s, with a per-model `"timeout"` override
+    - **Formula number formatting**: full `DecimalFormat` subset — `@{3.0 | #.###}` → `3`, `@{123456.789 | 0.00E00}` → `1.23E05`
+    - **Claude Code plugin**: four slash commands — `/fz:wrap`, `/fz:run`, `/fz:design`, `/fz:install`
 
     [See full release notes](reference/releases.md)
 
@@ -97,8 +99,21 @@ Use Python or R expressions directly in input templates for calculated parameter
 
 ```text
 Temperature: $T_celsius C
-# Calculated value
-T_kelvin: @($T_celsius + 273.15) K
+# Calculated value, formatted with a DecimalFormat pattern
+T_kelvin: @{$T_celsius + 273.15 | 0.00} K
+```
+
+### Shell-Free Output Extraction (New in 1.2)
+Pull results out of output files with native, portable extractors — no bash/grep/awk needed:
+
+```python
+model = {
+    "output": {
+        "pressure": "python://grep(r'Pressure: (\\S+)', 'output.txt')",
+        "energy":   "jq://.energy results.json",
+        "T_series": "python://csv_file('temps.csv', column='T')",  # vector output
+    }
+}
 ```
 
 ## Getting Started
@@ -154,7 +169,7 @@ FZ includes plugins for various simulation codes:
 
 ## AI Agent Skill (Claude Code)
 
-FZ ships a **Claude Code skill** that teaches AI coding agents the full fz workflow — parameterizing input files, defining models, choosing calculators, and running parametric studies or optimizations.
+FZ ships a **Claude Code plugin** that teaches AI coding agents the full fz workflow — parameterizing input files, defining models, choosing calculators, and running parametric studies or optimizations.
 
 Install it directly from Claude Code:
 
@@ -163,7 +178,16 @@ Install it directly from Claude Code:
 /plugin install fz@funz
 ```
 
-Once installed, just describe what you want in plain language — *"wrap my simulation and run a parameter sweep over mesh_size and timestep"* — and the agent handles the rest.
+Since **1.2** the plugin also provides four slash commands alongside the Agent Skill:
+
+| Command | Purpose |
+|---------|---------|
+| `/fz:wrap` | Wrap a simulation code and verify it step by step |
+| `/fz:run` | Run a parametric study (`fzr`) |
+| `/fz:design` | Adaptive design of experiments / optimization / calibration (`fzd`) |
+| `/fz:install` | Find and install an official `fz-<code>` wrapper or algorithm |
+
+Or just describe what you want in plain language — *"wrap my simulation and run a parameter sweep over mesh_size and timestep"* — and the agent handles the rest.
 
 The skill covers the complete workflow: `fzi` → `fzc` → `fzo` → `fzr`/`fzd`, calculator selection (local, SSH, SLURM), caching, and writing custom model wrappers or algorithms.
 

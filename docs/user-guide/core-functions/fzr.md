@@ -25,6 +25,9 @@ fz.fzr(
 | `calculators` | `str` or `list` | Yes | Calculator URI(s) |
 | `results_dir` | `str` | No | Output directory (default: "results") |
 | `callbacks` | `list` | No | List of callback functions for progress monitoring (new in 0.9.1) |
+| `input_static` | `list` | No | Files identical across every case — never templated, re-hashed, or duplicated per case (new in 1.2) |
+| `case_naming` | `str` | No | Case directory naming: `"path"` (default), `"hash"`, or `"index"` (new in 1.2) |
+| `timeout` | `int` | No | Per-run timeout in seconds; overrides the model `"timeout"` and `FZ_RUN_TIMEOUT` (default `3600`) |
 
 ## Returns
 
@@ -414,11 +417,52 @@ results2 = fz.fzr(
 )
 ```
 
+### Shared Static Files (New in 1.2)
+
+Pass files that are identical for every case — a shared mesh, a reference dataset, a
+weather series — via `input_static` instead of putting them in `input_path`. They are
+never scanned for variables, never re-hashed per case, and (for relative paths) not
+copied into every case directory:
+
+```python
+results = fz.fzr(
+    "input.txt",
+    {"x": [1, 2, 3]},
+    model,
+    calculators="sh://bash calc.sh",
+    input_static=["reference_data.csv", "/shared/big_mesh.msh"],
+)
+```
+
+- **Relative paths** are resolved against the current directory, symlinked into each
+  case directory (real copy where symlinks are unavailable), and explicitly transferred
+  to `ssh://`, `slurm://` (remote), and `funz://` calculators.
+- **Absolute paths** are assumed to already exist at the same path on the calculator
+  side (shared/mounted storage) — fz only hashes them so `cache://` still notices
+  content changes.
+
+`fzr` logs a one-time warning when a variable-free `input_path` file is at least
+`FZ_STATIC_CANDIDATE_MIN_SIZE` bytes (default 1 MiB), suggesting `input_static`.
+
+### Case Directory Naming (New in 1.2)
+
+`case_naming` controls how each case subdirectory is named:
+
+| Value | Example directory | Notes |
+|-------|-------------------|-------|
+| `"path"` (default) | `x=1,y=2/` | Readable; can exceed the ~255-char filename limit with many variables |
+| `"hash"` | `a1b2c3d4/` | Short content hash of the variable combination |
+| `"index"` | `case_0/` | Shortest |
+
+With `"hash"` / `"index"`, a `cases.csv` manifest at the results root maps each
+directory to its variables (each case's `info.txt` also carries them). Set globally with
+the `FZ_CASE_NAMING` environment variable.
+
 ## Output Directory Structure
 
 ```
 results/
-├── param=1/
+├── param=1/                # or a1b2c3d4/ (hash) / case_0/ (index)
 │   ├── input.txt          # Compiled input
 │   ├── output.txt         # Calculation output
 │   ├── log.txt            # Execution metadata

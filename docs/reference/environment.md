@@ -9,7 +9,7 @@ FZ can be configured using several environment variables to customize its behavi
 
 **Values**: `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`
 
-**Default**: `INFO`
+**Default**: `ERROR`
 
 **Example**:
 ```bash
@@ -30,28 +30,34 @@ export FZ_INTERPRETER=R
 
 ## Execution Configuration
 
-### `FZ_EXECUTION_TIMEOUT`
-**Description**: Default timeout in seconds for calculator execution. Can be overridden by model configuration or calculator URI parameters.
+### `FZ_RUN_TIMEOUT` (renamed in 1.2, default raised to 1 h)
 
-**Values**: Positive integer (seconds)
+**Description**: Default timeout in seconds for a single case run. A model can override
+it with its own `"timeout"` entry (`None`/`null`/`0` disables the timeout for that
+model); an explicit `timeout=` argument to `fzr()` / `fzc()` overrides both.
 
-**Default**: `None` (no timeout)
+**Values**: Positive integer (seconds), or `0` to disable
+
+**Default**: `3600` (1 hour — was `600` before 1.2)
 
 **Example**:
 ```bash
-export FZ_EXECUTION_TIMEOUT=300  # 5 minutes
+export FZ_RUN_TIMEOUT=300  # 5 minutes
 ```
+
+!!! note
+    Earlier releases named this variable `FZ_EXECUTION_TIMEOUT`. Use `FZ_RUN_TIMEOUT`.
 
 ### `FZ_MAX_RETRIES`
 **Description**: Maximum number of retry attempts when a calculator fails.
 
 **Values**: Non-negative integer
 
-**Default**: `3`
+**Default**: `5`
 
 **Example**:
 ```bash
-export FZ_MAX_RETRIES=5
+export FZ_MAX_RETRIES=3
 ```
 
 ### `FZ_MAX_WORKERS`
@@ -91,6 +97,40 @@ export FZ_SHELL_PATH=/opt/tools/bin:/usr/local/bin
 - Binary path caching for performance
 - Overrides system PATH priority
 
+## Case Layout Configuration
+
+### `FZ_CASE_NAMING` (New in 1.2)
+**Description**: How each case's result/temp subdirectory is named. `"path"` produces
+`var1=val1,var2=val2,...` (human-readable, but can exceed the ~255-char filename limit
+with many variables); `"hash"` uses a short content hash of the variable combination;
+`"index"` uses `case_<i>`. With `"hash"` / `"index"` a `cases.csv` manifest mapping each
+directory to its variables is written at the results root. Overridden by the
+`case_naming=` argument / `--case_naming` flag.
+
+**Values**: `path`, `hash`, `index`
+
+**Default**: `path`
+
+**Example**:
+```bash
+export FZ_CASE_NAMING=hash
+```
+
+### `FZ_STATIC_CANDIDATE_MIN_SIZE` (New in 1.2)
+**Description**: Size threshold in bytes above which an `input_path` file with no
+variables triggers a one-time warning suggesting it be passed via `input_static`
+instead (it is otherwise re-read, re-copied, and re-hashed on every case). Set to `0`
+to disable the warning.
+
+**Values**: Non-negative integer (bytes)
+
+**Default**: `1048576` (1 MiB)
+
+**Example**:
+```bash
+export FZ_STATIC_CANDIDATE_MIN_SIZE=0
+```
+
 ## SSH Configuration
 
 ### `FZ_SSH_KEEPALIVE`
@@ -98,7 +138,7 @@ export FZ_SHELL_PATH=/opt/tools/bin:/usr/local/bin
 
 **Values**: Positive integer (seconds)
 
-**Default**: `60`
+**Default**: `300`
 
 **Example**:
 ```bash

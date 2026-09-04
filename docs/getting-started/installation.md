@@ -94,7 +94,7 @@ python -c "import fz; print('FZ version:', fz.__version__)"
 
 You should see output like:
 ```
-FZ version: 1.1
+FZ version: 1.2
 ```
 
 ## Google Colab
@@ -192,7 +192,11 @@ sudo pip install -e .
 ### Windows
 
 - Use PowerShell or Command Prompt
-- Shell calculators require MSYS2 or Git Bash — set `FZ_SHELL_PATH` to point to the binaries:
+- Since **1.2**, `import fz` works on Windows without bash. Only genuinely shell-dependent
+  features (legacy shell-command outputs, `sh://` calculators) need it; shell-free
+  workflows (`python://`, `jq://`, `yq://`, `xpath://` outputs) run with no bash at all.
+- Shell calculators and `bash://` outputs still require MSYS2 or Git Bash — set
+  `FZ_SHELL_PATH` to point to the binaries:
   ```powershell
   $env:FZ_SHELL_PATH = "C:\msys64\usr\bin;C:\msys64\mingw64\bin"
   ```

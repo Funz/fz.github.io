@@ -37,7 +37,7 @@ result = fz.fzd(
 | `input_path` | `str` | Path to input file or directory |
 | `input_variables` | `dict` | Variable ranges: `{"var": "[min;max]"}` or fixed: `{"var": "value"}` |
 | `model` | `dict` or `str` | Model definition or alias |
-| `output_expression` | `str` | Expression to evaluate (e.g., `"pressure"` or `"r1 + r2 * 2"`) |
+| `output_expression` | `str` or `list` | Expression to evaluate (e.g., `"pressure"` or `"r1 + r2 * 2"`). A **list** of expressions (since 1.2) makes each case yield one scalar per expression — a vector objective for multi-objective algorithms. |
 | `algorithm` | `str` | Path to algorithm Python file |
 | `calculators` | `str` or `list` | Calculator URI(s) (default: `["sh://"]`) |
 | `algorithm_options` | `dict`, `str`, or `None` | Algorithm options as dict, JSON string, or JSON file path |
@@ -85,6 +85,7 @@ fz design --input_path DIR --input_variables VARS --model MODEL \
 | `--results_dir` | `-r` | No | Results directory (default: `results_fzd`) |
 | `--calculators` | `-c` | No | Calculator specifications (URI, alias, or JSON list) |
 | `--options` | `-o` | No | Algorithm options (JSON file or inline JSON) |
+| `--input_static` | | No | Shared static file (repeatable), never templated or re-hashed per case (new in 1.2) |
 
 !!! note "Flag aliases (since 1.1)"
     `--input_path` and `--input_variables` are the preferred names, consistent with `fzi`, `fzc`, and `fzr`.
@@ -202,6 +203,33 @@ result = fz.fzd(
 
 Available expression operators: `+`, `-`, `*`, `/`, `**`, `abs()`, `min()`, `max()`, `sqrt()`, `exp()`, `log()`, `pi`, `e`.
 
+Since **1.2**, if a model output is itself vector-valued (a time series, a profile), the
+expression can reduce it to a scalar with `sum()`, `len()`, `sorted()`, `mean()`,
+`median()`, `stdev()`, `variance()`, indexing/slicing (`T_series[-1]`), and `zip()` — e.g.
+`sqrt(sum((x - y) ** 2 for x, y in zip(sim, ref)) / len(sim))` for an RMSE against a
+reference series. Referencing a vector output without reducing it raises a clear
+`ValueError` for that point (reported as a failed evaluation, non-fatal).
+
+### Example 7: Multi-Objective (Vector Objective)
+
+Pass a **list** of expressions — each case yields one scalar per expression, handed
+as-is to a multi-objective algorithm such as NSGA-II:
+
+```python
+result = fz.fzd(
+    input_path="input/",
+    input_variables={"x": "[-2;2]", "y": "[-2;2]"},
+    model=model,
+    output_expression=["f1", "-f2"],   # minimise f1, maximise f2 (negated)
+    algorithm="examples/algorithms/nsga2.py",
+    algorithm_options={"pop_size": 24, "generations": 15, "seed": 42},
+)
+# result['XY'] gains one column per objective;
+# the Pareto front is in result['analysis']['data'] and nsga2_pareto.csv
+```
+
+All objectives are minimised — negate an expression to maximise it.
+
 ### Example 6: CLI Usage
 
 ```bash
@@ -301,6 +329,7 @@ FZ ships with example algorithms in `examples/algorithms/`:
 | Brent's Method | `brent.py` | 1D optimization | Precise 1D root finding/optimization |
 | BFGS | `bfgs.py` | Multi-D optimization | Smooth multi-dimensional optimization |
 | Monte Carlo | `montecarlo_uniform.py` | Integration | Uncertainty quantification |
+| NSGA-II | `nsga2.py` | Multi-objective optimization | Pareto fronts — requires a **list** `output_expression` (new in 1.2) |
 
 !!! tip "Choosing an Algorithm"
     - **1D problems**: Use Brent's method

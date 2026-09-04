@@ -1,5 +1,141 @@
 # Release Notes
 
+## Version 1.2 (2026-09-04)
+
+### New Features
+
+#### Shell-Free Output Extraction — `python://`, `jq://`, `yq://`, `xpath://`
+Model `output` values can now use native, portable extractors instead of a shell command:
+
+| Prefix | Extracts | Requires |
+|--------|----------|----------|
+| `python://` | Native Python expression evaluated in the result directory, with helpers `read`, `lines`, `line`, `grep`, `json_file`, `csv_file`, `hdf5_file` and the `re`/`json`/`math`/`statistics`/`np`/`pd` modules | nothing |
+| `jq://` | JSON, via a [jq](https://jqlang.org/) filter followed by the file | `jq` on `PATH` |
+| `yq://` | YAML (and JSON/XML/TOML by extension), via a [mikefarah/yq](https://github.com/mikefarah/yq) filter | `yq` on `PATH` |
+| `xpath://` | XML, via `xmllint --xpath` | `xmllint` (libxml2) on `PATH` |
+| `bash://` | Explicit marker for a legacy shell command (still the implicit default for an unprefixed string) | bash + Unix tools |
+
+From the Python API, an `output` value can also be a callable receiving the case
+result directory as a `pathlib.Path`. All forms can be mixed in one model.
+
+```python
+model = {
+    "output": {
+        "pressure": "python://grep(r'Pressure: (\\S+)', 'output.txt')",
+        "energy":   "jq://.energy results.json",
+        "version":  "yq://.metadata.version config.yaml",
+        "T_final":  "xpath://'//result/T/text()' output.xml",
+    }
+}
+```
+
+`import fz` now works on Windows without bash: the import-time check warns instead of
+raising. Only shell-command outputs and `sh://` calculators raise (with install
+instructions) at use time.
+
+#### Vector (Array) Outputs in `fzr` / `fzo`
+An `output` entry can resolve to a Python list, not just a scalar — a natural fit for
+time series, per-node profiles, or spectra. Supported via `python://grep(..., all=True)`,
+`csv_file(column=...)`, `hdf5_file(dataset=...)`, `jq://` / `yq://` filters selecting an
+array, `xpath://` matching several nodes, or a shell command printing a JSON array.
+`fzr`/`fzo` store the full list per case unmodified — no flattening, truncation, or
+padding, so cases may have vectors of different lengths.
+
+!!! warning "Persisting vectors"
+    `to_csv()` / `--format csv` stringifies lists. Use `--format json`, `to_pickle`, or
+    `to_parquet` for a lossless round trip. The plain-shell / `bash://` form also unwraps
+    a single-element array to a scalar — prefer `python://` / `jq://` / `yq://` / `xpath://`
+    when a vector's length can legitimately be 1.
+
+#### Multi-Objective (Vector) Objectives in `fzd`
+`fzd()`'s `output_expression` now also accepts a **list of expressions**: each case then
+yields one scalar per expression, passed as-is to the algorithm's `get_next_design()` /
+`get_analysis()`. A plain string keeps the legacy single-scalar behaviour.
+
+A vector-valued *output* can also be reduced to `fzd`'s scalar objective:
+`sum()`, `len()`, `sorted()`, `mean()`, `median()`, `stdev()`, `variance()` and `zip()`
+join the existing math functions and slicing in `output_expression`. Referencing a
+vector output without reducing it now raises a clear `ValueError` (per-case, non-fatal)
+instead of a bare `TypeError`.
+
+New example algorithm `examples/algorithms/nsga2.py` — NSGA-II (Deb 2002) at the fzd
+plugin format: batch-parallel generations, SBX + polynomial mutation, Pareto front
+written to `nsga2_pareto.csv` and returned in the analysis `data`.
+
+#### Shared Static Files Across Cases — `input_static`
+`fzr()` / `fzc()` / `fzi()` / `fzd()` gain an `input_static` parameter (CLI
+`--input_static`, repeatable or an inline JSON list): files identical across every case
+(a shared weather CSV, a large reference dataset) that are never templated, never
+re-hashed per case, and — for relative paths — not duplicated on disk per case. It is a
+function argument, not a model field.
+
+- **Absolute paths** are assumed already present at the same path on the calculator side
+  (shared/mounted storage); fz only hashes them (once per call), so `cache://` still
+  reacts to content changes.
+- **Relative paths** are resolved against the caller's cwd, identified by basename, and
+  symlinked into each case directory (real copy where symlinks are unavailable).
+  Explicitly transferred to `ssh://`, `slurm://` (remote), and `funz://` calculators.
+- `.fz_hash` always includes them so cache matching stays correct.
+- `fzr()` logs a one-time warning when an `input_path` file has no variables and is at
+  least `FZ_STATIC_CANDIDATE_MIN_SIZE` bytes (default 1 MiB); set it to `0` to disable.
+
+#### Configurable Case Directory Naming — `case_naming`
+`fzr()` / CLI `fzr` / `fz run` gain a `case_naming` parameter (`--case_naming`, env
+`FZ_CASE_NAMING`):
+
+| Value | Directory name | Notes |
+|-------|----------------|-------|
+| `"path"` (default) | `var1=val1,var2=val2,...` | Human-readable; can exceed the ~255-char filename limit with many variables |
+| `"hash"` | short content hash of the variable combination | Always short and stable |
+| `"index"` | `case_<i>` | Shortest |
+
+With `"hash"` / `"index"`, a single `cases.csv` manifest at the results root maps each
+case directory to its variables (each case's `info.txt` also has them, as a fallback).
+`fzo()` recovers variable columns from whichever is available. `fzd()` now runs its
+internal per-iteration `fzr()` calls with `case_naming="index"`.
+
+#### Default Run Timeout Raised to 1 h, Per-Model Override
+`FZ_RUN_TIMEOUT`'s default changed from 600 s (10 min) to **3600 s (1 hour)**. A model
+can set its own `"timeout"` entry (int seconds) to override `FZ_RUN_TIMEOUT` for that
+model; `None`/`null`/`0` disables the timeout entirely. An explicit `timeout=` argument
+to `fzr()` / `fzc()` still takes precedence over both.
+
+#### Formula Number Formatting — `@{expr | pattern}`
+Format specifiers now support the full `java.text.DecimalFormat` subset used by the
+original Java Funz, not just fixed-decimal patterns:
+
+- `#` digits strip insignificant trailing zeros: `@{3.1 | #.###}` → `3.1`, `@{3.0 | #.###}` → `3`
+- `0` digits zero-pad as before: `@{1/3 | 0.0000}` → `0.3333`
+- Scientific notation: `@{123456.789 | 0.00E00}` → `1.23E05`
+
+Works with both the Python and R interpreters.
+
+#### `--input_variables` No Longer Required for Variable-Free Datasets
+`fzc` / `fzr` CLI (standalone and `fz compile` / `fz run`) no longer require
+`--input_variables` when the input files declare no variables. If they omit it while the
+model *does* declare variables, the CLI now errors out listing the variable(s) it found.
+
+#### Claude Code Plugin — Slash Commands
+The `fz` Claude Code plugin now ships four slash commands alongside the Agent Skill:
+`/fz:wrap` (wrap a simulation code, verified step by step), `/fz:run` (parametric study),
+`/fz:design` (adaptive design of experiments / optimization / calibration with `fzd`),
+and `/fz:install` (find and install an official `fz-<code>` wrapper or algorithm). Plugin
+bumped to 1.2.0, aligned with the package release.
+
+### Bug Fixes
+
+- Thread-safe signal handling: `fzr` / `fzd` no longer raise `ValueError` when called
+  from a non-main thread (Streamlit reruns, `ThreadPoolExecutor` workers, background
+  threads). Signal-handler install/restore is skipped outside the main thread.
+- `xpath://` matching more than one node now returns a list of per-node values instead
+  of a single concatenated string.
+- `evaluate_output_expression()` now uses a single combined globals dict, so output
+  variables and helper functions resolve correctly inside generator expressions and
+  comprehensions (`max(abs(x - y) for x, y in zip(a, b))` no longer fails with a
+  spurious `name 'abs' is not defined`).
+
+---
+
 ## Version 1.1 (2026-06-15)
 
 ### New Features
