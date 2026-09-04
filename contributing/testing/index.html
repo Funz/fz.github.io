@@ -2030,6 +2030,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -2046,6 +2064,69 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running the Suite
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notable-test-areas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notable Test Areas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-a-test-for-your-own-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing a Test for Your Own Model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2079,6 +2160,58 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#running-the-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running the Suite
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notable-test-areas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Notable Test Areas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-a-test-for-your-own-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing a Test for Your Own Model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2098,7 +2231,91 @@
 
 
 <h1 id="testing">Testing</h1>
-<p>Running FZ tests. See the <a href="https://github.com/Funz/fz#running-tests">main FZ documentation</a> for complete details.</p>
+<p>FZ uses <code>pytest</code>. Tests live in <code>tests/</code> in the <a href="https://github.com/Funz/fz">main repository</a>.</p>
+<h2 id="running-the-suite">Running the Suite</h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">".[dev]"</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/<span class="w"> </span>-v<span class="w">                 </span><span class="c1"># everything</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/test_fzd.py<span class="w"> </span>-v<span class="w">      </span><span class="c1"># one file</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/<span class="w"> </span>-k<span class="w"> </span>parallel<span class="w"> </span>-v<span class="w">     </span><span class="c1"># by keyword</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nv">FZ_LOG_LEVEL</span><span class="o">=</span>DEBUG<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests/test_interrupt_handling.py<span class="w"> </span>-v
+</span></code></pre></div>
+<h2 id="notable-test-areas">Notable Test Areas</h2>
+<table>
+<thead>
+<tr>
+<th>File(s)</th>
+<th>Covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>test_parallel.py</code></td>
+<td>Concurrent execution, load balancing</td>
+</tr>
+<tr>
+<td><code>test_interrupt_handling.py</code></td>
+<td>Ctrl+C graceful shutdown, resume</td>
+</tr>
+<tr>
+<td><code>test_fzd*.py</code></td>
+<td>Design of experiments, vector / multi-objective outputs</td>
+</tr>
+<tr>
+<td><code>test_static_files*.py</code></td>
+<td><code>input_static</code> (local and real SFTP over <code>ssh://</code>)</td>
+</tr>
+<tr>
+<td><code>test_vector_outputs.py</code></td>
+<td>Array-valued <code>output</code> entries across <code>fzo</code> / <code>fzr</code></td>
+</tr>
+<tr>
+<td><code>shell-free-outputs.yml</code> (CI)</td>
+<td><code>python://</code> / <code>jq://</code> / <code>yq://</code> / <code>xpath://</code> across platforms, incl. Windows without bash</td>
+</tr>
+<tr>
+<td><code>ssh-localhost.yml</code> (CI)</td>
+<td>Real SSH/SFTP against localhost</td>
+</tr>
+<tr>
+<td><code>test_examples_*.py</code></td>
+<td>The runnable examples under <code>examples/</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="writing-a-test-for-your-own-model">Writing a Test for Your Own Model</h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">fz</span><span class="o">,</span><span class="w"> </span><span class="nn">tempfile</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_my_model</span><span class="p">():</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmp</span><span class="p">:</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="n">inp</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span> <span class="o">/</span> <span class="s2">"input.txt"</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="n">inp</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="s2">"Parameter: $param</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="n">calc</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span> <span class="o">/</span> <span class="s2">"calc.sh"</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        <span class="n">calc</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="s1">'#!/bin/bash</span><span class="se">\n</span><span class="s1">source "$1"</span><span class="se">\n</span><span class="s1">echo "result=$param" &gt; output.txt</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="n">calc</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="mo">0o755</span><span class="p">)</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>        <span class="n">model</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>            <span class="s2">"varprefix"</span><span class="p">:</span> <span class="s2">"$"</span><span class="p">,</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>            <span class="s2">"output"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"result"</span><span class="p">:</span> <span class="s2">"grep 'result=' output.txt | cut -d= -f2"</span><span class="p">},</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        <span class="p">}</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        <span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>            <span class="nb">str</span><span class="p">(</span><span class="n">inp</span><span class="p">),</span> <span class="p">{</span><span class="s2">"param"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]},</span> <span class="n">model</span><span class="p">,</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>            <span class="n">calculators</span><span class="o">=</span><span class="sa">f</span><span class="s2">"sh://bash </span><span class="si">{</span><span class="n">calc</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>            <span class="n">results_dir</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span> <span class="o">/</span> <span class="s2">"results"</span><span class="p">),</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>        <span class="p">)</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>        <span class="k">assert</span> <span class="nb">list</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"result"</span><span class="p">])</span> <span class="o">==</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>        <span class="k">assert</span> <span class="nb">all</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">"status"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"done"</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../development/">Development</a></li>
+<li><a href="../../reference/troubleshooting/">Troubleshooting</a> — <code>FZ_LOG_LEVEL=DEBUG</code> for execution traces</li>
+</ul>
 
 
 

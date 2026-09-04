@@ -785,17 +785,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Parameters
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#returns" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -807,10 +796,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
+  <a href="#variables-vs-formulas" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Example
+        Variables vs Formulas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typical-uses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typical Uses
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
       
     </span>
   </a>
@@ -2193,17 +2215,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Parameters
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#returns" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2215,10 +2226,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
+  <a href="#variables-vs-formulas" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Example
+        Variables vs Formulas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typical-uses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typical Uses
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
       
     </span>
   </a>
@@ -2246,26 +2290,75 @@
 
 
 <h1 id="fzi-parse-input-variables">fzi - Parse Input Variables</h1>
-<p>The <code>fzi</code> function parses input files to identify all variables.</p>
+<p><code>fzi</code> scans an input file or directory and reports every <strong>variable</strong> it finds — the
+placeholders your templates expect you to fill in. It reads nothing else and runs
+nothing; it is the discovery step.</p>
 <h2 id="function-signature">Function Signature</h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">fz</span><span class="o">.</span><span class="n">fzi</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">fz</span><span class="o">.</span><span class="n">fzi</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">input_static</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </span></code></pre></div>
-<h2 id="parameters">Parameters</h2>
-<ul>
-<li><code>input_path</code> (str): Path to input file or directory</li>
-<li><code>model</code> (dict): Model definition with varprefix</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>input_path</code></td>
+<td><code>str</code></td>
+<td>Input file or directory (scanned recursively)</td>
+</tr>
+<tr>
+<td><code>model</code></td>
+<td><code>dict</code> or <code>str</code></td>
+<td>Model definition or alias — only the syntax fields matter here (<code>varprefix</code>, <code>delim</code>, <code>formulaprefix</code>, <code>commentline</code>)</td>
+</tr>
+<tr>
+<td><code>input_static</code></td>
+<td><code>list</code>, optional</td>
+<td>Shared files to ignore while scanning — never templated <em>(1.2)</em></td>
+</tr>
+</tbody>
+</table>
 <h2 id="returns">Returns</h2>
-<p>Dictionary with variable names as keys (values are None)</p>
-<h2 id="example">Example</h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">fz</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">model</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"varprefix"</span><span class="p">:</span> <span class="s2">"$"</span><span class="p">}</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">variables</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzi</span><span class="p">(</span><span class="s2">"input.txt"</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">variables</span><span class="p">)</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1"># {'temperature': None, 'pressure': None}</span>
+<p>A <code>dict</code> mapping each variable name to <code>None</code> (a template ready to be filled with
+values):</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">model</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"varprefix"</span><span class="p">:</span> <span class="s2">"$"</span><span class="p">,</span> <span class="s2">"delim"</span><span class="p">:</span> <span class="s2">"</span><span class="si">{}</span><span class="s2">"</span><span class="p">}</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># input.txt:  Temperature: ${temp}, Pressure: ${pressure}</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">fz</span><span class="o">.</span><span class="n">fzi</span><span class="p">(</span><span class="s2">"input.txt"</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># {'temp': None, 'pressure': None}</span>
 </span></code></pre></div>
-<p>See the <a href="https://github.com/Funz/fz">main FZ documentation</a> for complete details.</p>
+<h2 id="variables-vs-formulas">Variables vs Formulas</h2>
+<p>Names that appear only inside a formula (<code>@{...}</code>) or that are <em>defined</em> in a formula
+context line (<code>#@ ...</code>) are <strong>not</strong> variables:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>n_mol=$n_mol
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>T_celsius=$T_celsius
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>#@ T_kelvin = $T_celsius + 273.15
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>T_kelvin=@{T_kelvin}
+</span></code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">model</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"varprefix"</span><span class="p">:</span> <span class="s2">"$"</span><span class="p">,</span> <span class="s2">"formulaprefix"</span><span class="p">:</span> <span class="s2">"@"</span><span class="p">,</span> <span class="s2">"delim"</span><span class="p">:</span> <span class="s2">"</span><span class="si">{}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"commentline"</span><span class="p">:</span> <span class="s2">"#"</span><span class="p">}</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">fz</span><span class="o">.</span><span class="n">fzi</span><span class="p">(</span><span class="s2">"input.txt"</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># {'n_mol': None, 'T_celsius': None}   — T_kelvin is a formula result, not an input</span>
+</span></code></pre></div>
+<h2 id="typical-uses">Typical Uses</h2>
+<ul>
+<li>Discover the parameters of a legacy input deck.</li>
+<li>Validate that you are supplying every value a template needs before an <code>fzr</code> run.</li>
+<li>Auto-generate a parameter list for documentation.</li>
+</ul>
+<h2 id="cli">CLI</h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>fzi<span class="w"> </span>input.txt<span class="w"> </span>-m<span class="w"> </span>mymodel
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>fzi<span class="w"> </span>input_dir/<span class="w"> </span>-m<span class="w"> </span>mymodel<span class="w"> </span>--format<span class="w"> </span>json
+</span></code></pre></div>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../fzc/">fzc</a> — substitute values into the template</li>
+<li><a href="../fzr/">fzr</a> — the full run that calls <code>fzi</code> → <code>fzc</code> → execute → <code>fzo</code></li>
+<li><a href="../../model-definition/">Model Definition</a> · <a href="../../advanced/formulas/">Formula Evaluation</a></li>
+</ul>
 
 
 

@@ -1805,6 +1805,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1821,6 +1839,108 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment Variables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fz-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .fz/ Directory
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".fz/ Directory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model-alias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model Alias
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calculator-alias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calculator Alias
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timeout-resolution-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timeout Resolution Order
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#argument-formats-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Argument Formats (CLI)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2081,6 +2201,97 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment Variables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fz-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        .fz/ Directory
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label=".fz/ Directory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model-alias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model Alias
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calculator-alias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calculator Alias
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timeout-resolution-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timeout Resolution Order
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#argument-formats-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Argument Formats (CLI)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2100,7 +2311,128 @@
 
 
 <h1 id="configuration">Configuration</h1>
-<p>FZ configuration via environment variables and files. See the <a href="https://github.com/Funz/fz#configuration">main FZ documentation</a> for complete details.</p>
+<p>FZ is configured through <strong>environment variables</strong>, <strong><code>.fz/</code> alias directories</strong>, and
+per-call arguments. Nothing needs to be configured to get started — every setting has a
+default.</p>
+<h2 id="environment-variables">Environment Variables</h2>
+<p>The full list, with defaults, is on the <a href="../environment/">Environment Variables</a> page.
+The most common ones:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Purpose</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FZ_LOG_LEVEL</code></td>
+<td><code>DEBUG</code> / <code>INFO</code> / <code>WARNING</code> / <code>ERROR</code> / <code>CRITICAL</code></td>
+<td><code>ERROR</code></td>
+</tr>
+<tr>
+<td><code>FZ_MAX_WORKERS</code></td>
+<td>Thread-pool size for parallel cases</td>
+<td>CPU count</td>
+</tr>
+<tr>
+<td><code>FZ_MAX_RETRIES</code></td>
+<td>Calculator retry attempts per case</td>
+<td><code>5</code></td>
+</tr>
+<tr>
+<td><code>FZ_RUN_TIMEOUT</code></td>
+<td>Per-case timeout, seconds (<code>0</code> disables)</td>
+<td><code>3600</code></td>
+</tr>
+<tr>
+<td><code>FZ_INTERPRETER</code></td>
+<td>Default formula interpreter (<code>python</code> / <code>R</code>)</td>
+<td><code>python</code></td>
+</tr>
+<tr>
+<td><code>FZ_SHELL_PATH</code></td>
+<td>Extra search path for shell binaries</td>
+<td>system <code>PATH</code></td>
+</tr>
+<tr>
+<td><code>FZ_CASE_NAMING</code></td>
+<td>Case dir naming (<code>path</code> / <code>hash</code> / <code>index</code>)</td>
+<td><code>path</code></td>
+</tr>
+<tr>
+<td><code>FZ_CACHE_DIR</code></td>
+<td>Cache location</td>
+<td><code>.fz/cache</code></td>
+</tr>
+</tbody>
+</table>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">fz</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_config</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">config</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">max_workers</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">max_retries</span><span class="p">)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">config</span><span class="o">.</span><span class="n">max_workers</span> <span class="o">=</span> <span class="mi">4</span>          <span class="c1"># override at runtime</span>
+</span></code></pre></div>
+<h2 id="fz-directory"><code>.fz/</code> Directory</h2>
+<p>FZ looks for aliases in <code>./.fz/</code> (project) then <code>~/.fz/</code> (user); project wins.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>.fz/
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>├── models/          # model aliases      →  fz.fzr(..., model="perfectgas")
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>│   └── perfectgas.json
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>├── calculators/     # calculator aliases →  fz.fzr(..., calculators="cluster")
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│   └── cluster.json
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>├── algorithms/      # fzd algorithm plugins
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>│   ├── brent.py
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│   └── pso.R
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>└── tmp/             # per-run scratch dirs (auto-created)
+</span></code></pre></div>
+<h3 id="model-alias">Model Alias</h3>
+<div class="language-json highlight"><span class="filename">.fz/models/perfectgas.json</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">"varprefix"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$"</span><span class="p">,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">"formulaprefix"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@"</span><span class="p">,</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">"delim"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{}"</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="nt">"commentline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#"</span><span class="p">,</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="nt">"interpreter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"python"</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">  </span><span class="nt">"output"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nt">"pressure"</span><span class="p">:</span><span class="w"> </span><span class="s2">"python://grep(r'P = (\\S+)', 'output.txt')"</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="calculator-alias">Calculator Alias</h3>
+<div class="language-json highlight"><span class="filename">.fz/calculators/cluster.json</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">"uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ssh://user@hpc.university.edu"</span><span class="p">,</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">"models"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nt">"perfectgas"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bash /home/user/codes/perfectgas/run.sh"</span><span class="p">,</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="nt">"cfd"</span><span class="p">:</span><span class="w">        </span><span class="s2">"bash /home/user/codes/cfd/run.sh"</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span><span class="s2">"input.txt"</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="s2">"perfectgas"</span><span class="p">,</span> <span class="n">calculators</span><span class="o">=</span><span class="s2">"cluster"</span><span class="p">)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># resolves to: ssh://user@hpc.university.edu/bash /home/user/codes/perfectgas/run.sh</span>
+</span></code></pre></div>
+<p>Inspect and validate what is installed with <a href="../../user-guide/core-functions/fzl/"><code>fzl</code></a>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>fzl<span class="w"> </span>--models<span class="w"> </span><span class="s2">"*"</span><span class="w"> </span>--calculators<span class="w"> </span><span class="s2">"*"</span><span class="w"> </span>--check<span class="w"> </span>--format<span class="w"> </span>markdown
+</span></code></pre></div>
+<h2 id="timeout-resolution-order">Timeout Resolution Order</h2>
+<p>Highest priority first:</p>
+<ol>
+<li><code>timeout=</code> argument to <code>fzr()</code> / <code>fzc()</code> (or <code>--timeout</code> on the CLI)</li>
+<li>Model field <code>model["timeout"]</code> (int seconds; <code>None</code>/<code>0</code> disables)</li>
+<li><code>FZ_RUN_TIMEOUT</code> (default <code>3600</code>)</li>
+</ol>
+<h2 id="argument-formats-cli">Argument Formats (CLI)</h2>
+<p><code>--model</code>, <code>--calculator</code>, and <code>--variables</code> each accept, tried in this order:</p>
+<ol>
+<li><strong>Alias</strong> — <code>--model perfectgas</code> (from <code>.fz/models/</code>)</li>
+<li><strong>JSON file</strong> — <code>--model model.json</code></li>
+<li><strong>Inline JSON</strong> — <code>--model '{"varprefix": "$"}'</code></li>
+</ol>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../environment/">Environment Variables</a> — every variable in detail</li>
+<li><a href="../../user-guide/model-definition/">Model Definition</a></li>
+<li><a href="../../user-guide/calculators/overview/">Calculators Overview</a></li>
+</ul>
 
 
 

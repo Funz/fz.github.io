@@ -969,6 +969,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2179,6 +2190,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2200,7 +2222,9 @@
 
 
 <h1 id="model-definition">Model Definition</h1>
-<p>A model defines how FZ parses inputs and extracts outputs. See the <a href="https://github.com/Funz/fz#model-definition">main FZ documentation</a> for complete details.</p>
+<p>A <strong>model</strong> tells FZ how to read variables out of your input templates and how to pull
+results out of the output files. It is a plain <code>dict</code> (or a JSON alias in
+<code>.fz/models/</code>).</p>
 <h2 id="common-fields">Common Fields</h2>
 <table>
 <thead>
@@ -2260,6 +2284,13 @@
 </ul>
 <p>Any of these may resolve to a <strong>list</strong> for vector-valued outputs (time series, profiles,
 spectra). Full details and helper reference: <a href="../core-functions/fzo/#output-command-forms">fzo — Output Command Forms</a>.</p>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../core-functions/fzi/">fzi</a> / <a href="../core-functions/fzc/">fzc</a> — variable parsing and substitution</li>
+<li><a href="../core-functions/fzo/#output-command-forms">fzo — Output Command Forms</a></li>
+<li><a href="../advanced/formulas/">Formula Evaluation</a> — <code>@{...}</code> expressions, interpreters, number formatting</li>
+<li><a href="https://github.com/Funz/fz/blob/main/doc/model-definition.md">Model syntax reference in the FZ repo</a></li>
+</ul>
 
 
 

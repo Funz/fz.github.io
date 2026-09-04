@@ -1917,6 +1917,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1933,6 +1951,80 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Arguments
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#config-helper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Config Helper
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2081,6 +2173,69 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Arguments
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#config-helper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Config Helper
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2100,15 +2255,97 @@
 
 
 <h1 id="api-reference">API Reference</h1>
+<p><code>import fz</code> exposes six functions. Each has a dedicated guide with full parameters and
+examples — this page is the at-a-glance summary.</p>
+<h2 id="functions">Functions</h2>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Signature (essentials)</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../../user-guide/core-functions/fzi/"><code>fzi</code></a></td>
+<td><code>fzi(input_path, model, input_static=None)</code></td>
+<td><code>dict</code> — variable names → <code>None</code></td>
+</tr>
+<tr>
+<td><a href="../../user-guide/core-functions/fzc/"><code>fzc</code></a></td>
+<td><code>fzc(input_path, input_variables, model, output_dir, input_static=None)</code></td>
+<td><code>None</code> (writes compiled files)</td>
+</tr>
+<tr>
+<td><a href="../../user-guide/core-functions/fzo/"><code>fzo</code></a></td>
+<td><code>fzo(output_dir, model)</code></td>
+<td><code>DataFrame</code> — one row per case</td>
+</tr>
+<tr>
+<td><a href="../../user-guide/core-functions/fzr/"><code>fzr</code></a></td>
+<td><code>fzr(input_path, input_variables, model, calculators, results_dir="results", *, input_static=None, case_naming="path", timeout=None, callbacks=None)</code></td>
+<td><code>DataFrame</code> — inputs + outputs + <code>status</code>/<code>calculator</code>/<code>error</code>/<code>command</code></td>
+</tr>
+<tr>
+<td><a href="../../user-guide/core-functions/fzd/"><code>fzd</code></a></td>
+<td><code>fzd(input_path, input_variables, model, output_expression, algorithm, calculators=None, algorithm_options=None, analysis_dir="analysis", *, input_static=None)</code></td>
+<td><code>dict</code> — <code>XY</code>, <code>analysis</code>, <code>iterations</code>, <code>total_evaluations</code>, <code>summary</code></td>
+</tr>
+<tr>
+<td><a href="../../user-guide/core-functions/fzl/"><code>fzl</code></a></td>
+<td><code>fzl(models="*", calculators="*", check=False)</code></td>
+<td><code>dict</code> — <code>{"models": ..., "calculators": ...}</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="common-arguments">Common Arguments</h2>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Accepted values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>model</code></td>
+<td><code>dict</code> definition, or a <code>str</code> alias resolved from <code>.fz/models/</code></td>
+</tr>
+<tr>
+<td><code>calculators</code></td>
+<td>a URI <code>str</code>, an alias <code>str</code>, or a <code>list</code> of them — <code>sh://</code>, <code>ssh://</code>, <code>slurm://</code>, <code>funz://</code>, <code>cache://</code></td>
+</tr>
+<tr>
+<td><code>input_variables</code></td>
+<td><code>{"x": [1, 2, 3]}</code> (list → varied), <code>{"x": 5}</code> (fixed); for <code>fzd</code>, <code>{"x": "[min;max]"}</code> ranges</td>
+</tr>
+<tr>
+<td><code>input_static</code></td>
+<td><code>list</code> of paths identical across every case — never templated or re-hashed per case <em>(1.2)</em></td>
+</tr>
+<tr>
+<td><code>output_expression</code></td>
+<td>(<code>fzd</code>) a <code>str</code> expression, or a <code>list</code> of expressions for a vector objective <em>(1.2)</em></td>
+</tr>
+</tbody>
+</table>
+<h2 id="config-helper">Config Helper</h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">fz</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_config</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">config</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span>          <span class="c1"># reads FZ_* environment variables</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">config</span><span class="o">.</span><span class="n">max_workers</span> <span class="o">=</span> <span class="mi">4</span>         <span class="c1"># override for the current process</span>
+</span></code></pre></div>
+<h2 id="cli">CLI</h2>
+<p>Every function has a matching command — <code>fzi</code>, <code>fzc</code>, <code>fzo</code>, <code>fzr</code>, <code>fzd</code>, <code>fzl</code> — plus
+<code>fz install</code> / <code>fz uninstall</code> for plugins. Results go to <strong>stdout</strong>, logs and the
+progress bar to <strong>stderr</strong>. See <a href="../configuration/#argument-formats-cli">Configuration</a>
+for the accepted argument formats.</p>
+<h2 id="see-also">See Also</h2>
 <ul>
-<li><a href="../../user-guide/core-functions/fzi/">fzi</a> - Parse input variables</li>
-<li><a href="../../user-guide/core-functions/fzc/">fzc</a> - Compile input files</li>
-<li><a href="../../user-guide/core-functions/fzo/">fzo</a> - Parse output files</li>
-<li><a href="../../user-guide/core-functions/fzr/">fzr</a> - Run parametric study</li>
-<li><a href="../../user-guide/core-functions/fzd/">fzd</a> - Design of experiments with adaptive algorithms</li>
-<li><a href="../../user-guide/core-functions/fzl/">fzl</a> - List and validate models/calculators</li>
+<li><a href="../configuration/">Configuration</a> · <a href="../environment/">Environment Variables</a></li>
+<li><a href="../../user-guide/model-definition/">Model Definition</a> · <a href="../../user-guide/calculators/overview/">Calculators Overview</a></li>
+<li>Deep dives in the <a href="https://github.com/Funz/fz/tree/main/doc">main FZ repository docs</a></li>
 </ul>
-<p>See the <a href="https://github.com/Funz/fz">main FZ documentation</a> for complete API details.</p>
 
 
 

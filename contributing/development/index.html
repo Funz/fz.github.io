@@ -2004,6 +2004,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -2020,6 +2038,80 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#package-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Package Layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#releasing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Releasing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2081,6 +2173,69 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#package-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Package Layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#releasing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Releasing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2100,7 +2255,84 @@
 
 
 <h1 id="development">Development</h1>
-<p>Contributing to FZ. See the <a href="https://github.com/Funz/fz#development">main FZ documentation</a> for complete details.</p>
+<p>FZ lives at <a href="https://github.com/Funz/fz">github.com/Funz/fz</a> (BSD 3-Clause). This page is
+a quick orientation for contributors; the canonical instructions are the repo's
+<code>README.md</code> and <code>CLAUDE.md</code>.</p>
+<h2 id="setup">Setup</h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Funz/fz.git
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>fz
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>venv/bin/activate
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">".[dev]"</span>
+</span></code></pre></div>
+<p>Optional extras: <code>paramiko</code> (SSH/SLURM), <code>pandas</code> (DataFrame output), <code>rpy2</code> + R
+(R interpreter and R algorithm plugins), <code>h5py</code> (HDF5 outputs).</p>
+<h2 id="package-layout">Package Layout</h2>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fz/core.py</code></td>
+<td>The public functions <code>fzi</code>, <code>fzc</code>, <code>fzo</code>, <code>fzr</code>, <code>fzd</code></td>
+</tr>
+<tr>
+<td><code>fz/interpreter.py</code></td>
+<td>Variable parsing, formula evaluation (Python / R)</td>
+</tr>
+<tr>
+<td><code>fz/runners.py</code></td>
+<td>Calculator backends — <code>sh://</code>, <code>ssh://</code>, <code>slurm://</code>, <code>funz://</code>, <code>cache://</code></td>
+</tr>
+<tr>
+<td><code>fz/helpers.py</code></td>
+<td>Parallel scheduling, retry, interrupt handling</td>
+</tr>
+<tr>
+<td><code>fz/io.py</code></td>
+<td>File staging, hashing, <code>.fz_hash</code> caching</td>
+</tr>
+<tr>
+<td><code>fz/algorithms.py</code></td>
+<td>Algorithm framework for <code>fzd</code></td>
+</tr>
+<tr>
+<td><code>fz/shell.py</code></td>
+<td>Shell utilities, <code>FZ_SHELL_PATH</code> binary resolution</td>
+</tr>
+<tr>
+<td><code>fz/cli.py</code></td>
+<td><code>fz</code>, <code>fzi</code>, <code>fzc</code>, <code>fzo</code>, <code>fzr</code>, <code>fzd</code>, <code>fzl</code> entry points</td>
+</tr>
+<tr>
+<td><code>fz/config.py</code></td>
+<td>Environment-variable configuration</td>
+</tr>
+</tbody>
+</table>
+<h2 id="workflow">Workflow</h2>
+<ol>
+<li>Fork and branch from <code>main</code>.</li>
+<li>Add or update tests under <code>tests/</code> for any behaviour change.</li>
+<li>Run the suite (see <a href="../testing/">Testing</a>) — keep it green on Linux, macOS, and
+   Windows where feasible.</li>
+<li>Update <code>NEWS.md</code> under <code>## Unreleased</code>.</li>
+<li>Open a pull request.</li>
+</ol>
+<h2 id="releasing">Releasing</h2>
+<p>Version lives in <code>fz/__init__.py</code> (<code>pyproject.toml</code> reads it dynamically). A release
+commit bumps that, folds <code>## Unreleased</code> into a dated <code>## Version X.Y</code> section in
+<code>NEWS.md</code>, and aligns the Claude Code plugin version. Publishing a GitHub Release with
+the matching tag triggers <code>release.yml</code>, which pushes to PyPI.</p>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../testing/">Testing</a></li>
+<li><a href="../../user-guide/core-functions/fzd/#writing-custom-algorithms">Writing Custom Algorithms</a></li>
+<li><a href="../../plugins/#creating-your-own-plugin">Plugin templates</a> — <code>fz-Model</code>, <code>fz-Algorithm</code>, <code>fz-AlgorithmR</code></li>
+</ul>
 
 
 

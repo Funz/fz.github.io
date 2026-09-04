@@ -1380,6 +1380,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2203,6 +2214,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2224,7 +2246,8 @@
 
 
 <h1 id="formula-evaluation">Formula Evaluation</h1>
-<p>Use Python or R expressions in input templates. See the <a href="https://github.com/Funz/fz#formula-evaluation">main FZ documentation</a> for complete details.</p>
+<p>FZ can evaluate <strong>Python or R expressions</strong> inside input templates, so a template can
+derive quantities from its variables instead of you precomputing them.</p>
 <h2 id="basic-syntax">Basic Syntax</h2>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Temperature: $T_celsius C
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a># formula context line (evaluated before the formulas below)
@@ -2278,6 +2301,12 @@ works with both the Python and R interpreters and with any preceding expression.
 <p>Set <code>model["interpreter"] = "R"</code> (or <code>FZ_INTERPRETER=R</code>) to evaluate formulas with R —
 <code>mean()</code>, <code>sd()</code>, <code>rnorm()</code>, and multi-line function definitions in <code>#@</code> context lines.
 Requires the <code>rpy2</code> package and an R installation.</p>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../../model-definition/">Model Definition</a> — <code>varprefix</code> / <code>formulaprefix</code> / <code>delim</code> / <code>commentline</code></li>
+<li><a href="../../core-functions/fzc/">fzc</a> — where formulas are evaluated</li>
+<li><a href="https://github.com/Funz/fz/blob/main/doc/formulas-and-interpreters.md">Formulas &amp; interpreters reference in the FZ repo</a></li>
+</ul>
 
 
 

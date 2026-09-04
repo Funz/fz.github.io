@@ -813,10 +813,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#parameters" class="md-nav__link">
+  <a href="#single-case" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Parameters
+        Single Case
       
     </span>
   </a>
@@ -824,10 +824,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
+  <a href="#grid-of-cases" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Example
+        Grid of Cases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#formulas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formulas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
       
     </span>
   </a>
@@ -2182,10 +2215,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#parameters" class="md-nav__link">
+  <a href="#single-case" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Parameters
+        Single Case
       
     </span>
   </a>
@@ -2193,10 +2226,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#example" class="md-nav__link">
+  <a href="#grid-of-cases" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Example
+        Grid of Cases
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#formulas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Formulas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
       
     </span>
   </a>
@@ -2224,30 +2290,86 @@
 
 
 <h1 id="fzc-compile-input-files">fzc - Compile Input Files</h1>
-<p>The <code>fzc</code> function compiles input files by substituting variable values and evaluating formulas.</p>
+<p><code>fzc</code> turns a template into ready-to-run input files: it substitutes variable values and
+evaluates formulas. With list-valued variables it writes one compiled case per
+combination (the Cartesian product).</p>
 <h2 id="function-signature">Function Signature</h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">fz</span><span class="o">.</span><span class="n">fzc</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">input_variables</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">fz</span><span class="o">.</span><span class="n">fzc</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">input_variables</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">input_static</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </span></code></pre></div>
-<h2 id="parameters">Parameters</h2>
-<ul>
-<li><code>input_path</code> (str): Path to input file or directory</li>
-<li><code>input_variables</code> (dict): Variable values (scalar or list)</li>
-<li><code>model</code> (dict): Model definition</li>
-<li><code>output_dir</code> (str): Output directory path</li>
-</ul>
-<h2 id="example">Example</h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">fz</span>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>input_path</code></td>
+<td><code>str</code></td>
+<td>Template file or directory</td>
+</tr>
+<tr>
+<td><code>input_variables</code></td>
+<td><code>dict</code></td>
+<td>Values — scalar (fixed) or list (varied)</td>
+</tr>
+<tr>
+<td><code>model</code></td>
+<td><code>dict</code> or <code>str</code></td>
+<td>Model definition or alias</td>
+</tr>
+<tr>
+<td><code>output_dir</code></td>
+<td><code>str</code></td>
+<td>Where compiled files are written</td>
+</tr>
+<tr>
+<td><code>input_static</code></td>
+<td><code>list</code>, optional</td>
+<td>Shared files symlinked into <code>output_dir</code> rather than templated/duplicated <em>(1.2)</em></td>
+</tr>
+</tbody>
+</table>
+<p>Returns <code>None</code>; the result is the files written under <code>output_dir</code>.</p>
+<h2 id="single-case">Single Case</h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">model</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"varprefix"</span><span class="p">:</span> <span class="s2">"$"</span><span class="p">,</span> <span class="s2">"formulaprefix"</span><span class="p">:</span> <span class="s2">"@"</span><span class="p">,</span> <span class="s2">"delim"</span><span class="p">:</span> <span class="s2">"</span><span class="si">{}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"commentline"</span><span class="p">:</span> <span class="s2">"#"</span><span class="p">}</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">model</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"varprefix"</span><span class="p">:</span> <span class="s2">"$"</span><span class="p">,</span> <span class="s2">"formulaprefix"</span><span class="p">:</span> <span class="s2">"@"</span><span class="p">}</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">fz</span><span class="o">.</span><span class="n">fzc</span><span class="p">(</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="s2">"input.txt"</span><span class="p">,</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="p">{</span><span class="s2">"temperature"</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="s2">"pressure"</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">},</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">model</span><span class="p">,</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="s2">"compiled"</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">)</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">fz</span><span class="o">.</span><span class="n">fzc</span><span class="p">(</span><span class="s2">"input.txt"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"temp"</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s2">"pressure"</span><span class="p">:</span> <span class="mf">101.3</span><span class="p">},</span> <span class="n">model</span><span class="p">,</span> <span class="s2">"compiled/"</span><span class="p">)</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># compiled/input.txt  — values substituted</span>
 </span></code></pre></div>
-<p>See the <a href="https://github.com/Funz/fz">main FZ documentation</a> for complete details.</p>
+<h2 id="grid-of-cases">Grid of Cases</h2>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">fz</span><span class="o">.</span><span class="n">fzc</span><span class="p">(</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="s2">"input.txt"</span><span class="p">,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="p">{</span><span class="s2">"temp"</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span> <span class="s2">"pressure"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="s2">"volume"</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">},</span>  <span class="c1"># 3 × 2 × fixed</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">model</span><span class="p">,</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="s2">"compiled_grid/"</span><span class="p">,</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">)</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># compiled_grid/temp=10,pressure=1/input.txt</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="c1"># compiled_grid/temp=10,pressure=10/input.txt</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1"># ... 6 directories total</span>
+</span></code></pre></div>
+<h2 id="formulas">Formulas</h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Temperature: $T_celsius C
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>#@ T_kelvin = $T_celsius + 273.15
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Temperature: @{T_kelvin | 0.00} K
+</span></code></pre></div>
+<p>Formula context lines (<code>#@ ...</code>) are evaluated first, then <code>@{...}</code> expressions are
+replaced. See <a href="../../advanced/formulas/">Formula Evaluation</a>, including the 1.2
+<code>DecimalFormat</code> number-formatting patterns.</p>
+<h2 id="cli">CLI</h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>fzc<span class="w"> </span>input.txt<span class="w"> </span>-m<span class="w"> </span>mymodel<span class="w"> </span>-v<span class="w"> </span><span class="s1">'{"temp": [10, 20, 30], "pressure": 1.0}'</span><span class="w"> </span>-o<span class="w"> </span>compiled/
+</span></code></pre></div>
+<p>Since <strong>1.2</strong>, <code>--input_variables</code> may be omitted when the template declares no
+variables.</p>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../fzi/">fzi</a> — find the variables first</li>
+<li><a href="../fzo/">fzo</a> — parse the outputs afterwards</li>
+<li><a href="../fzr/">fzr</a> — do all of it in one call</li>
+<li><a href="../../model-definition/">Model Definition</a></li>
+</ul>
 
 
 

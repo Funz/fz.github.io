@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ssh-remote-calculator" class="md-skip">
+        <a href="#ssh-remote-calculator-ssh" class="md-skip">
           Skip to content
         </a>
       
@@ -1038,6 +1038,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSH Remote
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1054,6 +1072,108 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#uri-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        URI Syntax
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#host-key-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Host Key Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote-script-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote Script Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2094,6 +2214,97 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#uri-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        URI Syntax
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#host-key-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Host Key Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote-script-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote Script Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2112,8 +2323,109 @@
   
 
 
-<h1 id="ssh-remote-calculator">SSH Remote Calculator</h1>
-<p>Execute calculations on remote servers via SSH. See the <a href="https://github.com/Funz/fz#ssh-remote-execution">main FZ documentation</a> for complete details.</p>
+<h1 id="ssh-remote-calculator-ssh">SSH Remote Calculator (<code>ssh://</code>)</h1>
+<p>The <code>ssh://</code> calculator runs each case on a remote host over SSH. Input files are
+uploaded by SFTP, the command runs in a remote temporary directory, and result files are
+downloaded back before the outputs are parsed.</p>
+<p>Requires the <code>paramiko</code> package (<code>pip install paramiko</code>).</p>
+<h2 id="uri-syntax">URI Syntax</h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ssh://[user[:password]@]host[:port]/command [arguments]
+</span></code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Key-based auth (recommended) — uses your ~/.ssh keys / agent</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">calculators</span> <span class="o">=</span> <span class="s2">"ssh://john@compute.edu/bash /home/john/run.sh"</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Custom port</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="n">calculators</span> <span class="o">=</span> <span class="s2">"ssh://john@server.edu:2222/bash /path/to/script.sh"</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Several remote nodes in parallel</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">calculators</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="s2">"ssh://user@node1.cluster.edu/bash /path/run.sh"</span><span class="p">,</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>    <span class="s2">"ssh://user@node2.cluster.edu/bash /path/run.sh"</span><span class="p">,</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="p">]</span>
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Use absolute paths for remote commands</p>
+<p><code>ssh://user@host/bash script.sh</code> may not resolve on the remote side. Prefer
+<code>ssh://user@host/bash /absolute/path/to/script.sh</code>.</p>
+</div>
+<h2 id="how-it-works">How It Works</h2>
+<ol>
+<li>Open an SSH connection (key, agent, URI password, or interactive prompt).</li>
+<li>Create a remote temporary directory.</li>
+<li>SFTP-upload the compiled input files (and relative <a href="../../core-functions/fzr/#shared-static-files-new-in-12"><code>input_static</code></a> files).</li>
+<li>Run the command remotely in that directory.</li>
+<li>SFTP-download the result files.</li>
+<li>Remove the remote temp directory.</li>
+</ol>
+<h2 id="authentication">Authentication</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>How</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SSH key / agent</td>
+<td><code>ssh://user@host/...</code> — keys from <code>~/.ssh/</code> are tried automatically (recommended)</td>
+</tr>
+<tr>
+<td>Interactive password</td>
+<td><code>ssh://user@host/...</code> — FZ prompts if key auth fails</td>
+</tr>
+<tr>
+<td>Password in URI</td>
+<td><code>ssh://user:password@host/...</code> — insecure, avoid in production</td>
+</tr>
+</tbody>
+</table>
+<h3 id="host-key-verification">Host Key Verification</h3>
+<p>On first connection to an unknown host, FZ shows the fingerprint and asks whether to
+accept it. To skip the prompt (use with care):</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">FZ_SSH_AUTO_ACCEPT_HOSTKEYS</span><span class="o">=</span><span class="m">1</span>
+</span></code></pre></div>
+<h2 id="configuration">Configuration</h2>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Purpose</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FZ_SSH_KEEPALIVE</code></td>
+<td>Keepalive interval, seconds</td>
+<td><code>300</code></td>
+</tr>
+<tr>
+<td><code>FZ_SSH_AUTO_ACCEPT_HOSTKEYS</code></td>
+<td>Auto-accept unknown host keys</td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>FZ_RUN_TIMEOUT</code></td>
+<td>Per-case timeout, seconds</td>
+<td><code>3600</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="remote-script-example">Remote Script Example</h2>
+<div class="language-bash highlight"><span class="filename">/home/user/run.sh (on the server)</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">source</span><span class="w"> </span>input.txt
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>module<span class="w"> </span>load<span class="w"> </span>gcc/11.2<span class="w"> </span>openmpi/4.1
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>mpirun<span class="w"> </span>-np<span class="w"> </span><span class="m">16</span><span class="w"> </span>./simulation<span class="w"> </span>input.txt
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1"># results written to output.txt, downloaded by FZ</span>
+</span></code></pre></div>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../shell/">Local Shell</a> · <a href="../slurm/">SLURM</a> (SSH + <code>srun</code>) · <a href="../funz/">Funz Server</a> · <a href="../cache/">Cache</a></li>
+<li><a href="../../../examples/hpc/">Remote HPC Example</a></li>
+<li><a href="../../../reference/environment/#ssh-configuration">Environment Variables</a></li>
+</ul>
 
 
 

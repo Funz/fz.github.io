@@ -1269,6 +1269,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interrupt Handling
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1285,6 +1303,69 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-happens-on-ctrlc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Happens on Ctrl+C
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resuming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resuming
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calling-from-a-background-thread-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calling From a Background Thread (1.2)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2094,6 +2175,58 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-happens-on-ctrlc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Happens on Ctrl+C
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resuming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resuming
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calling-from-a-background-thread-12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calling From a Background Thread (1.2)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2113,7 +2246,41 @@
 
 
 <h1 id="interrupt-handling">Interrupt Handling</h1>
-<p>Graceful shutdown with Ctrl+C. See the <a href="https://github.com/Funz/fz#interrupt-handling">main FZ documentation</a> for complete details.</p>
+<p><code>fzr</code> and <code>fzd</code> install a <code>SIGINT</code> handler so <strong>Ctrl+C</strong> stops a run cleanly instead of
+leaving orphaned processes or half-written directories.</p>
+<h2 id="what-happens-on-ctrlc">What Happens on Ctrl+C</h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>⚠️  Interrupt received (Ctrl+C). Gracefully shutting down...
+</span></code></pre></div>
+<ol>
+<li>Cases already running are allowed to finish.</li>
+<li>No new cases are started.</li>
+<li>Results collected so far are written out.</li>
+<li>For <code>ssh://</code> / <code>slurm://</code> / <code>funz://</code>, the remote job is signalled to terminate and
+   the remote temp directory is cleaned up.</li>
+</ol>
+<p>A second Ctrl+C forces an immediate exit.</p>
+<h2 id="resuming">Resuming</h2>
+<p>Because completed cases are on disk with their <code>.fz_hash</code>, add a
+<a href="../../calculators/cache/"><code>cache://</code></a> entry pointing at the interrupted run:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">try</span><span class="p">:</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span><span class="s2">"input.txt"</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="s2">"sh://bash calc.sh"</span><span class="p">,</span> <span class="n">results_dir</span><span class="o">=</span><span class="s2">"run1"</span><span class="p">)</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"Interrupted — partial results saved"</span><span class="p">)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span><span class="s2">"input.txt"</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>       <span class="p">[</span><span class="s2">"cache://run1"</span><span class="p">,</span> <span class="s2">"sh://bash calc.sh"</span><span class="p">],</span> <span class="n">results_dir</span><span class="o">=</span><span class="s2">"run1_resumed"</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="calling-from-a-background-thread-12">Calling From a Background Thread (1.2)</h2>
+<p>Signal handlers can only be installed from the main thread. Since <strong>1.2</strong>, <code>fzr</code> / <code>fzd</code>
+detect when they are called off the main thread (Streamlit reruns, a
+<code>ThreadPoolExecutor</code> worker, an app embedding fz) and <strong>skip</strong> the handler install
+instead of raising <code>ValueError: signal only works in main thread</code>. Ctrl+C handling is
+simply unavailable in that case; everything else works normally.</p>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../caching/">Caching Strategy</a> · <a href="../../calculators/cache/">Cache Calculator</a></li>
+<li><a href="../parallel/">Parallel Execution</a></li>
+</ul>
 
 
 

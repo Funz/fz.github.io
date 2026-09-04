@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#local-shell-calculator" class="md-skip">
+        <a href="#local-shell-calculator-sh" class="md-skip">
           Skip to content
         </a>
       
@@ -1010,6 +1010,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local Shell
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1026,6 +1044,91 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#uri-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        URI Syntax
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-calculator-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Calculator Script
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parallel-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Execution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2094,6 +2197,80 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#uri-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        URI Syntax
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-calculator-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example Calculator Script
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parallel-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Execution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#see-also" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        See Also
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2112,8 +2289,72 @@
   
 
 
-<h1 id="local-shell-calculator">Local Shell Calculator</h1>
-<p>Execute calculations locally using shell commands. See the <a href="https://github.com/Funz/fz#local-shell-execution">main FZ documentation</a> for complete details.</p>
+<h1 id="local-shell-calculator-sh">Local Shell Calculator (<code>sh://</code>)</h1>
+<p>The <code>sh://</code> calculator runs your computational code locally, in a shell, in a private
+temporary directory per case. It is the default calculator and the one used in most
+examples.</p>
+<h2 id="uri-syntax">URI Syntax</h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sh://command [arguments]
+</span></code></pre></div>
+<p>The command is whatever you would type to run one case by hand — a script, an
+interpreter plus a script, or a compiled binary:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">calculators</span> <span class="o">=</span> <span class="s2">"sh://bash calculate.sh"</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">calculators</span> <span class="o">=</span> <span class="s2">"sh://python3 simulate.py --verbose"</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">calculators</span> <span class="o">=</span> <span class="s2">"sh://./run_simulation"</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">calculators</span> <span class="o">=</span> <span class="s2">"sh://bash run.sh --method=fast --tolerance=1e-6"</span>
+</span></code></pre></div>
+<h2 id="how-it-works">How It Works</h2>
+<ol>
+<li>FZ creates a unique temporary directory for the case.</li>
+<li>All compiled input files (and any <a href="../../core-functions/fzr/#shared-static-files-new-in-12"><code>input_static</code></a> files) are copied/linked in.</li>
+<li>The command runs in that directory, receiving the input file name(s) as arguments:
+   <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>bash<span class="w"> </span>calculate.sh<span class="w"> </span>input.txt<span class="w">          </span><span class="c1"># single input file</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>bash<span class="w"> </span>calculate.sh<span class="w"> </span>file1.txt<span class="w"> </span>cfg.ini<span class="w">  </span><span class="c1"># multiple input files</span>
+</span></code></pre></div></li>
+<li>Outputs are extracted with the model's <a href="../../model-definition/#output-extraction-updated-in-12"><code>output</code></a> specs.</li>
+<li>The temp directory is removed (kept when <code>FZ_LOG_LEVEL=DEBUG</code>).</li>
+</ol>
+<h2 id="example-calculator-script">Example Calculator Script</h2>
+<div class="language-bash highlight"><span class="filename">calculate.sh</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nv">INPUT_FILE</span><span class="o">=</span><span class="nv">$1</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Read input variables written by the compiled template</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nb">source</span><span class="w"> </span><span class="s2">"</span><span class="nv">$INPUT_FILE</span><span class="s2">"</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"Running with temp=</span><span class="nv">$temp</span><span class="s2">, pressure=</span><span class="nv">$pressure</span><span class="s2">"</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="nv">result</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"scale=2; </span><span class="nv">$temp</span><span class="s2"> * </span><span class="nv">$pressure</span><span class="s2"> / 100"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>bc<span class="k">)</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"result=</span><span class="nv">$result</span><span class="s2">"</span><span class="w"> </span>&gt;<span class="w"> </span>output.txt
+</span></code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">model</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="s2">"varprefix"</span><span class="p">:</span> <span class="s2">"$"</span><span class="p">,</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="s2">"output"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"result"</span><span class="p">:</span> <span class="s2">"grep 'result=' output.txt | cut -d= -f2"</span><span class="p">},</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="p">}</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="s2">"input.txt"</span><span class="p">,</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="p">{</span><span class="s2">"temp"</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">],</span> <span class="s2">"pressure"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">]},</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="n">model</span><span class="p">,</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="n">calculators</span><span class="o">=</span><span class="s2">"sh://bash calculate.sh"</span><span class="p">,</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="parallel-execution">Parallel Execution</h2>
+<p>Each calculator entry handles one case at a time. Pass several to run cases concurrently:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">calculators</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"sh://bash calc.sh"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span>   <span class="c1"># 4 workers</span>
+</span></code></pre></div>
+<p>See <a href="../../advanced/parallel/">Parallel Execution</a> for details.</p>
+<h2 id="windows">Windows</h2>
+<p><code>sh://</code> needs a POSIX shell and the usual Unix utilities. Install MSYS2 or Git Bash and
+point <a href="../../../reference/environment/#fz_shell_path-new-in-091"><code>FZ_SHELL_PATH</code></a> at their
+<code>bin</code> directories. Since 1.2, <code>import fz</code> itself works without bash — only <code>sh://</code> and
+<code>bash://</code> outputs require it; the <a href="../../core-functions/fzo/#output-command-forms"><code>python://</code> / <code>jq://</code> / <code>yq://</code> / <code>xpath://</code></a>
+output forms do not.</p>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="../ssh/">SSH Remote Calculator</a> · <a href="../slurm/">SLURM</a> · <a href="../funz/">Funz Server</a> · <a href="../cache/">Cache</a></li>
+<li><a href="../overview/">Calculators Overview</a></li>
+<li><a href="../../../reference/environment/">Environment Variables</a></li>
+</ul>
 
 
 
