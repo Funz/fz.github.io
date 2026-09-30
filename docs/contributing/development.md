@@ -36,7 +36,7 @@ algorithms, extra `[r]`), `mcp` (extra `[mcp]`, Python ≥ 3.10), `h5py`, `jq`, 
 | `fz/config.py`, `fz/logging.py`, `fz/shell.py` | Configuration (`FZ_*`), logs, bash / `FZ_SHELL_PATH` resolution |
 
 Documentation lives in three places that must stay consistent when the API or the CLI
-changes: `README.md`, `doc/`, and the agent skill `skills/fz/` (tested by
+changes: `README.md` (overview, under 300 lines), `doc/` (one file per topic), and the agent skill `skills/fz/` (tested by
 `tests/test_skill_static.py`). This website is a separate repository,
 [Funz/fz.github.io](https://github.com/Funz/fz.github.io).
 

@@ -25,18 +25,22 @@ calculators = ["sh://bash calculate.sh"] * 4        # 4 cases at a time
 Exit status 0 means the run succeeded; the case is then `done` if outputs can be
 parsed. A non-zero status is a failure and the case is retried.
 
-## Path rewriting in the command line
+## File names in the command line
 
-!!! warning "Relative file names are resolved against the launch directory"
-    Before running, every token of the command that looks like a file name
-    (`calculate.sh`, `data/mesh.msh`, `result.txt`) is made **absolute relative to the
-    directory from which `fzr` was called**, not the case directory. Common tools
-    (`bash`, `sh`, `python`, `python3`, `cat`, `cp`, `mv`, `rm`, `grep`, `awk`, `sed`,
-    ...), flags (`-x`, `--opt=v`) and numbers are left unchanged.
+- A bare word naming a file (`calculate.sh`, `data.txt`) is made absolute in the
+  **launch directory** only if it exists there **and not** in the case directory: a
+  helper script next to your Python script works (`sh://bash calculate.sh`), while the
+  compiled inputs of the case always win. Targets of `>`, `>>`, `2>` are never rewritten.
+  Each rewritten word is logged at INFO level; the `command` column shows the result.
+- The compiled input file names are appended to the end of the **whole** command line,
+  after pipes and redirections: `sh://cat input.txt > res.txt` runs
+  `cat input.txt > res.txt input.txt`, so `res.txt` contains the input twice.
 
-    `sh://cat input.txt > res.txt` therefore reads the **uncompiled template** of the
-    launch directory and writes `res.txt` outside the case; the case ends `done` with
-    empty outputs.
+!!! note "Before this fix (fz ≤ 1.2)"
+    Every file-looking word was rewritten to the launch directory, even when absent:
+    `sh://cat input.txt > res.txt` read the **uncompiled template** and wrote `res.txt`
+    outside the case, without error. Results obtained with such commands should be
+    re-checked.
 
 **Rule:** put the work in a script and launch it with `sh://bash script.sh`. Inside the
 script, relative paths are the case directory, and `$1`, `$2`, ... are the compiled
@@ -48,8 +52,6 @@ input files.
 source "$1"
 ./solver --in "$1" --out result.dat > solver.log 2>&1 || exit 1
 ```
-
-The rewritten command is logged at INFO level and stored in the `command` column.
 
 ## Windows
 

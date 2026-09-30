@@ -28,6 +28,14 @@ in the fz repository.
 - **Security**: threat model documented; remote commands built by fz are shell-quoted;
   remote cleanup restricted to fz's directories; passwords in URIs masked everywhere
   ([Security Model](security.md)).
+- **Fix (P0-8)**: `sh://` no longer rewrites words to non-existent files of the launch
+  directory, nor redirection targets. Before, `sh://cat in.txt > out.txt` read the
+  uncompiled template and wrote outside the case: re-check results of such commands.
+- Python 3.14 in the stable CI matrix (Linux, macOS, Windows) and declared.
+- Ignored legacy caches are reported by a warning; a failing `version_cmd` gives "no
+  identity" instead of its error text; the "no timeout" warning is logged once per
+  scheme and campaign.
+- fz documentation reorganized: short README, one file per topic in `doc/`.
 - `fz install model` installs every model of a repository.
 - `fzc`/`fzr` evaluate formulas using inline variable defaults, as `fzi` does.
 - Error reports no longer blame the command for a "not found" printed by the code.

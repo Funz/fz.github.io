@@ -17,7 +17,8 @@ fz.set_log_level("DEBUG")        # or FZ_LOG_LEVEL=DEBUG before starting Python
 | `fzi` reports unexpected variables | `varprefix` collides with the code's syntax | Change `varprefix` (e.g. `%`) |
 | `status` `done` but output `None`, `error` = `Missing output: ...` | Extractor found nothing: wrong file/pattern, file written elsewhere, locale | Test the extractor with `fzo` on the case directory |
 | Output value equals the program's stdout | The code writes `out.txt` (reserved, overwritten by stdout) | Rename the code's output file |
-| Result file appears in the launch directory, not in the case | File names in the `sh://` command line are made absolute against the launch directory | Move file handling into a script run as `sh://bash script.sh` |
+| Result file contains the input twice, or the command gets unexpected arguments | The compiled input names are appended to the end of the `sh://` command line | Move file handling into a script run as `sh://bash script.sh` |
+| fz ≤ 1.2: result file in the launch directory, template read uncompiled | Old `sh://` path rewriting (fixed after 1.2, P0-8) | Upgrade; re-check results of such commands |
 | Every case `timeout` immediately | `FZ_RUN_TIMEOUT=0` or `timeout=0` | Use model `"timeout": null`, or a positive value |
 | `ssh://`/`slurm://` run never ends | No default timeout for these calculators | Set `FZ_RUN_TIMEOUT` or the model's `timeout` |
 | Changing `os.environ["FZ_..."]` has no effect | Configuration is read at import | `fz.reload_config()` |

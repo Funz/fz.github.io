@@ -12,6 +12,7 @@ calculators).
 | `#@` context lines and `@{...}` formulas | Input templates | Python `exec`/`eval`, or R |
 | Output extractors (shell, `python://`, callables) | Model `output` | bash / Python |
 | Calculator commands | Calculator URIs and aliases, installed wrappers' scripts | bash, locally or remotely |
+| `version_cmd` of calculator aliases | Calculator aliases | bash, locally (`sh://`) or on the remote host (`ssh://`) |
 | Algorithm classes | `fzd` algorithm files | Python / R |
 | `#require:` lines of algorithms | Algorithm files | `pip install` of the listed packages |
 
@@ -29,7 +30,10 @@ reminder of this.
   remote heredoc.
 - Passwords embedded in `ssh://` / `slurm://` URIs are masked in the DataFrame,
   `info.txt`, `history.txt`, logs and `manifest.json`.
-- SLURM resource values in URIs are validated against a whitelist.
+- SLURM resource values in URIs are validated against a whitelist; the remote
+  interrupt command (`pkill`/`pgrep` pattern) is shell-quoted.
+- `sh://` no longer rewrites words to files of the launch directory that do not exist
+  there, nor redirection targets (P0-8).
 
 These measures protect fz's own command construction. They do not restrict the user's
 commands, formulas or extractors.

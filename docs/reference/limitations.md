@@ -102,14 +102,13 @@ rule, the consequence, and what to do instead. Items were checked against the co
 - **The command runs inside a per-case temporary directory**, and the case's input file
   names are **appended to the end of the whole command line** (`.` when there are none).
   With pipes or redirections, they are appended after the last element.
-- **Relative paths in the command are made absolute against the directory `fzr` was
-  launched from**, not the case directory. Every token that looks like a file name is
-  rewritten (e.g. `run.sh`, `data/mesh.msh`, `result.txt`; a fixed list of common tools
-  such as `bash`, `python`, `cat`, `cp`, `grep` is left alone). Consequence:
-  `sh://cat input.txt > res.txt` reads the *uncompiled* template of the launch directory
-  and writes `res.txt` outside the case. **Put the work in a script** and launch it with
-  `sh://bash run.sh`: inside the script, relative paths refer to the case directory and
-  `$1`, `$2`, ... are the compiled input files.
+- **File names in the command**: a bare word (`run.sh`, `data.txt`) is made absolute in
+  the launch directory only if it exists there **and not** in the case directory;
+  redirection targets stay in the case directory. Consequence of the appended arguments:
+  `sh://cat input.txt > res.txt` runs `cat input.txt > res.txt input.txt` and `res.txt`
+  holds the input twice. **Put the work in a script** (`sh://bash run.sh`): inside it,
+  relative paths refer to the case directory and `$1`, `$2`, ... are the compiled input
+  files.
 - `ssh://` and `slurm://` commands run on the remote side: use absolute remote paths.
 
 ## Files and directories
@@ -130,9 +129,9 @@ rule, the consequence, and what to do instead. Items were checked against the co
   `fzo` inside that sub-directory (or on the glob `output_dir/*`); `fzo output_dir`
   itself returns a row of `None`.
 - **Global wrapper installs:** `fz install model <X> --global` copies the wrapper to `~/.fz/`, but its calculator
-  alias keeps the command `bash .fz/calculators/<X>.sh`, which `sh://` resolves against the
-  **launch directory**: runs from any other directory fail (`Command not found locally:
-  '<cwd>/.fz/calculators/<X>.sh'`). Prefer project-local installs, or edit
+  alias keeps the relative command `bash .fz/calculators/<X>.sh`, looked up in the
+  launch directory, then the case directory, never in `~/.fz/`: runs from any other
+  directory fail (`Command not found locally: '.fz/calculators/<X>.sh'`). Prefer project-local installs, or edit
   `~/.fz/calculators/localhost_<X>.json` to use the absolute path of the script (`~` is
   not expanded).
 - **Existing results directories are not overwritten in place**: an existing

@@ -4,7 +4,7 @@
 
 | Item | Requirement |
 |------|-------------|
-| Python | ≥ 3.9 (CI tests 3.9 to 3.13; 3.14 as pre-release only) |
+| Python | ≥ 3.9 (CI tests 3.9 to 3.14 on Linux, macOS and Windows; 3.9 not on Windows) |
 | Required packages | `paramiko`, `pandas`, `charset-normalizer` (installed automatically) |
 | bash | Needed by `sh://` calculators and shell output commands. Native on Linux/macOS; MSYS2 or Git Bash on Windows |
 | Operating system | Linux, macOS, Windows |

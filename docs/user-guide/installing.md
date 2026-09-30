@@ -59,9 +59,9 @@ README states what it expects (path, environment variables).
 
 !!! warning "`--global` installs and runner scripts"
     `fz install model <X> --global` copies the wrapper to `~/.fz/`, but its calculator
-    alias keeps the command `bash .fz/calculators/<X>.sh`, which `sh://` resolves against the
-    **launch directory**: runs from any other directory fail (`Command not found locally:
-    '<cwd>/.fz/calculators/<X>.sh'`). Prefer project-local installs, or edit
+    alias keeps the relative command `bash .fz/calculators/<X>.sh`, looked up in the
+    launch directory, then the case directory, never in `~/.fz/`: runs from any other
+    directory fail (`Command not found locally: '.fz/calculators/<X>.sh'`). Prefer project-local installs, or edit
     `~/.fz/calculators/localhost_<X>.json` to use the absolute path of the script (`~` is
     not expanded).
 

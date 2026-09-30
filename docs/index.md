@@ -121,7 +121,7 @@ Each function exists in Python (`fz.fzr(...)`) and as a command (`fzr ...` or
 
 ## Requirements
 
-- Python ≥ 3.9 (tested 3.9–3.13); dependencies `paramiko`, `pandas`, `charset-normalizer`.
+- Python ≥ 3.9 (tested 3.9–3.14); dependencies `paramiko`, `pandas`, `charset-normalizer`.
 - **bash** for shell calculators and shell output commands (MSYS2 or Git Bash on
   Windows, located with `FZ_SHELL_PATH`).
 - Optional: `rpy2` + R (R formulas), `mcp` on Python ≥ 3.10 (`fz-mcp`), `h5py`, `jq`,

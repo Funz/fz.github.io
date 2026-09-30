@@ -42,9 +42,11 @@ distinguish code versions, calculator aliases can declare their identity:
 | Same `code_id` on both sides | Match, whatever the commands |
 | Different `code_id` | Never matches |
 | No `code_id` on one or both sides | Match with a one-time warning; refused with `FZ_CACHE_STRICT=1` |
-| Cache written in the old MD5 format | Ignored; considered with `FZ_CACHE_ACCEPT_LEGACY=1` (then as "no `code_id`") |
+| Cache written in the old MD5 format | Ignored, with a one-time warning; considered with `FZ_CACHE_ACCEPT_LEGACY=1` (then as "no `code_id`") |
 
-`version_cmd` is run once per calculator per session; its output becomes the `code_id`.
+`version_cmd` is run once per calculator per session (locally for `sh://`, on the remote
+host for `ssh://`); its output becomes the `code_id`. If it exits with a non-zero status,
+the calculator is treated as having no declared identity, with a warning.
 
 ## Patterns
 
