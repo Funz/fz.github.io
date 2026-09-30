@@ -1,31 +1,49 @@
-import os
+"""Check that the built site (mkdocs build) contains every page of the navigation."""
+import sys
 from pathlib import Path
 
-# Check key pages exist
-key_pages = [
-    'site/index.html',
-    'site/getting-started/installation/index.html',
-    'site/getting-started/quickstart/index.html',
-    'site/user-guide/core-functions/fzr/index.html',
-    'site/plugins/index.html',
-    'site/examples/perfectgas/index.html',
-    'site/examples/colab/index.html'
-]
+import yaml
 
-print("Checking documentation structure...")
-all_exist = True
-for page in key_pages:
-    exists = os.path.exists(page)
-    status = "✓" if exists else "✗"
-    print(f"{status} {page}")
-    if not exists:
-        all_exist = False
 
-if all_exist:
-    print("\n✓ All key pages built successfully!")
-else:
-    print("\n✗ Some pages are missing")
+class _Loader(yaml.SafeLoader):
+    pass
 
-# Count total pages
-html_files = list(Path('site').rglob('*.html'))
-print(f"\nTotal HTML pages: {len(html_files)}")
+
+# mkdocs.yml uses !!python/name tags (emoji, mermaid fences): accept them as strings
+_Loader.add_multi_constructor("tag:yaml.org,2002:python/", lambda loader, suffix, node: None)
+
+
+def nav_pages(nav):
+    for item in nav:
+        if isinstance(item, str):
+            yield item
+        elif isinstance(item, dict):
+            for value in item.values():
+                if isinstance(value, str):
+                    yield value
+                else:
+                    yield from nav_pages(value)
+
+
+def main():
+    config = yaml.load(Path("mkdocs.yml").read_text(), Loader=_Loader)
+    missing = []
+    for page in nav_pages(config["nav"]):
+        html = Path("site") / (page[:-3] + "/index.html" if not page.endswith("index.md") else page[:-3] + ".html")
+        if not html.exists():
+            missing.append(str(html))
+    redirects = next(p["redirects"]["redirect_maps"] for p in config["plugins"]
+                     if isinstance(p, dict) and "redirects" in p)
+    for old in redirects:
+        html = Path("site") / (old[:-3] + "/index.html")
+        if not html.exists():
+            missing.append(str(html))
+    if missing:
+        print("Missing pages:\n  " + "\n  ".join(missing))
+        return 1
+    print(f"OK: {len(list(nav_pages(config['nav'])))} navigation pages and {len(redirects)} redirects built")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

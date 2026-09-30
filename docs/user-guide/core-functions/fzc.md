@@ -1,72 +1,74 @@
-# fzc - Compile Input Files
+# fzc - Compile
 
-`fzc` turns a template into ready-to-run input files: it substitutes variable values and
-evaluates formulas. With list-valued variables it writes one compiled case per
-combination (the Cartesian product).
-
-## Function Signature
+`fzc` substitutes values into a template and evaluates its formulas, writing one
+compiled copy per case. It runs nothing: use it to check compilation before a study.
 
 ```python
-fz.fzc(input_path, input_variables, model, output_dir, input_static=None)
+fz.fzc(input_path, input_variables=None, model=None, output_dir="output",
+       input_static=None) -> None
 ```
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `input_path` | `str` | Template file or directory |
-| `input_variables` | `dict` | Values — scalar (fixed) or list (varied) |
-| `model` | `dict` or `str` | Model definition or alias |
-| `output_dir` | `str` | Where compiled files are written |
-| `input_static` | `list`, optional | Shared files symlinked into `output_dir` rather than templated/duplicated *(1.2)* |
+| Parameter | Description |
+|-----------|-------------|
+| `input_path` | Template file or directory |
+| `input_variables` | `{"x": 1}` (fixed) or `{"x": [1, 2]}` (one case per value, Cartesian product); may be omitted when the template has no variables |
+| `model` | Model dict, JSON string/file or alias |
+| `output_dir` | Destination (default `output`) |
+| `input_static` | Shared files, linked rather than templated |
 
-Returns `None`; the result is the files written under `output_dir`.
+## Output layout
 
-## Single Case
+When the template declares variables, **each case gets a sub-directory named after its
+values, even when all values are scalars**:
 
 ```python
-model = {"varprefix": "$", "formulaprefix": "@", "delim": "{}", "commentline": "#"}
+fz.fzc("input.txt", {"T": 25, "P": 1.0}, {"delim": "{}"}, "compiled")
+# compiled/T=25,P=1.0/input.txt
 
-fz.fzc("input.txt", {"temp": 25, "pressure": 101.3}, model, "compiled/")
-# compiled/input.txt  — values substituted
+fz.fzc("input.txt", {"T": [10, 20], "P": [1, 10], "V": 1.0}, {"delim": "{}"}, "grid")
+# grid/T=10,P=1,V=1.0/input.txt
+# grid/T=10,P=10,V=1.0/input.txt
+# grid/T=20,P=1,V=1.0/input.txt
+# grid/T=20,P=10,V=1.0/input.txt
 ```
 
-## Grid of Cases
+- An existing `output_dir` is renamed with a timestamp suffix before writing.
+- Each case directory also receives `.fz_hash` (SHA-256 of the compiled files).
+- A variable that is neither given nor defaulted is left unchanged in the file.
+- A template without variables is compiled directly into `output_dir/`.
 
-```python
-fz.fzc(
-    "input.txt",
-    {"temp": [10, 20, 30], "pressure": [1, 10], "volume": 1.0},  # 3 × 2 × fixed
-    model,
-    "compiled_grid/",
-)
-# compiled_grid/temp=10,pressure=1/input.txt
-# compiled_grid/temp=10,pressure=10/input.txt
-# ... 6 directories total
-```
+To test a compiled case by hand, run the code **inside the case sub-directory** and
+point `fzo` at it (or at `compiled/*`), not at `compiled/`.
 
 ## Formulas
 
 ```text
 Temperature: $T_celsius C
 #@ T_kelvin = $T_celsius + 273.15
-Temperature: @{T_kelvin | 0.00} K
+Calculated T: @{T_kelvin | 0.00} K
 ```
 
-Formula context lines (`#@ ...`) are evaluated first, then `@{...}` expressions are
-replaced. See [Formula Evaluation](../advanced/formulas.md), including the 1.2
-`DecimalFormat` number-formatting patterns.
+gives, for `T_celsius=25`:
+
+```text
+Temperature: 25 C
+#@ T_kelvin = 25 + 273.15
+Calculated T: 298.15 K
+```
+
+Context lines stay in the file (with variables substituted). See
+[Formulas](../templates/formulas.md).
 
 ## CLI
 
 ```bash
-fzc input.txt -m mymodel -v '{"temp": [10, 20, 30], "pressure": 1.0}' -o compiled/
+fzc input.txt --model mymodel \
+    --input_variables '{"T": [10, 20], "P": 1.0}' --output_dir compiled/
 ```
 
-Since **1.2**, `--input_variables` may be omitted when the template declares no
-variables.
+`--input_variables` accepts inline JSON or a JSON file and may be omitted for a
+template without variables; `fzc` has no `--format` option.
 
-## See Also
+## See also
 
-- [fzi](fzi.md) — find the variables first
-- [fzo](fzo.md) — parse the outputs afterwards
-- [fzr](fzr.md) — do all of it in one call
-- [Model Definition](../model-definition.md)
+[fzi](fzi.md) · [fzo](fzo.md) · [fzr](fzr.md) · [Input Template Syntax](../templates/syntax.md)

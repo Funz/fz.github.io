@@ -13,22 +13,32 @@ python -m venv venv && source venv/bin/activate
 pip install -e ".[dev]"
 ```
 
-Optional extras: `paramiko` (SSH/SLURM), `pandas` (DataFrame output), `rpy2` + R
-(R interpreter and R algorithm plugins), `h5py` (HDF5 outputs).
+`paramiko` and `pandas` are required dependencies. Optional: `rpy2` + R (R formulas and
+algorithms, extra `[r]`), `mcp` (extra `[mcp]`, Python ≥ 3.10), `h5py`, `jq`, `yq`,
+`xmllint`.
 
 ## Package Layout
 
 | Module | Responsibility |
 |--------|----------------|
-| `fz/core.py` | The public functions `fzi`, `fzc`, `fzo`, `fzr`, `fzd` |
+| `fz/core.py` | Public functions `fzi`, `fzc`, `fzo`, `fzr`, `fzd`, `fzl` |
+| `fz/cli.py` | Entry points `fz`, `fzi`, `fzc`, `fzo`, `fzr`, `fzd`, `fzl` |
 | `fz/interpreter.py` | Variable parsing, formula evaluation (Python / R) |
-| `fz/runners.py` | Calculator backends — `sh://`, `ssh://`, `slurm://`, `funz://`, `cache://` |
-| `fz/helpers.py` | Parallel scheduling, retry, interrupt handling |
-| `fz/io.py` | File staging, hashing, `.fz_hash` caching |
-| `fz/algorithms.py` | Algorithm framework for `fzd` |
-| `fz/shell.py` | Shell utilities, `FZ_SHELL_PATH` binary resolution |
-| `fz/cli.py` | `fz`, `fzi`, `fzc`, `fzo`, `fzr`, `fzd`, `fzl` entry points |
-| `fz/config.py` | Environment-variable configuration |
+| `fz/outparsers.py` | `python://`, `jq://`, `yq://`, `xpath://` output extractors |
+| `fz/runners/` | Calculator backends: `sh`, `ssh`, `slurm`, `slurm_array`, `funz`, `cache`, plus `dispatch`, `manager`, `resolve`, `base` |
+| `fz/slurm_async.py` | Job-array batching and `sacct` monitoring |
+| `fz/helpers.py` | Case scheduling, retries, calculator/model resolution |
+| `fz/io.py` | File staging, `.fz_hash`, cache matching |
+| `fz/manifest.py`, `fz/uri.py` | `manifest.json` / RO-Crate, URI password redaction |
+| `fz/algorithms.py` | `fzd` algorithm loading and output expressions |
+| `fz/installer.py` | `fz install` / `fz uninstall` |
+| `fz/mcp_server.py` | `fz-mcp` |
+| `fz/config.py`, `fz/logging.py`, `fz/shell.py` | Configuration (`FZ_*`), logs, bash / `FZ_SHELL_PATH` resolution |
+
+Documentation lives in three places that must stay consistent when the API or the CLI
+changes: `README.md`, `doc/`, and the agent skill `skills/fz/` (tested by
+`tests/test_skill_static.py`). This website is a separate repository,
+[Funz/fz.github.io](https://github.com/Funz/fz.github.io).
 
 ## Workflow
 
@@ -41,13 +51,13 @@ Optional extras: `paramiko` (SSH/SLURM), `pandas` (DataFrame output), `rpy2` + R
 
 ## Releasing
 
-Version lives in `fz/__init__.py` (`pyproject.toml` reads it dynamically). A release
-commit bumps that, folds `## Unreleased` into a dated `## Version X.Y` section in
+`fz/_version.py` is stamped by CI (`scripts/stamp_version.py`) and must not be edited by
+hand; `pyproject.toml` reads the version dynamically. A release commit folds `## Unreleased` into a dated `## Version X.Y` section in
 `NEWS.md`, and aligns the Claude Code plugin version. Publishing a GitHub Release with
 the matching tag triggers `release.yml`, which pushes to PyPI.
 
 ## See Also
 
 - [Testing](testing.md)
-- [Writing Custom Algorithms](../user-guide/core-functions/fzd.md#writing-custom-algorithms)
+- [Writing Algorithms](../user-guide/design/algorithms.md)
 - [Plugin templates](../plugins/index.md#creating-your-own-plugin) — `fz-Model`, `fz-Algorithm`, `fz-AlgorithmR`

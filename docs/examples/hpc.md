@@ -12,7 +12,7 @@ import fz
 
 model = {
     "varprefix": "$",
-    "output": {"keff": "python://grep(r'k-eff = (\\S+)', 'out.txt')"},
+    "output": {"keff": "python://grep(r'k-eff = (\\S+)', 'solver.out')"},
 }
 
 results = fz.fzr(
@@ -29,7 +29,7 @@ print(results[["enrichment", "radius", "keff", "status"]])
 #!/bin/bash
 source reactor.inp
 module load gcc/11.2 openmpi/4.1
-mpirun -np 32 ./solver reactor.inp > out.txt
+mpirun -np 32 ./solver reactor.inp > solver.out   # not out.txt: reserved by fz
 ```
 
 ## Through SLURM
@@ -58,8 +58,8 @@ results = fz.fzr(
     model,
     calculators=[
         "cache://slurm_results",                              # reuse anything already done
-        "slurm://user@cluster.edu:compute/bash run_case.sh",  # then submit
-        "slurm://user@cluster.edu:compute/bash run_case.sh",  # 2 concurrent jobs
+        "slurm://user@cluster.edu:compute/bash /scratch/user/run_case.sh",  # then submit
+        "slurm://user@cluster.edu:compute/bash /scratch/user/run_case.sh",  # 2 concurrent jobs
         "ssh://user@fallback.edu/bash /scratch/run_case.sh",  # last resort
     ],
     results_dir="slurm_results",
@@ -67,18 +67,19 @@ results = fz.fzr(
 ```
 
 Shared, read-only inputs (a common cross-section library, a mesh) belong in
-[`input_static`](../user-guide/core-functions/fzr.md#shared-static-files-new-in-12) —
+[`input_static`](../user-guide/running/results.md#shared-static-files-input_static) —
 give an **absolute path** when the file is already on the cluster's shared storage, so
 FZ only hashes it rather than transferring a copy per case.
 
 ## Tips
 
 - Use **absolute paths** in remote calculator commands.
-- Set `FZ_SSH_KEEPALIVE=300` for long jobs; `FZ_RUN_TIMEOUT` bounds each case (default 1 h since 1.2).
+- `ssh://` and `slurm://` have **no default timeout**: set `FZ_RUN_TIMEOUT` or the model's
+  `timeout` to bound each case. `FZ_SSH_KEEPALIVE` (default 300 s) keeps idle connections alive.
 - Test the script by hand first: `ssh user@host "bash /scratch/user/run_case.sh reactor.inp"`.
 - **Ctrl+C** cancels submitted jobs and cleans up remote temp dirs; resume with a `cache://` entry.
 
 ## See Also
 
 - [SSH Remote Calculator](../user-guide/calculators/ssh.md) · [SLURM Calculator](../user-guide/calculators/slurm.md)
-- [Parallel Execution](../user-guide/advanced/parallel.md) · [Caching Strategy](../user-guide/advanced/caching.md)
+- [Parallelism & Retries](../user-guide/running/parallel.md) · [Caching](../user-guide/running/caching.md)

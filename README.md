@@ -1,87 +1,47 @@
 # FZ Documentation Website
 
-This repository hosts the documentation website for [FZ - Parametric Scientific Computing Framework](https://github.com/Funz/fz).
+Source of the documentation site of [FZ](https://github.com/Funz/fz) (PyPI `funz-fz`),
+published at **https://funz.github.io/fz.github.io**.
 
-## 📚 Documentation Site
+## Structure
 
-Visit the live documentation at: **https://funz.github.io/fz.github.io**
+| Section | Directory | Content |
+|---------|-----------|---------|
+| Getting Started | `docs/getting-started/` | Installation, quick start, concepts |
+| User Guide — Templates & Models | `docs/user-guide/templates/`, `docs/user-guide/models/` | Template syntax, formulas, model fields, output extraction |
+| User Guide — Core Functions | `docs/user-guide/core-functions/` | `fzi`, `fzc`, `fzo`, `fzr`, `fzd`, `fzl` |
+| User Guide — Calculators | `docs/user-guide/calculators/` | `sh://`, `ssh://`, `slurm://`/`slurm-array://`, `funz://`, `cache://`, aliases |
+| User Guide — Running Studies | `docs/user-guide/running/` | Parallelism, timeouts, caching, results/manifest, interrupts |
+| User Guide — other | `docs/user-guide/` | Writing algorithms, installing models, AI agents |
+| Plugins | `docs/plugins/` | `fz-<code>` wrappers and algorithms |
+| Examples | `docs/examples/` | Perfect gas, Modelica, HPC, Colab |
+| Reference | `docs/reference/` | CLI, Python API, `.fz` directory, environment variables, constraints, security, troubleshooting, release notes |
+| Contributing | `docs/contributing/` | Development and testing of fz |
 
-## 🚀 Quick Links
+Notebooks for Colab are in `notebooks/`. Moved pages are redirected (`redirects` plugin
+in `mkdocs.yml`).
 
-- [Installation Guide](https://funz.github.io/fz.github.io/getting-started/installation/)
-- [Quick Start](https://funz.github.io/fz.github.io/getting-started/quickstart/)
-- [Core Functions](https://funz.github.io/fz.github.io/user-guide/core-functions/fzr/)
-- [Plugins](https://funz.github.io/fz.github.io/plugins/)
-- [Google Colab Notebooks](https://funz.github.io/fz.github.io/examples/colab/)
-
-## 📓 Google Colab Examples
-
-Try FZ directly in your browser:
-
-- [Perfect Gas Example](https://colab.research.google.com/github/Funz/fz.github.io/blob/main/notebooks/perfectgas_example.ipynb)
-- [OpenModelica Integration](https://colab.research.google.com/github/Funz/fz.github.io/blob/main/notebooks/modelica_example.ipynb)
-
-## 🔌 FZ Plugins
-
-- [FZ-Moret](https://github.com/Funz/fz-moret) - Moret model plugin
-- [FZ-MCNP](https://github.com/Funz/fz-mcnp) - Monte Carlo N-Particle Transport
-- [FZ-Cathare](https://github.com/Funz/fz-cathare) - Thermal-hydraulic system code
-- [FZ-Cristal](https://github.com/Funz/fz-cristal) - Cristal simulation plugin
-- [FZ-Scale](https://github.com/Funz/fz-scale) - Scale nuclear analysis code
-- [FZ-Telemac](https://github.com/Funz/fz-telemac) - Hydrodynamics simulation system
-
-## 🛠️ Building the Documentation
-
-This site is built with [MkDocs](https://www.mkdocs.org/) and the [Material theme](https://squidfunk.github.io/mkdocs-material/).
-
-### Prerequisites
+## Build
 
 ```bash
-pip install mkdocs mkdocs-material pymdown-extensions
+pip install -r requirements.txt      # MkDocs 1.x + Material; MkDocs 2.0 is not supported
+mkdocs serve                         # http://127.0.0.1:8000
+mkdocs build --strict                # fails on broken links or anchors
+python test_site_structure.py        # every navigation page and redirect was built
 ```
 
-### Local Development
+Pushes to `main` are built with `--strict` and deployed to GitHub Pages by
+`.github/workflows/deploy.yml`.
 
-```bash
-# Clone the repository
-git clone https://github.com/Funz/fz.github.io.git
-cd fz.github.io
+## Writing rules
 
-# Serve locally with live reload
-mkdocs serve
+- Content must match the code of fz: check behavior by running it, not only by reading
+  other docs. Constraints that surprise users go to `docs/reference/limitations.md`
+  (mirrors `doc/limitations.md` in the fz repository).
+- Python examples call `fz.fzr(...)` with `calculators=` and `results_dir=` as keywords.
+- Models in examples set `"delim"` explicitly.
+- One topic per page; link instead of repeating.
 
-# Open http://127.0.0.1:8000 in your browser
-```
+## License
 
-### Build
-
-```bash
-# Build static site
-mkdocs build
-
-# Output in site/ directory
-```
-
-### Deploy
-
-The documentation is automatically deployed to GitHub Pages when changes are pushed to the `main` branch via GitHub Actions.
-
-## 📝 Contributing
-
-Contributions to the documentation are welcome! Please:
-
-1. Fork this repository
-2. Create a feature branch
-3. Make your changes
-4. Test locally with `mkdocs serve`
-5. Submit a pull request
-
-### Adding Content
-
-- Documentation pages are in `docs/`
-- Notebooks are in `notebooks/`
-- Configuration is in `mkdocs.yml`
-
-## 📄 License
-
-BSD 3-Clause License - see the [FZ repository](https://github.com/Funz/fz) for details.
+BSD 3-Clause, as [FZ](https://github.com/Funz/fz).

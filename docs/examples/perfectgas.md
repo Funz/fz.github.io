@@ -339,5 +339,5 @@ python run_study.py
 
 - [Modelica Example](modelica.md) - OpenModelica integration
 - [HPC Example](hpc.md) - Remote cluster execution
-- [Advanced Features](../user-guide/advanced/parallel.md) - Master parallel execution
+- [Parallelism & Retries](../user-guide/running/parallel.md) - parallel execution
 - [Plugins](../plugins/index.md) - Explore FZ plugins

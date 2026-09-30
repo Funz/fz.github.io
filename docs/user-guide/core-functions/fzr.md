@@ -1,635 +1,143 @@
-# fzr - Run Parametric Study
+# fzr - Run a Parametric Study
 
-The `fzr` function orchestrates complete parametric studies by combining all FZ capabilities: parsing inputs, compiling cases, executing calculations, and collecting results.
-
-## Function Signature
+`fzr` compiles every case, runs it on the calculators, parses the outputs and returns a
+DataFrame. It is `fzc` + execution + `fzo` for a whole design.
 
 ```python
 fz.fzr(
     input_path,
-    input_variables,
-    model,
-    calculators,
+    input_variables=None,
+    model=None,
     results_dir="results",
-    **kwargs
-)
+    calculators=None,
+    callbacks=None,
+    timeout=None,
+    case_naming=None,
+    input_static=None,
+) -> pandas.DataFrame
 ```
+
+!!! danger "Pass `calculators` and `results_dir` by keyword"
+    `results_dir` is the **4th** positional parameter. `fz.fzr("in.txt", vars, model,
+    "sh://bash run.sh")` uses the URI as a directory name, runs without calculator and
+    every case fails.
 
 ## Parameters
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `input_path` | `str` | Yes | Path to input file or directory |
-| `input_variables` | `dict` | Yes | Dictionary of variable names and values |
-| `model` | `dict` or `str` | Yes | Model definition or model alias name |
-| `calculators` | `str` or `list` | Yes | Calculator URI(s) |
-| `results_dir` | `str` | No | Output directory (default: "results") |
-| `callbacks` | `list` | No | List of callback functions for progress monitoring (new in 0.9.1) |
-| `input_static` | `list` | No | Files identical across every case — never templated, re-hashed, or duplicated per case (new in 1.2) |
-| `case_naming` | `str` | No | Case directory naming: `"path"` (default), `"hash"`, or `"index"` (new in 1.2) |
-| `timeout` | `int` | No | Per-run timeout in seconds; overrides the model `"timeout"` and `FZ_RUN_TIMEOUT` (default `3600`) |
+| Parameter | Description |
+|-----------|-------------|
+| `input_path` | Template file or directory |
+| `input_variables` | Design: dict (factorial) or DataFrame (one row per case). Optional when the template has no variables — then pass `model=` by keyword |
+| `model` | Model dict, JSON string/file or alias ([Model Definition](../models/definition.md)) |
+| `results_dir` | Results root (default `results`); an existing one is renamed with a timestamp |
+| `calculators` | URI, alias, dict, or list of them. Omitted: installed aliases matching the model `id`, else `sh://` ([Calculators](../calculators/overview.md)) |
+| `callbacks` | Dict of progress callbacks (below) |
+| `timeout` | Seconds per case; overrides the model's `timeout` and `FZ_RUN_TIMEOUT` ([Timeouts](../running/timeouts.md)) |
+| `case_naming` | `"path"` (default, or `FZ_CASE_NAMING`), `"hash"`, `"index"` ([Results](../running/results.md#case-directory-naming)) |
+| `input_static` | Files identical for every case, never templated ([Results](../running/results.md#shared-static-files-input_static)) |
 
-## Returns
-
-**pandas.DataFrame** - Results with columns for:
-
-- All input variables
-- All output variables defined in model
-- Metadata: `status`, `calculator`, `error`, `command`
-
-## Basic Usage
-
-### Simple Parametric Study
+## Designs
 
 ```python
-import fz
+# Full factorial: lists are crossed, scalars are fixed (3 x 2 = 6 cases)
+fz.fzr("input.txt", {"T": [10, 20, 30], "P": [1, 10], "V": 1.0}, model,
+       calculators="sh://bash calc.sh")
 
-model = {
-    "varprefix": "$",
-    "output": {
-        "result": "cat output.txt"
-    }
-}
+# Explicit cases: one row per case (LHS, imported plan, constrained combinations)
+import pandas as pd
+design = pd.DataFrame({"T": [10, 20, 10], "P": [1, 1, 10]})
+fz.fzr("input.txt", design, model, calculators="sh://bash calc.sh")
 
-results = fz.fzr(
-    input_path="input.txt",
-    input_variables={"temperature": [100, 200, 300]},
-    model=model,
-    calculators="sh://bash calculate.sh",
-    results_dir="results"
-)
-
-print(results)
-```
-
-### Full Factorial Design
-
-```python
-results = fz.fzr(
-    "input.txt",
-    {
-        "pressure": [1, 10, 100],      # 3 values
-        "temperature": [300, 400, 500], # 3 values
-        "concentration": 0.5            # Fixed
-    },  # Total: 3 × 3 = 9 cases
-    model,
-    calculators="sh://bash calc.sh"
-)
-```
-
-## Variable Handling
-
-### Scalar Variables
-
-Fixed values for all cases:
-
-```python
-results = fz.fzr(
-    "input.txt",
-    {
-        "param1": 100,        # Fixed
-        "param2": "value",    # Fixed string
-        "param3": [1, 2, 3]   # Variable
-    },
-    model,
-    calculators="sh://bash calc.sh"
-)
-# Creates 3 cases
-```
-
-### List Variables
-
-Creates Cartesian product:
-
-```python
-results = fz.fzr(
-    "input.txt",
-    {
-        "x": [1, 2],       # 2 values
-        "y": [10, 20, 30]  # 3 values
-    },
-    model,
-    calculators="sh://bash calc.sh"
-)
-# Creates 2 × 3 = 6 cases
-```
-
-### Large Parameter Spaces
-
-```python
+# numpy arrays are accepted as lists
 import numpy as np
-
-results = fz.fzr(
-    "input.txt",
-    {
-        "param1": np.linspace(0, 10, 50),    # 50 values
-        "param2": np.logspace(-3, 3, 20),    # 20 values
-        "param3": [0.1, 0.5, 1.0]            # 3 values
-    },  # Total: 50 × 20 × 3 = 3000 cases
-    model,
-    calculators=["sh://bash calc.sh"] * 8  # 8 parallel workers
-)
+fz.fzr("input.txt", {"T": np.linspace(0, 100, 11)}, model, calculators="sh://bash calc.sh")
 ```
 
-## Calculator Options
+## Result
 
-### Single Calculator
+One row per case, in design order:
+
+| Column | Content |
+|--------|---------|
+| variables | The case's values |
+| outputs | One column per `output` entry (dict outputs expand to `name_key` columns) |
+| `path` | Case result directory |
+| `status` | `done`, `failed`, `error`, `timeout` or `interrupted` |
+| `calculator` | Calculator used (`cache://...` for a cache hit), with a short id suffix |
+| `error` | Error message, including `Missing output: ...` when an extractor failed |
+| `command` | Command actually executed (paths made absolute) |
 
 ```python
-results = fz.fzr(
-    "input.txt",
-    variables,
-    model,
-    calculators="sh://bash calculate.sh"
-)
+failed = results[results["status"] != "done"]
+print(failed[["path", "status", "error"]])
 ```
 
-### Multiple Calculators (Parallel)
+Each case directory contains the compiled inputs, the files written by the code, and
+`out.txt`, `err.txt`, `log.txt`, `info.txt`, `history.txt`, `.fz_hash`. The results root
+contains `manifest.json` and `ro-crate-metadata.json`. See
+[Results & Traceability](../running/results.md).
+
+## Calculators
 
 ```python
-results = fz.fzr(
-    "input.txt",
-    variables,
-    model,
-    calculators=[
-        "sh://bash calc.sh",
-        "sh://bash calc.sh",
-        "sh://bash calc.sh",
-        "sh://bash calc.sh"
-    ]  # 4 parallel workers
-)
+calculators="sh://bash calc.sh"                        # 1 case at a time
+calculators=["sh://bash calc.sh"] * 4                  # 4 at a time
+calculators=["cache://previous", "sh://bash calc.sh"]  # reuse, then compute
+calculators="cluster"                                  # alias in .fz/calculators/
 ```
 
-### Failover Chain
+Failed attempts are retried on the calculators, up to `FZ_MAX_RETRIES` (default 5)
+failures per case. See [Parallelism & Retries](../running/parallel.md).
+
+## Callbacks
+
+`callbacks` is a **dict** with any of these keys (others raise `ValueError`):
+
+| Key | Arguments |
+|-----|-----------|
+| `on_start` | `(total_cases, calculators)` |
+| `on_case_start` | `(case_index, total_cases, var_combo)` |
+| `on_case_complete` | `(case_index, total_cases, var_combo, status, result)` |
+| `on_progress` | `(completed, total, eta_seconds)` |
+| `on_complete` | `(total_cases, completed_cases, results_df)` |
 
 ```python
-results = fz.fzr(
-    "input.txt",
-    variables,
-    model,
-    calculators=[
-        "cache://previous_results",        # Try cache
-        "sh://bash fast_method.sh",        # Fast method
-        "sh://bash robust_method.sh",      # Backup
-        "ssh://user@hpc/bash remote.sh"    # Remote fallback
-    ]
-)
+def done(i, n, combo, status, result):
+    print(f"[{i + 1}/{n}] {combo} -> {status}")
+
+fz.fzr("input.txt", {"x": [1, 2, 3]}, model,
+       calculators="sh://bash calc.sh",
+       callbacks={"on_case_complete": done})
 ```
 
-### Remote Execution
+Callbacks run in worker threads; an exception raised in a callback is logged and the run
+continues.
 
-```python
-results = fz.fzr(
-    "input.txt",
-    variables,
-    model,
-    calculators="ssh://user@server.com/bash /path/to/calculate.sh"
-)
+## Interrupting
+
+The first Ctrl+C stops starting new cases, terminates the running ones, and makes `fzr`
+**return** the DataFrame (interrupted cases have `status="interrupted"`); a second Ctrl+C
+raises `KeyboardInterrupt`. Resume with `cache://`. See
+[Interrupt & Resume](../running/interrupts.md).
+
+## CLI
+
+```bash
+fzr input.txt --model mymodel \
+    --input_variables '{"T": [10, 20, 30], "P": [1, 10]}' \
+    --calculators '["cache://results_v1", "sh://bash calc.sh"]' \
+    --results_dir results_v2 --case_naming hash --format json
 ```
 
-## Model Options
-
-### Dictionary Model
-
-```python
-model = {
-    "varprefix": "$",
-    "formulaprefix": "@",
-    "delim": "()",
-    "commentline": "#",
-    "output": {
-        "pressure": "grep 'P:' output.txt | awk '{print $2}'",
-        "temperature": "grep 'T:' output.txt | awk '{print $2}'"
-    }
-}
-
-results = fz.fzr("input.txt", variables, model, calculators)
-```
-
-### Model Alias
-
-Save model to `.fz/models/mymodel.json`:
-
-```json
-{
-    "varprefix": "$",
-    "output": {
-        "result": "cat output.txt"
-    }
-}
-```
-
-Use by name:
-
-```python
-results = fz.fzr("input.txt", variables, "mymodel", calculators)
-```
-
-## Results Analysis
-
-### Basic Analysis
-
-```python
-results = fz.fzr(...)
-
-# Summary statistics
-print(results.describe())
-
-# Check for failures
-failed = results[results['status'] != 'done']
-print(f"Failed: {len(failed)}")
-
-# Group by variable
-grouped = results.groupby('temperature').agg({
-    'pressure': ['mean', 'std', 'min', 'max']
-})
-print(grouped)
-```
-
-### Filtering Results
-
-```python
-# Filter by condition
-high_pressure = results[results['pressure'] > 1000]
-
-# Filter by multiple conditions
-subset = results[
-    (results['temperature'] > 300) &
-    (results['pressure'] < 2000)
-]
-
-# Filter by status
-successful = results[results['status'] == 'done']
-```
-
-### Visualization
-
-```python
-import matplotlib.pyplot as plt
-
-# Line plot
-for temp in results['temperature'].unique():
-    data = results[results['temperature'] == temp]
-    plt.plot(data['pressure'], data['result'], label=f'T={temp}')
-plt.legend()
-plt.show()
-
-# Scatter plot
-plt.scatter(results['temperature'], results['pressure'], 
-            c=results['result'], cmap='viridis')
-plt.colorbar(label='Result')
-plt.show()
-```
-
-## Advanced Features
-
-### Progress Callbacks (New in 0.9.1)
-
-Monitor execution progress in real-time with custom callback functions:
-
-```python
-def progress_callback(event_type, case_info):
-    """
-    Callback function for monitoring progress.
-
-    Args:
-        event_type: 'case_start', 'case_complete', or 'case_failed'
-        case_info: Dictionary with case details
-    """
-    if event_type == "case_start":
-        print(f"⏳ Starting {case_info['case_name']}")
-    elif event_type == "case_complete":
-        print(f"✓ Completed {case_info['case_name']}")
-    elif event_type == "case_failed":
-        print(f"✗ Failed {case_info['case_name']}: {case_info.get('error')}")
-
-results = fz.fzr(
-    "input.txt",
-    variables,
-    model,
-    calculators="sh://bash calc.sh",
-    callbacks=[progress_callback]
-)
-```
-
-Multiple callbacks can be registered:
-
-```python
-def logger_callback(event_type, case_info):
-    with open('execution.log', 'a') as f:
-        f.write(f"{event_type}: {case_info}\n")
-
-def metrics_callback(event_type, case_info):
-    # Send metrics to monitoring system
-    send_metric(event_type, case_info)
-
-results = fz.fzr(
-    "input.txt",
-    variables,
-    model,
-    calculators="sh://bash calc.sh",
-    callbacks=[logger_callback, metrics_callback]
-)
-```
-
-### Parallel Execution Control
-
-```python
-import os
-
-# Set maximum workers
-os.environ['FZ_MAX_WORKERS'] = '16'
-
-results = fz.fzr(
-    "input.txt",
-    large_variables,
-    model,
-    calculators=["sh://bash calc.sh"] * 16
-)
-```
-
-### Retry Configuration
-
-```python
-import os
-
-# Set retry limit
-os.environ['FZ_MAX_RETRIES'] = '5'
-
-results = fz.fzr(
-    "input.txt",
-    variables,
-    model,
-    calculators=[
-        "sh://unreliable_method.sh",
-        "sh://backup_method.sh"
-    ]
-)
-```
-
-### Interrupt Handling
-
-```python
-try:
-    results = fz.fzr(
-        "input.txt",
-        {"param": list(range(1000))},
-        model,
-        calculators="sh://bash slow_calc.sh"
-    )
-except KeyboardInterrupt:
-    print("Interrupted! Partial results saved.")
-    # Resume with cache
-    results = fz.fzr(
-        "input.txt",
-        {"param": list(range(1000))},
-        model,
-        calculators=[
-            "cache://results",
-            "sh://bash slow_calc.sh"
-        ],
-        results_dir="results_resumed"
-    )
-```
-
-### Caching Strategy
-
-```python
-# First run
-results1 = fz.fzr(
-    "input.txt",
-    {"param": [1, 2, 3, 4, 5]},
-    model,
-    calculators="sh://bash expensive.sh",
-    results_dir="run1"
-)
-
-# Extend with caching
-results2 = fz.fzr(
-    "input.txt",
-    {"param": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]},
-    model,
-    calculators=[
-        "cache://run1",              # Reuse 1-5
-        "sh://bash expensive.sh"     # Calculate 6-10
-    ],
-    results_dir="run2"
-)
-```
-
-### Shared Static Files (New in 1.2)
-
-Pass files that are identical for every case — a shared mesh, a reference dataset, a
-weather series — via `input_static` instead of putting them in `input_path`. They are
-never scanned for variables, never re-hashed per case, and (for relative paths) not
-copied into every case directory:
-
-```python
-results = fz.fzr(
-    "input.txt",
-    {"x": [1, 2, 3]},
-    model,
-    calculators="sh://bash calc.sh",
-    input_static=["reference_data.csv", "/shared/big_mesh.msh"],
-)
-```
-
-- **Relative paths** are resolved against the current directory, symlinked into each
-  case directory (real copy where symlinks are unavailable), and explicitly transferred
-  to `ssh://`, `slurm://` (remote), and `funz://` calculators.
-- **Absolute paths** are assumed to already exist at the same path on the calculator
-  side (shared/mounted storage) — fz only hashes them so `cache://` still notices
-  content changes.
-
-`fzr` logs a one-time warning when a variable-free `input_path` file is at least
-`FZ_STATIC_CANDIDATE_MIN_SIZE` bytes (default 1 MiB), suggesting `input_static`.
-
-### Case Directory Naming (New in 1.2)
-
-`case_naming` controls how each case subdirectory is named:
-
-| Value | Example directory | Notes |
-|-------|-------------------|-------|
-| `"path"` (default) | `x=1,y=2/` | Readable; can exceed the ~255-char filename limit with many variables |
-| `"hash"` | `a1b2c3d4/` | Short content hash of the variable combination |
-| `"index"` | `case_0/` | Shortest |
-
-With `"hash"` / `"index"`, a `cases.csv` manifest at the results root maps each
-directory to its variables (each case's `info.txt` also carries them). Set globally with
-the `FZ_CASE_NAMING` environment variable.
-
-## Output Directory Structure
-
-```
-results/
-├── param=1/                # or a1b2c3d4/ (hash) / case_0/ (index)
-│   ├── input.txt          # Compiled input
-│   ├── output.txt         # Calculation output
-│   ├── log.txt            # Execution metadata
-│   ├── out.txt            # Standard output
-│   ├── err.txt            # Standard error
-│   └── .fz_hash           # File checksums
-├── param=2/
-│   └── ...
-└── param=3/
-    └── ...
-```
-
-## Complete Examples
-
-### Example 1: Sensitivity Analysis
-
-```python
-import fz
-import numpy as np
-
-model = {
-    "varprefix": "$",
-    "output": {
-        "result": "grep 'Result:' output.txt | awk '{print $2}'"
-    }
-}
-
-# Vary one parameter at a time
-baseline = {"A": 1.0, "B": 2.0, "C": 3.0}
-
-for param in ['A', 'B', 'C']:
-    variables = baseline.copy()
-    variables[param] = np.linspace(0.5, 1.5, 20)
-    
-    results = fz.fzr(
-        "model.txt",
-        variables,
-        model,
-        calculators="sh://bash simulate.sh",
-        results_dir=f"sensitivity_{param}"
-    )
-    
-    print(f"Sensitivity to {param}:")
-    print(results[[param, 'result']].corr())
-```
-
-### Example 2: Design of Experiments
-
-```python
-import fz
-from itertools import combinations
-
-model = {
-    "varprefix": "$",
-    "output": {"response": "cat response.txt"}
-}
-
-# Full factorial
-variables = {
-    "factor1": [-1, 0, 1],
-    "factor2": [-1, 0, 1],
-    "factor3": [-1, 0, 1]
-}
-
-results = fz.fzr(
-    "experiment.txt",
-    variables,
-    model,
-    calculators="sh://bash run_experiment.sh",
-    results_dir="doe_results"
-)
-
-# Analyze main effects
-for factor in ['factor1', 'factor2', 'factor3']:
-    effect = results.groupby(factor)['response'].mean()
-    print(f"\n{factor} effect:")
-    print(effect)
-
-# Analyze interactions
-for f1, f2 in combinations(['factor1', 'factor2', 'factor3'], 2):
-    interaction = results.groupby([f1, f2])['response'].mean()
-    print(f"\n{f1} × {f2} interaction:")
-    print(interaction)
-```
-
-### Example 3: Optimization Search
-
-```python
-import fz
-import numpy as np
-
-model = {
-    "varprefix": "$",
-    "output": {"objective": "cat objective.txt"}
-}
-
-# Initial grid search
-results = fz.fzr(
-    "optimize.txt",
-    {
-        "x": np.linspace(-10, 10, 20),
-        "y": np.linspace(-10, 10, 20)
-    },
-    model,
-    calculators="sh://bash evaluate.sh",
-    results_dir="grid_search"
-)
-
-# Find best region
-best = results.loc[results['objective'].idxmin()]
-print(f"Best found: x={best['x']}, y={best['y']}, obj={best['objective']}")
-
-# Refine search around optimum
-results2 = fz.fzr(
-    "optimize.txt",
-    {
-        "x": np.linspace(best['x']-1, best['x']+1, 20),
-        "y": np.linspace(best['y']-1, best['y']+1, 20)
-    },
-    model,
-    calculators=[
-        "cache://grid_search",
-        "sh://bash evaluate.sh"
-    ],
-    results_dir="refined_search"
-)
-```
-
-## Error Handling
-
-```python
-import fz
-
-try:
-    results = fz.fzr(
-        "input.txt",
-        variables,
-        model,
-        calculators="sh://bash calc.sh"
-    )
-except FileNotFoundError:
-    print("Input file not found")
-except ValueError as e:
-    print(f"Invalid configuration: {e}")
-except Exception as e:
-    print(f"Unexpected error: {e}")
-
-# Check results
-if 'status' in results.columns:
-    failures = results[results['status'] != 'done']
-    if len(failures) > 0:
-        print(f"\nFailed cases: {len(failures)}")
-        print(failures[['status', 'error']])
-```
-
-## Performance Tips
-
-1. **Use caching** for expensive calculations
-2. **Parallelize** with multiple calculators
-3. **Batch similar cases** for better locality
-4. **Filter early** to reduce data processing
-5. **Save checkpoints** for long runs
-
-## See Also
-
-- [fzi](fzi.md) - Parse input variables
-- [fzc](fzc.md) - Compile input files
-- [fzo](fzo.md) - Parse output files
-- [Calculators](../calculators/overview.md) - Calculator types
-- [Parallel Execution](../advanced/parallel.md) - Parallelization guide
+- `--calculators` / `-c` is repeatable and also accepts an alias, a JSON file or an
+  inline JSON list.
+- `--input_variables` accepts a JSON dict (inline or file) or the short form
+  `'T=[10,20,30],P=1'`. A list of cases (non-factorial design) is Python-only: pass a
+  DataFrame.
+- No option sets a timeout: use the model's `timeout` or `FZ_RUN_TIMEOUT`.
+- Exit status 1 when no case ends with `status="done"`.
+
+## See also
+
+[fzc](fzc.md) · [fzo](fzo.md) · [fzd](fzd.md) · [Calculators](../calculators/overview.md) ·
+[Constraints & Limits](../../reference/limitations.md)

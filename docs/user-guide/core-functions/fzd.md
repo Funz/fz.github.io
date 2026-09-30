@@ -1,407 +1,157 @@
 # fzd - Design of Experiments
 
-The `fzd` function (or `fz design` command) runs iterative design of experiments with adaptive algorithms. Unlike `fzr` which runs a fixed grid of parameter combinations, `fzd` lets algorithms intelligently choose which points to evaluate next based on previous results.
+`fzd` runs an iterative loop: an **algorithm** proposes a batch of points, fz evaluates
+them (with `fzr` for a file-based model, or by calling a Python function), and the
+algorithm uses the results to propose the next batch or stop. Use it for optimization,
+calibration/inversion, adaptive sampling, uncertainty propagation.
 
-## When to Use fzd vs fzr
+| | `fzr` | `fzd` |
+|--|-------|-------|
+| Values | Given by you (grid or list) | Chosen by the algorithm within ranges |
+| `input_variables` | `{"x": [1, 2, 3]}` | `{"x": "[0;10]", "y": "2.5"}` (strings) |
+| Result | DataFrame | Dict with `XY` DataFrame, analysis, summary |
 
-| Feature | `fzr` | `fzd` |
-|---------|-------|-------|
-| **Parameter values** | You specify exact values | Algorithm chooses from ranges |
-| **Design type** | Fixed factorial/custom grid | Adaptive, iterative |
-| **Use case** | Parameter sweeps, sensitivity analysis | Optimization, uncertainty quantification |
-| **Input format** | `{"x": [1, 2, 3]}` (values) | `{"x": "[0;10]"}` (ranges) |
-
-## Python API
-
-### Function Signature
+## Signature
 
 ```python
-import fz
-
-result = fz.fzd(
-    input_path,
-    input_variables,
-    model,
-    output_expression,
-    algorithm,
+fz.fzd(
+    input_path,               # template, or None for a Python function model
+    input_variables,          # {"x": "[min;max]"} varied, {"z": "1.5"} fixed
+    model,                    # model dict/alias, or a Python callable
+    output_expression,        # "pressure", "a + 2*b", or a list for multi-objective
+    algorithm,                # installed name, glob, or path to a .py/.R file
     calculators=None,
-    algorithm_options=None,
-    analysis_dir="analysis"
-)
+    algorithm_options=None,   # dict, JSON string or JSON file path
+    analysis_dir="analysis",
+    input_static=None,
+) -> dict
 ```
 
-### Parameters
+| Parameter | Notes |
+|-----------|-------|
+| `input_variables` | `"[min;max]"` (or `"[min,max]"`) ranges are passed to the algorithm; plain value strings are fixed and merged into every point |
+| `output_expression` | Evaluated on each case's outputs. A **list** of expressions gives a vector objective (multi-objective algorithms). May be `None` for a function model |
+| `algorithm` | `"brent"` → `.fz/algorithms/brent.py` (then `~/.fz/algorithms/`), or a file path |
+| `calculators` | File-based model: as in `fzr`; omitted → installed aliases matching the model `id`, else `sh://`. Function model: a positive int (concurrent evaluations, default 1) |
+| `analysis_dir` | Output directory; an existing one is renamed with a timestamp and its results reused as cache |
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `input_path` | `str` | Path to input file or directory |
-| `input_variables` | `dict` | Variable ranges: `{"var": "[min;max]"}` or fixed: `{"var": "value"}` |
-| `model` | `dict` or `str` | Model definition or alias |
-| `output_expression` | `str` or `list` | Expression to evaluate (e.g., `"pressure"` or `"r1 + r2 * 2"`). A **list** of expressions (since 1.2) makes each case yield one scalar per expression — a vector objective for multi-objective algorithms. |
-| `algorithm` | `str` | Path to algorithm Python file |
-| `calculators` | `str` or `list` | Calculator URI(s) (default: `["sh://"]`) |
-| `algorithm_options` | `dict`, `str`, or `None` | Algorithm options as dict, JSON string, or JSON file path |
-| `analysis_dir` | `str` | Analysis results directory (default: `"analysis"`) |
+## Result
 
-### Return Value
+| Key | Content |
+|-----|---------|
+| `XY` | DataFrame of all evaluated points: inputs and objective(s) |
+| `analysis` | Processed output of the algorithm's `get_analysis()` (text, data, HTML/JSON file names) |
+| `algorithm` | Algorithm used |
+| `iterations` | Number of iterations |
+| `total_evaluations` | Number of evaluated points |
+| `summary` | e.g. `"randomsampling completed: 1 iterations, 5 evaluations (5 valid)"` |
 
-Returns a dictionary with:
+`analysis_dir` contains `X_<i>.csv`, `Y_<i>.csv`, `results_<i>.html` (or `.json`/`.txt`
+depending on the analysis content), one `iter<NNN>/` directory per iteration (cases
+named `case_<i>`), and a campaign `manifest.json`.
 
-| Key | Type | Description |
-|-----|------|-------------|
-| `XY` | `DataFrame` | All sampled input/output values |
-| `analysis` | varies | Algorithm analysis results (HTML, plots, metrics) |
-| `algorithm` | `str` | Algorithm file path used |
-| `iterations` | `int` | Number of algorithm iterations completed |
-| `total_evaluations` | `int` | Total number of function evaluations |
-| `summary` | `str` | Human-readable summary text |
-
-## CLI Usage
-
-### Command Signature
-
-```bash
-fzd --input_path DIR --input_variables VARS --model MODEL \
-    --output_expression EXPR --algorithm ALGO \
-    [--results_dir DIR] [--calculators CALC] [--options OPTS]
-```
-
-Or using the main `fz` command:
-
-```bash
-fz design --input_path DIR --input_variables VARS --model MODEL \
-    --output_expression EXPR --algorithm ALGO [...]
-```
-
-### CLI Options
-
-| Option | Short | Required | Description |
-|--------|-------|----------|-------------|
-| `--input_path` / `--input_dir` | `-i` | Yes | Input file or directory path |
-| `--input_variables` / `--input_vars` / `--variables` | `-v` | Yes | Variable ranges (JSON file or inline JSON) |
-| `--model` | `-m` | Yes | Model definition (JSON file, inline JSON, or alias) |
-| `--output_expression` | `-e` | Yes | Output expression to optimize |
-| `--algorithm` | `-a` | Yes | Algorithm name (`randomsampling`, `brent`, `bfgs`, ...) or file path |
-| `--results_dir` | `-r` | No | Results directory (default: `results_fzd`) |
-| `--calculators` | `-c` | No | Calculator specifications (URI, alias, or JSON list) |
-| `--options` | `-o` | No | Algorithm options (JSON file or inline JSON) |
-| `--input_static` | | No | Shared static file (repeatable), never templated or re-hashed per case (new in 1.2) |
-
-!!! note "Flag aliases (since 1.1)"
-    `--input_path` and `--input_variables` are the preferred names, consistent with `fzi`, `fzc`, and `fzr`.
-    The old `--input_dir` and `--input_vars` names remain accepted for backward compatibility.
-
-## Examples
-
-### Example 1: Random Sampling
-
-Explore the parameter space with random sampling:
+## Example
 
 ```python
 import fz
 
 model = {
-    "varprefix": "$",
-    "delim": "()",
-    "run": "bash -c 'source input.txt && result=$(echo \"scale=6; $x * $x + $y * $y\" | bc) && echo \"result = $result\" > output.txt'",
-    "output": {
-        "result": "grep 'result = ' output.txt | cut -d '=' -f2 | tr -d ' '"
-    }
+    "delim": "{}",
+    "output": {"pressure": "python://grep(r'pressure = (\\S+)', 'output.txt')"},
 }
 
 result = fz.fzd(
-    input_path="input/",
-    input_variables={"x": "[-2;2]", "y": "[-2;2]"},
-    model=model,
-    output_expression="result",
-    algorithm="examples/algorithms/randomsampling.py",
-    algorithm_options={"nvalues": 20, "seed": 42}
+    "input.txt",
+    {"T_celsius": "[0;100]", "V_L": "[1;5]", "n_mol": "1"},
+    model,
+    output_expression="pressure",
+    algorithm="examples/algorithms/montecarlo_uniform.py",   # path to the file
+    calculators=["sh://bash calculate.sh"] * 4,              # 4 points at a time
+    algorithm_options={"batch_sample_size": 20, "max_iterations": 10, "seed": 123},
+    analysis_dir="mc_analysis",
 )
-
-print(f"Total evaluations: {result['total_evaluations']}")
-df = result['XY']
-best = df.loc[df['result'].idxmin()]
-print(f"Best: x={best['x']:.4f}, y={best['y']:.4f}, result={best['result']:.6f}")
+print(result["summary"])
+print(result["XY"].describe())
 ```
 
-### Example 2: 1D Optimization (Brent's Method)
+## Output expressions
 
-Find the minimum of a 1D function:
+Available names: the model outputs, `abs`, `min`, `max`, `pow`, `sqrt`, `exp`, `log`,
+`log10`, `sin`, `cos`, `tan`, `asin`, `acos`, `atan`, `atan2`, `pi`, `e`, and for vector
+outputs `sum`, `len`, `sorted`, `mean`, `median`, `stdev`, `variance`, `zip`, indexing
+and slicing.
 
 ```python
-result = fz.fzd(
-    input_path="input/",
-    input_variables={"x": "[0;2]"},
-    model=model_1d,
-    output_expression="result",
-    algorithm="examples/algorithms/brent.py",
-    algorithm_options={"max_iter": 20, "tol": 1e-3}
-)
-
-df = result['XY']
-best = df.loc[df['result'].idxmin()]
-print(f"Optimal x = {best['x']:.6f} (expected: 0.7)")
+output_expression = "r1 + 2 * r2"
+output_expression = "T_series[-1]"                                      # last value
+output_expression = "sqrt(sum((x - y)**2 for x, y in zip(sim, ref)) / len(sim))"  # RMSE
+output_expression = ["f1", "-f2"]      # multi-objective: minimize f1, maximize f2
 ```
 
-### Example 3: Multi-dimensional Optimization (BFGS)
+A vector output used without reduction makes that point fail (reported, non-fatal).
+Multi-objective algorithms (e.g. `nsga2.py`) minimize every objective; negate an
+expression to maximize it.
 
-Find the minimum of a multi-dimensional function with parallel evaluations:
+## Python function as model
+
+With a callable model, no files and no calculators are involved:
 
 ```python
-result = fz.fzd(
-    input_path="input/",
-    input_variables={"x": "[-2;2]", "y": "[-2;2]"},
-    model=model,
-    output_expression="result",
-    algorithm="examples/algorithms/bfgs.py",
-    algorithm_options={"max_iter": 20, "tol": 1e-4},
-    calculators=["sh://bash calc.sh"] * 4  # 4 parallel evaluators
-)
+def branin(x, y):
+    import math
+    return (y - 5.1 / (4 * math.pi**2) * x**2 + 5 / math.pi * x - 6)**2 \
+        + 10 * (1 - 1 / (8 * math.pi)) * math.cos(x) + 10
+
+result = fz.fzd(None, {"x": "[-5;10]", "y": "[0;15]"}, branin,
+                output_expression=None, algorithm="examples/algorithms/bfgs.py",
+                calculators=1)
 ```
 
-### Example 4: Monte Carlo with Convergence
+- `input_path` must be `None`; `input_variables` keys are the function's parameters.
+- `output_expression=None` takes the return value (or its first item/key).
+- `calculators=1` (default) calls the function sequentially in the calling thread.
+  `calculators=N` uses N threads: the function must be thread-safe, and any error then
+  aborts `fzd` with `fz.FunctionModelParallelError`.
+- Each iteration directory contains only `values.csv`.
 
-Run Monte Carlo sampling until a confidence interval target is reached:
+## Behaviors
 
-```python
-result = fz.fzd(
-    input_path="input.txt",
-    input_variables={
-        "n_mol": "[0;10]",
-        "T_celsius": "[0;100]",
-        "V_L": "[1;5]"
-    },
-    model=perfectgas_model,
-    output_expression="pressure + 1",
-    algorithm="examples/algorithms/montecarlo_uniform.py",
-    calculators=["sh://bash PerfectGazPressure.sh"] * 10,
-    algorithm_options={
-        "batch_sample_size": 20,
-        "max_iterations": 50,
-        "confidence": 0.90,
-        "target_confidence_range": 1000000,
-        "seed": 123
-    },
-    analysis_dir="fzd_analysis"
-)
-```
+- **Deduplication**: identical points within a batch are evaluated once.
+- **Cross-iteration cache**: a point already evaluated is not re-run.
+- **Re-run**: an existing `analysis_dir` is renamed with a timestamp and its iterations
+  serve as cache for the new run.
+- Iterations use `case_naming="index"` (`iter001/case_0/`), whatever `FZ_CASE_NAMING`.
+- `input_static` is passed to every iteration's `fzr`.
 
-### Example 5: Custom Output Expression
+## Algorithms
 
-Combine multiple model outputs in an expression:
+| Source | How to use |
+|--------|------------|
+| Examples shipped in the fz repository: `randomsampling.py`, `montecarlo_uniform.py`, `brent.py`, `bfgs.py`, `nsga2.py` ([examples/algorithms](https://github.com/Funz/fz/tree/main/examples/algorithms)) | Pass the file path, or copy it to `.fz/algorithms/` and use its name |
+| Installable `fz-<name>` repositories (e.g. `fz-brent`, `fz-PSO`, `fz-gradientdescent`) | `fz install algorithm brent`, then `algorithm="brent"` |
+| Your own | [Writing Algorithms](../design/algorithms.md) |
 
-```python
-result = fz.fzd(
-    input_path="input/",
-    input_variables={"x": "[-2;2]", "y": "[-2;2]"},
-    model=model_multi_output,
-    output_expression="r1 + r2 * 2",  # Custom expression
-    algorithm="examples/algorithms/randomsampling.py",
-    algorithm_options={"nvalues": 20, "seed": 42}
-)
-```
+Each algorithm file lists its options and defaults in its `#options:` header.
 
-Available expression operators: `+`, `-`, `*`, `/`, `**`, `abs()`, `min()`, `max()`, `sqrt()`, `exp()`, `log()`, `pi`, `e`.
-
-Since **1.2**, if a model output is itself vector-valued (a time series, a profile), the
-expression can reduce it to a scalar with `sum()`, `len()`, `sorted()`, `mean()`,
-`median()`, `stdev()`, `variance()`, indexing/slicing (`T_series[-1]`), and `zip()` — e.g.
-`sqrt(sum((x - y) ** 2 for x, y in zip(sim, ref)) / len(sim))` for an RMSE against a
-reference series. Referencing a vector output without reducing it raises a clear
-`ValueError` for that point (reported as a failed evaluation, non-fatal).
-
-### Example 7: Multi-Objective (Vector Objective)
-
-Pass a **list** of expressions — each case yields one scalar per expression, handed
-as-is to a multi-objective algorithm such as NSGA-II:
-
-```python
-result = fz.fzd(
-    input_path="input/",
-    input_variables={"x": "[-2;2]", "y": "[-2;2]"},
-    model=model,
-    output_expression=["f1", "-f2"],   # minimise f1, maximise f2 (negated)
-    algorithm="examples/algorithms/nsga2.py",
-    algorithm_options={"pop_size": 24, "generations": 15, "seed": 42},
-)
-# result['XY'] gains one column per objective;
-# the Pareto front is in result['analysis']['data'] and nsga2_pareto.csv
-```
-
-All objectives are minimised — negate an expression to maximise it.
-
-### Example 6: CLI Usage
+## CLI
 
 ```bash
-# Random sampling
-fzd --input_path input/ --model perfectgas \
-  --input_variables '{"x": "[-2;2]", "y": "[-2;2]"}' \
-  --output_expression "result" \
-  --algorithm examples/algorithms/randomsampling.py \
-  --options '{"nvalues": 20, "seed": 42}'
-
-# Algorithm options from a JSON file
-fzd --input_path input/ --model perfectgas \
-  --input_variables '{"x": "[-2;2]"}' \
-  --output_expression "result" \
-  --algorithm examples/algorithms/brent.py \
-  --options algo_config.json \
-  --results_dir optimization_results/
-
-# As fz subcommand (short flags)
-fz design -i input/ -m perfectgas \
-  -v '{"x": "[-2;2]", "y": "[-2;2]"}' \
-  -e "result" \
-  -a examples/algorithms/bfgs.py
+fzd --input_dir input.txt --model perfectgas \
+    --input_vars '{"T_celsius": "[0;100]", "V_L": "[1;5]", "n_mol": "1"}' \
+    --output_expression "pressure" \
+    --algorithm examples/algorithms/montecarlo_uniform.py \
+    --options '{"batch_sample_size": 20, "max_iterations": 10}' \
+    --results_dir mc_analysis
 ```
 
-## Algorithm Options Formats
+- Also `fz design ...`. `--input_path`/`--input_variables`/`--variables` are accepted
+  aliases of `--input_dir`/`--input_vars`.
+- Differences with Python: the default directory is `results_fzd` (Python:
+  `analysis`); `--output_expression` takes a single expression (no multi-objective
+  list); there is no `--format` option (a summary is printed); function models are not
+  available.
 
-Algorithm options can be provided in three formats:
+## See also
 
-=== "Dict (Python API)"
-
-    ```python
-    algorithm_options={"batch_size": 20, "max_iterations": 10, "seed": 42}
-    ```
-
-=== "JSON String (CLI)"
-
-    ```bash
-    --options '{"batch_size": 20, "max_iterations": 10, "seed": 42}'
-    ```
-
-=== "JSON File"
-
-    ```bash
-    --options algo_config.json
-    ```
-
-## Input Variables: Ranges vs Fixed Values
-
-`input_variables` accepts two kinds of entries:
-
-| Format | Example | Behaviour |
-|--------|---------|-----------|
-| Range | `"[min;max]"` or `"[min,max]"` | Handed to the algorithm; it decides which values to sample |
-| Fixed | `"5.0"` (a plain number string) | Constant — merged into every design point unchanged, never varied |
-
-```python
-# x and y are explored; z is fixed at 1.5 for every evaluation
-result = fz.fzd(
-    input_path="input/",
-    input_variables={"x": "[-2;2]", "y": "[-2;2]", "z": "1.5"},
-    ...
-)
-```
-
-## Automatic Behaviors
-
-### Batch Deduplication
-
-Within each iteration, duplicate design points proposed by the algorithm are evaluated only once. The results are re-mapped so the algorithm receives the correct output for every point it requested, including duplicates. This prevents redundant expensive evaluations when an algorithm proposes the same point twice.
-
-### Cross-Iteration Caching
-
-Results from previous iterations are automatically reused — a point evaluated in iteration 2 is never re-run in iteration 5. No extra configuration is required.
-
-### Re-Run Resume
-
-If `analysis_dir` already exists when `fzd` starts, it is **renamed** with a timestamp suffix (e.g., `analysis_2026-04-27_10-30-00`) and the original path is used for the new run. The renamed directory's iteration subdirectories are still added to the cache, so a re-run with different algorithm options benefits from all prior computations automatically.
-
-```python
-# Re-run after an interrupted or exploratory first run — prior results reused as cache
-result = fz.fzd(
-    input_path="input/",
-    input_variables={"x": "[-2;2]"},
-    algorithm="examples/algorithms/bfgs.py",
-    analysis_dir="my_analysis"   # if exists → renamed; its cache still consulted
-)
-```
-
-## Available Algorithms
-
-FZ ships with example algorithms in `examples/algorithms/`:
-
-| Algorithm | File | Type | Best For |
-|-----------|------|------|----------|
-| Random Sampling | `randomsampling.py` | Exploration | Initial exploration, baselines |
-| Brent's Method | `brent.py` | 1D optimization | Precise 1D root finding/optimization |
-| BFGS | `bfgs.py` | Multi-D optimization | Smooth multi-dimensional optimization |
-| Monte Carlo | `montecarlo_uniform.py` | Integration | Uncertainty quantification |
-| NSGA-II | `nsga2.py` | Multi-objective optimization | Pareto fronts — requires a **list** `output_expression` (new in 1.2) |
-
-!!! tip "Choosing an Algorithm"
-    - **1D problems**: Use Brent's method
-    - **2-10D smooth problems**: Use BFGS
-    - **Exploratory / non-smooth**: Use random sampling
-    - **Uncertainty quantification**: Use Monte Carlo
-
-## Writing Custom Algorithms
-
-Custom algorithms must implement a Python class with the following interface:
-
-```python
-class MyAlgorithm:
-
-    def __init__(self, options):
-        """Initialize with algorithm-specific options dict."""
-        self.batch_size = int(options.get("batch_size", 10))
-
-    def get_initial_design(self, input_variables, output_variables):
-        """Return initial list of sample points.
-
-        Args:
-            input_variables: dict of {"var_name": "[min;max]"} ranges
-            output_variables: list of output variable names
-
-        Returns:
-            List of dicts, each dict is one sample point:
-            [{"x": 1.0, "y": 2.0}, {"x": 3.0, "y": 4.0}, ...]
-        """
-        pass
-
-    def get_next_design(self, X, Y):
-        """Return next sample points or None to stop.
-
-        Args:
-            X: list of input dicts evaluated so far
-            Y: list of output values evaluated so far
-
-        Returns:
-            List of dicts for next batch, or None to stop iteration.
-        """
-        pass
-
-    def get_analysis(self, X, Y):
-        """Return analysis results (called at end).
-
-        Args:
-            X: all input dicts
-            Y: all output values
-
-        Returns:
-            HTML string, dict, or any serializable result.
-        """
-        pass
-```
-
-### Algorithm File Header
-
-Algorithm files should include metadata in comments:
-
-```python
-#title: My Algorithm Name
-#author: Author Name
-#type: sampling|optimization
-#options: batch_size=10;max_iterations=100;seed=42
-#require: numpy;scipy
-```
-
-## See Also
-
-- [fzr](fzr.md) - Run fixed parametric studies
-- [fzi](fzi.md) - Parse input variables
-- [fzl](fzl.md) - List available models/calculators
-- [Algorithm Options Example](https://github.com/Funz/fz/blob/main/examples/algorithm_options_example.md)
-- [FZD Examples](https://github.com/Funz/fz/blob/main/examples/fzd_example.md)
+[Writing Algorithms](../design/algorithms.md) · [fzr](fzr.md) ·
+[Installing Models & Algorithms](../installing.md) · [Caching](../running/caching.md)

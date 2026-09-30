@@ -11,7 +11,7 @@ Monte Carlo N-Particle Transport Code support.
 
 - **Simulation type**: Radiation transport, criticality calculations
 - **Repository**: [Funz/fz-MCNP](https://github.com/Funz/fz-MCNP)
-- **Installation**: `pip install git+https://github.com/Funz/fz.git` + Set `MCNP_PATH` environment variable
+- **Installation**: `fz install model MCNP` + Set `MCNP_PATH` environment variable
 - **Input syntax**: Variables `%(...)`, Formulas `@{...}`, Comments `C `
 - **Main outputs**: `mean_keff`, `sigma_keff`
 - **Use cases**: Shielding, criticality, dose calculations
@@ -21,7 +21,7 @@ MORET Monte Carlo criticality safety calculations.
 
 - **Simulation type**: Reactor physics criticality
 - **Repository**: [Funz/fz-Moret](https://github.com/Funz/fz-Moret)
-- **Installation**: `fz.install('Moret')` + Install MORET at `/opt/MORET/scripts/moret.py`
+- **Installation**: `fz install model Moret` + MORET at `/opt/MORET/scripts/moret.py`
 - **Input syntax**: Variables `${...}`, Formulas `@{...}`, Comments `*`
 - **Main outputs**: `mean_keff`, `sigma_keff`, `dkeff_pertu`, `sigma_dkeff_pertu`
 - **Use cases**: Criticality safety, parametric reactor studies
@@ -31,7 +31,7 @@ French criticality package (V1 & V2).
 
 - **Simulation type**: Criticality calculations (SN KEFF, SN Normes, Pij-MC, AP2M5)
 - **Repository**: [Funz/fz-Cristal](https://github.com/Funz/fz-Cristal)
-- **Installation**: `pip install git+https://github.com/Funz/fz.git` + Set `CRISTAL_HOME` and `CRISTAL_VERSION`
+- **Installation**: `fz install model Cristal` + Set `CRISTAL_HOME` and `CRISTAL_VERSION`
 - **Input syntax**: Variables `${...}`, Formulas `@{...}`, Comments `*` (or `#` for XML)
 - **Main outputs**: `keff`, `kinf`, `M2`, `B2`, `mean_keff`, `sigma_keff` (model dependent)
 - **Use cases**: French nuclear code criticality studies
@@ -41,8 +41,8 @@ SCALE nuclear analysis code system.
 
 - **Simulation type**: Nuclear criticality, shielding, isotopic analysis, sensitivity
 - **Repository**: [Funz/fz-Scale](https://github.com/Funz/fz-Scale)
-- **Installation**: `pip install git+https://github.com/Funz/fz.git` + SCALE 6.2+ at `/SCALE/scale6.2` or set `SCALE_HOME`
-- **Input syntax**: Variables `&{...}`, Formulas `@{...}`, Comments `'`
+- **Installation**: `fz install model Scale` + SCALE 6.2+ at `/SCALE/scale6.2` or set `SCALE_HOME`
+- **Input syntax**: Variables `&(...)`, Formulas `@{...}`, Comments `'`
 - **Main outputs**: `mean_keff`, `sigma_keff`, `mean_E_lethargy`, `mean_nubar`, `mean_free_path`, `lambda` (XSDRNPM)
 - **Models**: Scale-keno, Scale-shift, Scale-tsunami, Scale-xsdrnpm
 - **Use cases**: Reactor physics, fuel cycle, depletion, sensitivity analysis
@@ -52,7 +52,7 @@ Serpent Monte Carlo reactor physics code.
 
 - **Simulation type**: Continuous-energy Monte Carlo reactor physics
 - **Repository**: [Funz/fz-Serpent](https://github.com/Funz/fz-Serpent)
-- **Installation**: `pip install git+https://github.com/Funz/fz.git` + `pip install serpentTools` + Serpent2 installation
+- **Installation**: `fz install model Serpent` + `pip install serpentTools` + Serpent2 installation
 - **Input syntax**: Variables `${...}`, Formulas `@{...}`, Comments `%`
 - **Main outputs**: `absKeff`, `anaKeff`, `colKeff`, `impKeff`, `burnup`, `burnDays` (JSON arrays)
 - **Use cases**: Detailed reactor physics, fuel depletion, advanced Monte Carlo simulations
@@ -62,7 +62,7 @@ CASMO5 lattice physics code.
 
 - **Simulation type**: Light water reactor lattice physics
 - **Repository**: [Funz/fz-Casmo](https://github.com/Funz/fz-Casmo)
-- **Installation**: `pip install git+https://github.com/Funz/fz.git` + CASMO5 license & set `CASMO_PATH`
+- **Installation**: `fz install model Casmo` + CASMO5 license & set `CASMO_PATH`
 - **Input syntax**: Variables `${...}`, Formulas `@{...}`, Comments `*`
 - **Main outputs**: `k_inf`, `m2`, `burnup`, `u235_wt_pct`, `fissile_pu_wt_pct`, `pin_power_peak` (depletion arrays)
 - **Use cases**: PWR/BWR assembly analysis, fuel depletion studies
@@ -74,7 +74,7 @@ CATHARE thermal-hydraulic system code.
 
 - **Simulation type**: Thermal-hydraulics for reactor safety
 - **Repository**: [Funz/fz-Cathare](https://github.com/Funz/fz-Cathare)
-- **Installation**: `pip install fz` + CATHARE installation
+- **Installation**: `fz install model Cathare` + CATHARE installation
 - **Input syntax**: Variables `$(...)`, Formulas `@(...)`, Comments `*`
 - **Main outputs**: EVOLUTION data from FORT07 (TIME_*, Z_* variables with time series)
 - **Use cases**: Reactor safety, accident analysis, transient simulations
@@ -86,7 +86,7 @@ TELEMAC-MASCARET hydrodynamics suite.
 
 - **Simulation type**: Free surface flow, sediment transport
 - **Repository**: [Funz/fz-Telemac](https://github.com/Funz/fz-Telemac)
-- **Installation**: `pip install git+https://github.com/Funz/fz.git` + `pip install PyTelTools` + Telemac (or Docker)
+- **Installation**: `fz install model Telemac` + `pip install PyTelTools` + Telemac (or Docker)
 - **Input syntax**: Variables `$(...)`, Formulas `@(...)`, Comments `/`
 - **Main outputs**: `S`, `H` (water surface, depth time series at POI from CSV)
 - **Use cases**: River flow, coastal modeling, dam breaks, flood analysis
@@ -98,7 +98,7 @@ Cast3m finite element software.
 
 - **Simulation type**: Structural and fluid mechanics FEM
 - **Repository**: [Funz/fz-Cast3M](https://github.com/Funz/fz-Cast3M)
-- **Installation**: `pip install git+https://github.com/Funz/fz.git` + Cast3m (castem2000/cast3m in PATH)
+- **Installation**: `fz install model Cast3M` + Cast3m (castem2000/cast3m in PATH)
 - **Input syntax**: Variables `$(...)`, Formulas `%(...)`, Comments `*`
 - **Main outputs**: MESS variables, text files (*.txt), CSV files (*.csv)
 - **Use cases**: Structural mechanics, thermal analysis, coupled simulations
@@ -108,7 +108,7 @@ OpenModelica multi-physics simulation.
 
 - **Simulation type**: Multi-domain modeling (mechanics, thermodynamics, electrical, control)
 - **Repository**: [Funz/fz-Modelica](https://github.com/Funz/fz-Modelica)
-- **Installation**: `pip install git+https://github.com/Funz/fz.git` + OpenModelica installation
+- **Installation**: `fz install model Modelica` + OpenModelica installation
 - **Input syntax**: Variables `${...~default}`, Formulas `@{...}`, Comments `//`
 - **Main outputs**: `res` (JSON dictionary with all CSV simulation results)
 - **Use cases**: Physical system modeling, control systems, thermal analysis
@@ -214,7 +214,7 @@ Template repositories for writing custom `fzd` algorithm plugins.
 - **Purpose**: Starting point for new optimization, sampling, or calibration algorithms
 - **Interface**: implement `get_initial_design`, `get_next_design`, `get_analysis`
 
-See also [Writing Custom Algorithms](../user-guide/core-functions/fzd.md#writing-custom-algorithms) in the fzd docs.
+See also [Writing Algorithms](../user-guide/design/algorithms.md).
 
 ## Plugin Architecture
 
@@ -246,30 +246,18 @@ results = fz.fzr(
 
 ## Installing Plugins
 
-Most plugins are used directly by cloning their repositories:
-
 ```bash
-# Clone plugin repository
-git clone https://github.com/Funz/fz-<PluginName>.git
-cd fz-<PluginName>
-
-# The .fz/ directory is automatically detected by fz
-# Install simulation code separately (MCNP, OpenModelica, etc.)
+pip install funz-fz                  # fz itself
+fz install model MCNP                # -> github.com/Funz/fz-MCNP, into ./.fz/
+fz install model MCNP --global       # into ~/.fz/ for all projects
 ```
 
-Some plugins provide Python installation via `fz.install()`:
+This copies the model, the runner script and a `localhost_<Name>` calculator alias.
+The simulation code itself is not installed: follow the plugin's README (paths,
+environment variables, licenses). Details: [Installing Models & Algorithms](../user-guide/installing.md).
 
-```python
-import fz
-fz.install('Moret')  # Installs Moret plugin
-```
-
-## Quick Start with a Plugin
-
-1. **Install fz framework**: `pip install git+https://github.com/Funz/fz.git`
-2. **Clone plugin**: `git clone https://github.com/Funz/fz-<PluginName>.git`
-3. **Install simulation code**: Follow plugin's README for code installation
-4. **Run example**: Check plugin's `examples/` directory or README
+A clone of a plugin repository also works: fz reads the `.fz/` directory of the current
+directory, so running from inside the clone uses its models and aliases.
 
 ## Using Plugins
 

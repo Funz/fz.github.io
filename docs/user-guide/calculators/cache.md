@@ -1,84 +1,75 @@
-# Cache Calculator (`cache://`)
+# Cache (`cache://`)
 
-The `cache://` calculator does not run anything. It looks in one or more existing result
-directories for a case whose **input files hash identically** to the current case and,
-if it finds one with valid outputs, copies those results in — skipping the computation.
+`cache://` runs nothing. For each case it looks in previous result directories for a
+case with the **same input hash** (and compatible code identity) whose outputs are all
+valid, and copies its results. On a miss, the next calculator in the list runs the case.
 
-Put it **first** in a calculator list so real calculators only run on cache misses.
-
-## URI Syntax
-
-```
-cache://path/to/results
+```text
+cache://path          # a results directory, or a glob
 ```
 
 ```python
-calculators = "cache://previous_run"
-
-calculators = ["cache://run1", "cache://archive/results"]      # several caches
-
-calculators = ["cache://archive/2024-*/results"]               # glob patterns
-
-calculators = [
-    "cache://previous_results",   # try cache first
-    "sh://bash calculate.sh",     # compute on miss
-]
+calculators = ["cache://run1", "sh://bash calc.sh"]                  # reuse, else compute
+calculators = ["cache://run1", "cache://archive/2024-*", "sh://bash calc.sh"]
 ```
 
-## How It Works
+Put `cache://` entries **first**. They do not count as parallel workers.
 
-1. Compute the MD5 hash of every input file for the current case.
-2. Search the cache directories for a `.fz_hash` file whose entries all match.
-3. Check that the cached outputs are non-`None`.
-4. On a hit, copy the cached result files in and mark the case `done`; on a miss, fall
-   through to the next calculator.
+## Matching rules
 
-Matching is by `.fz_hash` **content**, not directory name — so a cache written with any
-[`case_naming`](../core-functions/fzr.md#case-directory-naming-new-in-12) scheme
-(`path` / `hash` / `index`) still matches.
+1. The case's `.fz_hash` — SHA-256 of every compiled input file and of the
+   `input_static` files — must equal a cached case's `.fz_hash`.
+2. Code identity: if both calculators declare a `code_id`, they must be equal; if the
+   identity cannot be verified (no `code_id`), the match is accepted with a one-time
+   warning, or refused with `FZ_CACHE_STRICT=1`.
+3. The cached outputs, re-parsed with the **current** model, must all be non-`None`.
 
-```title=".fz_hash"
-a1b2c3d4e5f6...  input.txt
-f6e5d4c3b2a1...  config.dat
-```
+Directory names do not matter: a cache written with any `case_naming` matches.
 
-!!! note
-    The cache keys on **input files only**, not on the calculator command. Editing your
-    calculation script but not the inputs will still produce a cache hit — use a fresh
-    `results_dir` without `cache://` to force recomputation.
+!!! warning "What is *not* in the cache key"
+    The calculator command, the script content and the output extractors are not part
+    of the key. Changing `calc.sh` without changing the inputs still gives cache hits.
+    Declare a `code_id` / `version_cmd` in calculator aliases
+    ([Caching](../running/caching.md#cache-identity-code_id)), or run into a fresh
+    `results_dir` without `cache://`.
 
-## Common Uses
+- Caches written by fz versions using the previous MD5 format are ignored unless
+  `FZ_CACHE_ACCEPT_LEGACY=1`.
+- `fzr` pointed at an existing `results_dir` renames it with a timestamp
+  (`run1_2026-09-30_20-17-13`) before running. The special entry **`cache://_`** means
+  "the previous content of `results_dir`" and is redirected to that renamed copy.
+  `cache://run1` with `results_dir="run1"` finds nothing: it points to the new, empty
+  directory.
+
+## Common uses
 
 === "Resume an interrupted run"
 
     ```python
-    fz.fzr("input.txt", {"p": range(100)}, model, "sh://bash calc.sh", "run1")
-    # ... Ctrl+C after 50 cases ...
-    fz.fzr("input.txt", {"p": range(100)}, model,
-           ["cache://run1", "sh://bash calc.sh"], "run1_resumed")
+    fz.fzr("input.txt", {"p": list(range(100))}, model,
+           calculators="sh://bash calc.sh", results_dir="run1")
+    # Ctrl+C after 50 cases ...
+    fz.fzr("input.txt", {"p": list(range(100))}, model,
+           calculators=["cache://_", "sh://bash calc.sh"], results_dir="run1")
+    # cache://_ = previous content of run1 (renamed run1_<timestamp>)
     ```
 
-=== "Expand the parameter space"
+=== "Extend a design"
 
     ```python
-    fz.fzr("input.txt", {"t": [100, 200, 300]}, model, "sh://bash calc.sh", "study1")
+    fz.fzr("input.txt", {"t": [100, 200, 300]}, model,
+           calculators="sh://bash calc.sh", results_dir="study1")
     fz.fzr("input.txt", {"t": [100, 200, 300, 400, 500]}, model,
-           ["cache://study1", "sh://bash calc.sh"], "study2")   # reuses 3, runs 2
+           calculators=["cache://study1", "sh://bash calc.sh"], results_dir="study2")
+    # 3 reused, 2 computed
     ```
 
-=== "Multi-tier cache"
+=== "Re-parse without re-running"
 
-    ```python
-    calculators = [
-        "cache://latest_run",
-        "cache://archive/2024-*",
-        "cache://archive/*/*",
-        "sh://bash calc.sh",
-    ]
-    ```
+    To only change output extractors, `fzo` on the old results is simpler than a
+    cached `fzr`: `fz.fzo("study1/*", new_model)`.
 
-## See Also
+## See also
 
-- [Caching Strategy](../advanced/caching.md) — deeper patterns
-- [Interrupt Handling](../advanced/interrupts.md)
-- [`fzd` cross-iteration caching](../core-functions/fzd.md#cross-iteration-caching)
+[Caching](../running/caching.md) · [Interrupt & Resume](../running/interrupts.md) ·
+[Results & Traceability](../running/results.md)
