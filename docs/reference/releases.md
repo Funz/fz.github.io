@@ -5,15 +5,24 @@ in the fz repository.
 
 ## Unreleased (main branch, after 1.2)
 
-!!! warning "Breaking changes"
+!!! warning "Behavior changes when upgrading from 1.2"
     - Python 3.8 is no longer supported (`requires-python >= 3.9`).
     - `"path"` case directory names percent-encode `/ \ : * ? " < > | %`, control
       characters and `.`/`..` values: names containing such values differ from 1.2.
     - `cache://` uses a SHA-256 `.fz_hash` ("v2") format; caches written by older versions
       are ignored unless `FZ_CACHE_ACCEPT_LEGACY=1`.
-    - `ssh://` and `slurm://` have no default timeout (was 3600 s); `sh://`/`funz://` keep
-      3600 s.
-    - `fz-mcp`: `FZ_MCP_TRUSTED=0` restricted mode now works at the MCP layer only.
+    - `ssh://` and `slurm://` have no default timeout (was 3600 s); `timeout=0` and
+      `FZ_RUN_TIMEOUT=0` mean "no timeout" (they timed every case out immediately).
+    - A model without `delim` reads both `$(x)` and `${x}` (Python read only `$(x)`, the
+      CLI only `${x}`).
+    - `fzr()` raises `ValueError` when `results_dir` looks like a calculator URI.
+    - `sh://` resolves a word to the launch directory only if the file exists there and
+      not in the case directory: re-check 1.2 results of commands such as
+      `cat in.txt > out.txt`.
+    - `fz list --format json`: calculators are keyed by alias name (with `path`, `uri`).
+    - `fz-mcp`: `FZ_MCP_TRUSTED=0` restricts at the MCP layer only; network transports
+      need `FZ_MCP_ALLOW_NETWORK_TRANSPORT=1`.
+    - Code patching `fz.runners.run_command` must patch `fz.runners.sh.run_command`.
 
 - **Usability fixes** (Funz/fz#99): `timeout=0` / `FZ_RUN_TIMEOUT=0` mean no timeout;
   a model without `delim` accepts both `$(x)` and `${x}` (CLI and Python alike);
@@ -43,6 +52,11 @@ in the fz repository.
 - fz documentation reorganized: short README, one file per topic in `doc/`.
 - `fz install model` installs every model of a repository.
 - `fzc`/`fzr` evaluate formulas using inline variable defaults, as `fzi` does.
+- An unexpected exception in one case no longer aborts a sequential campaign: the case
+  gets `status="error"` with the message in the `error` column (Funz/fz#100).
+- `fzo` decodes percent-encoded case directory names when rebuilding variable columns.
+- Claude Code plugin / Agent Skill updated for all the above (plugin manifests to be
+  bumped with the release).
 - Error reports no longer blame the command for a "not found" printed by the code.
 - `fz/runners.py` split into the `fz.runners` package (no behavior change; code patching
   `fz.runners.run_command` must patch `fz.runners.sh.run_command`).
