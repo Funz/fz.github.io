@@ -89,10 +89,6 @@
       
     </div>
     
-      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
-        
-      </div>
-    
     
       
 
@@ -258,6 +254,8 @@
           
   
   
+    
+  
   Getting Started
 
         </a>
@@ -281,9 +279,11 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../user-guide/core-functions/fzi/" class="md-tabs__link">
+        <a href="../../user-guide/templates/syntax/" class="md-tabs__link">
           
   
+  
+    
   
   User Guide
 
@@ -308,6 +308,8 @@
           
   
   
+    
+  
   Plugins
 
         </a>
@@ -328,6 +330,8 @@
           
   
   
+    
+  
   Examples
 
         </a>
@@ -344,9 +348,11 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../reference/configuration/" class="md-tabs__link">
+        <a href="../../reference/cli/" class="md-tabs__link">
           
   
+  
+    
   
   Reference
 
@@ -367,6 +373,8 @@
         <a href="../../contributing/development/" class="md-tabs__link">
           
   
+  
+    
   
   Contributing
 
@@ -457,6 +465,14 @@
   
   
     
+    
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -600,71 +616,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-complete-example" class="md-nav__link">
+  <a href="#1-input-template" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Complete Example
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="The Complete Example">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-create-input-template" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Create Input Template
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-create-calculation-script" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Create Calculation Script
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-run-parametric-study" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Run Parametric Study
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-execute" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Execute
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#understanding-the-results" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Understanding the Results
+        1. Input template
       
     </span>
   </a>
@@ -672,10 +627,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-just-happened" class="md-nav__link">
+  <a href="#2-calculation-script" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What Just Happened?
+        2. Calculation script
       
     </span>
   </a>
@@ -683,110 +638,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
+  <a href="#3-model-and-run" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Next Steps
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Next Steps">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#try-different-calculators" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Try Different Calculators
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#run-in-parallel" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Run in Parallel
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#save-model-as-alias" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Save Model as Alias
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-patterns" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common Patterns
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Common Patterns">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#single-parameter-study" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Single Parameter Study
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#full-factorial-design" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Full Factorial Design
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mixed-fixed-and-variable-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Mixed Fixed and Variable Parameters
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting
+        3. Model and run
       
     </span>
   </a>
@@ -794,10 +649,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#google-colab-quick-start" class="md-nav__link">
+  <a href="#4-what-was-produced" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Google Colab Quick Start
+        4. What was produced
       
     </span>
   </a>
@@ -805,10 +660,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#beyond-fixed-grids-adaptive-design" class="md-nav__link">
+  <a href="#5-the-same-from-the-command-line" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Beyond Fixed Grids: Adaptive Design
+        5. The same from the command line
       
     </span>
   </a>
@@ -816,10 +671,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#further-reading" class="md-nav__link">
+  <a href="#6-check-each-step-before-a-large-run" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Further Reading
+        6. Check each step before a large run
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Next steps
       
     </span>
   </a>
@@ -878,6 +744,22 @@
   
     
     
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
     
     
       
@@ -930,6 +812,16 @@
   
     
     
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
     
     
       
@@ -952,7 +844,7 @@
   <span class="md-ellipsis">
     
   
-    Core Functions
+    Templates & Models
   
 
     
@@ -965,6 +857,192 @@
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Templates & Models
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/templates/syntax/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input Template Syntax
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/templates/formulas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Formulas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/models/definition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Definition
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/models/outputs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Output Extraction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Functions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1156,35 +1234,21 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../user-guide/model-definition/" class="md-nav__link">
+    
+    
+      
         
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Model Definition
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -1244,7 +1308,7 @@
   <span class="md-ellipsis">
     
   
-    Overview
+    Overview & Aliases
   
 
     
@@ -1272,7 +1336,7 @@
   <span class="md-ellipsis">
     
   
-    Local Shell
+    Local Shell (sh://)
   
 
     
@@ -1300,7 +1364,7 @@
   <span class="md-ellipsis">
     
   
-    SSH Remote
+    SSH (ssh://)
   
 
     
@@ -1328,7 +1392,7 @@
   <span class="md-ellipsis">
     
   
-    SLURM
+    SLURM (slurm://, slurm-array://)
   
 
     
@@ -1356,7 +1420,7 @@
   <span class="md-ellipsis">
     
   
-    Funz Server
+    Funz Server (funz://)
   
 
     
@@ -1384,7 +1448,7 @@
   <span class="md-ellipsis">
     
   
-    Cache
+    Cache (cache://)
   
 
     
@@ -1413,6 +1477,18 @@
   
   
     
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -1436,7 +1512,7 @@
   <span class="md-ellipsis">
     
   
-    Advanced Features
+    Running Studies
   
 
     
@@ -1452,7 +1528,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Advanced Features
+    Running Studies
   
 
           </label>
@@ -1465,14 +1541,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/advanced/parallel/" class="md-nav__link">
+      <a href="../../user-guide/running/parallel/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Parallel Execution
+    Parallelism & Retries
   
 
     
@@ -1493,14 +1569,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/advanced/caching/" class="md-nav__link">
+      <a href="../../user-guide/running/timeouts/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Caching Strategy
+    Timeouts
   
 
     
@@ -1521,14 +1597,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/advanced/interrupts/" class="md-nav__link">
+      <a href="../../user-guide/running/caching/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Interrupt Handling
+    Caching
   
 
     
@@ -1549,14 +1625,42 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/advanced/formulas/" class="md-nav__link">
+      <a href="../../user-guide/running/results/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Formulas
+    Results & Traceability
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/running/interrupts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interrupt & Resume
   
 
     
@@ -1578,6 +1682,154 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design of Experiments
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design of Experiments
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/design/algorithms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/installing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installing Models & Algorithms
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/ai-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Agents (Claude Code, MCP)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1592,6 +1844,24 @@
   
   
     
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -1608,8 +1878,9 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../plugins/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -1623,8 +1894,14 @@
   
   
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
@@ -1637,32 +1914,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../plugins/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Overview
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -1848,6 +2099,16 @@
   
     
     
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
     
     
       
@@ -2019,6 +2280,24 @@
   
     
     
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
     
     
       
@@ -2070,6 +2349,62 @@
   
   
     <li class="md-nav__item">
+      <a href="../../reference/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../reference/configuration/" class="md-nav__link">
         
   
@@ -2077,7 +2412,7 @@
   <span class="md-ellipsis">
     
   
-    Configuration
+    .fz Directory & Aliases
   
 
     
@@ -2126,14 +2461,42 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/releases/" class="md-nav__link">
+      <a href="../../reference/limitations/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Release Notes
+    Constraints & Limits
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Security Model
   
 
     
@@ -2182,14 +2545,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/api/" class="md-nav__link">
+      <a href="../../reference/releases/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    API Reference
+    Release Notes
   
 
     
@@ -2217,6 +2580,12 @@
   
   
     
+    
+      
+        
+      
+        
+      
     
     
     
@@ -2352,71 +2721,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-complete-example" class="md-nav__link">
+  <a href="#1-input-template" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The Complete Example
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="The Complete Example">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#step-1-create-input-template" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Create Input Template
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-2-create-calculation-script" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Create Calculation Script
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-3-run-parametric-study" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Run Parametric Study
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#step-4-execute" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Execute
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#understanding-the-results" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Understanding the Results
+        1. Input template
       
     </span>
   </a>
@@ -2424,10 +2732,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-just-happened" class="md-nav__link">
+  <a href="#2-calculation-script" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What Just Happened?
+        2. Calculation script
       
     </span>
   </a>
@@ -2435,110 +2743,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
+  <a href="#3-model-and-run" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Next Steps
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Next Steps">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#try-different-calculators" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Try Different Calculators
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#run-in-parallel" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Run in Parallel
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#save-model-as-alias" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Save Model as Alias
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-patterns" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common Patterns
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Common Patterns">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#single-parameter-study" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Single Parameter Study
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#full-factorial-design" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Full Factorial Design
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mixed-fixed-and-variable-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Mixed Fixed and Variable Parameters
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting
+        3. Model and run
       
     </span>
   </a>
@@ -2546,10 +2754,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#google-colab-quick-start" class="md-nav__link">
+  <a href="#4-what-was-produced" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Google Colab Quick Start
+        4. What was produced
       
     </span>
   </a>
@@ -2557,10 +2765,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#beyond-fixed-grids-adaptive-design" class="md-nav__link">
+  <a href="#5-the-same-from-the-command-line" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Beyond Fixed Grids: Adaptive Design
+        5. The same from the command line
       
     </span>
   </a>
@@ -2568,10 +2776,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#further-reading" class="md-nav__link">
+  <a href="#6-check-each-step-before-a-large-run" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Further Reading
+        6. Check each step before a large run
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Next steps
       
     </span>
   </a>
@@ -2599,290 +2818,140 @@
 
 
 <h1 id="quick-start">Quick Start</h1>
-<p>This guide will get you up and running with FZ in just a few minutes. We'll create a simple parametric study for the ideal gas law.</p>
-<h2 id="the-complete-example">The Complete Example</h2>
-<p>We'll calculate pressure for different temperatures and volumes using the ideal gas law: <code>PV = nRT</code></p>
-<h3 id="step-1-create-input-template">Step 1: Create Input Template</h3>
-<p>Create a file named <code>input.txt</code>:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a># input file for Perfect Gas Pressure, with variables n_mol, T_celsius, V_L
+<p>This page runs a complete study: the pressure of a perfect gas, <code>P = nRT/V</code>, for 4
+temperatures × 3 volumes = 12 cases. Every file below is complete; the output shown was
+produced by running them.</p>
+<h2 id="1-input-template">1. Input template</h2>
+<p>A template is the code's normal input file with <code>$variables</code> and <code>@{formulas}</code>.</p>
+<div class="language-text highlight"><span class="filename">input.txt</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a># Perfect gas: n_mol, T_celsius, V_L are variables
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>n_mol=$n_mol
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>T_kelvin=@($T_celsius + 273.15)
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>T_kelvin=@{$T_celsius + 273.15}
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>#@ def L_to_m3(L):
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>#@     return(L / 1000)
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>V_m3=@(L_to_m3($V_L))
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>#@     return L / 1000
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>V_m3=@{L_to_m3($V_L)}
 </span></code></pre></div>
-<p><strong>What's happening here?</strong></p>
 <ul>
-<li><code>$n_mol</code>, <code>$T_celsius</code>, <code>$V_L</code> are <strong>variables</strong> (marked with <code>$</code>)</li>
-<li><code>@(...)</code> are <strong>formulas</strong> that are evaluated during compilation</li>
-<li><code>#@</code> lines define Python functions available to formulas</li>
+<li><code>$n_mol</code>, <code>$T_celsius</code>, <code>$V_L</code>: variables, replaced by a value in each case.</li>
+<li><code>@{...}</code>: formulas, evaluated in Python when the case is compiled.</li>
+<li><code>#@</code> lines: code made available to formulas (here a function).</li>
 </ul>
-<h3 id="step-2-create-calculation-script">Step 2: Create Calculation Script</h3>
-<p>Create a file named <code>calculate.sh</code>:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="ch">#!/bin/bash</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># Read input file</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nb">source</span><span class="w"> </span><span class="nv">$1</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1"># Simulate calculation time</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>sleep<span class="w"> </span><span class="m">1</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="c1"># Calculate pressure using ideal gas law</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1"># P = nRT/V (R = 8.314 J/(mol·K))</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">'pressure = '</span><span class="sb">`</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"scale=4;</span><span class="nv">$n_mol</span><span class="s2">*8.314*</span><span class="nv">$T_kelvin</span><span class="s2">/</span><span class="nv">$V_m3</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>bc<span class="sb">`</span><span class="w"> </span>&gt;<span class="w"> </span>output.txt
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">'Done'</span>
+<h2 id="2-calculation-script">2. Calculation script</h2>
+<p>The "simulation" reads the compiled input and writes a result file.</p>
+<div class="language-bash highlight"><span class="filename">calculate.sh</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="ch">#!/bin/bash</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># $1 is the compiled input file, in the case directory</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">source</span><span class="w"> </span><span class="s2">"</span><span class="nv">$1</span><span class="s2">"</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nv">P</span><span class="o">=</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">"print(</span><span class="nv">$n_mol</span><span class="s2"> * 8.314 * </span><span class="nv">$T_kelvin</span><span class="s2"> / </span><span class="nv">$V_m3</span><span class="s2">)"</span><span class="k">)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">"pressure = </span><span class="nv">$P</span><span class="s2">"</span><span class="w"> </span>&gt;<span class="w"> </span>output.txt
 </span></code></pre></div>
-<p>Make it executable:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>chmod<span class="w"> </span>+x<span class="w"> </span>calculate.sh
+<p>fz runs the script inside a fresh directory per case and appends the compiled input
+file names to the command line, so <code>$1</code> is <code>input.txt</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Do not name result files <code>out.txt</code>, <code>err.txt</code>, <code>log.txt</code>, <code>info.txt</code>, <code>history.txt</code></p>
+<p>fz writes these files in every case directory (stdout, stderr, metadata) and would
+overwrite a result file of the same name.</p>
+</div>
+<h2 id="3-model-and-run">3. Model and run</h2>
+<div class="language-python highlight"><span class="filename">run_study.py</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">fz</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">model</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="s2">"varprefix"</span><span class="p">:</span> <span class="s2">"$"</span><span class="p">,</span>       <span class="c1"># these four values are the defaults</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="s2">"formulaprefix"</span><span class="p">:</span> <span class="s2">"@"</span><span class="p">,</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="s2">"delim"</span><span class="p">:</span> <span class="s2">"</span><span class="si">{}</span><span class="s2">"</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="s2">"commentline"</span><span class="p">:</span> <span class="s2">"#"</span><span class="p">,</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="s2">"output"</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>        <span class="s2">"pressure"</span><span class="p">:</span> <span class="s2">"python://grep(r'pressure = (</span><span class="se">\\</span><span class="s2">S+)', 'output.txt')"</span><span class="p">,</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="p">},</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="p">}</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="s2">"input.txt"</span><span class="p">,</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    <span class="p">{</span><span class="s2">"T_celsius"</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span> <span class="s2">"V_L"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="s2">"n_mol"</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">},</span>  <span class="c1"># 4 x 3 = 12 cases</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>    <span class="n">model</span><span class="p">,</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    <span class="n">calculators</span><span class="o">=</span><span class="p">[</span><span class="s2">"sh://bash calculate.sh"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span>   <span class="c1"># 2 cases at a time</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    <span class="n">results_dir</span><span class="o">=</span><span class="s2">"results"</span><span class="p">,</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="p">)</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">[[</span><span class="s2">"T_celsius"</span><span class="p">,</span> <span class="s2">"V_L"</span><span class="p">,</span> <span class="s2">"n_mol"</span><span class="p">,</span> <span class="s2">"pressure"</span><span class="p">,</span> <span class="s2">"status"</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
 </span></code></pre></div>
-<h3 id="step-3-run-parametric-study">Step 3: Run Parametric Study</h3>
-<p>Create a file named <code>run_study.py</code>:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">fz</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="c1"># Define the model</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">model</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="s2">"varprefix"</span><span class="p">:</span> <span class="s2">"$"</span><span class="p">,</span>           <span class="c1"># Variables are marked with $</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="s2">"formulaprefix"</span><span class="p">:</span> <span class="s2">"@"</span><span class="p">,</span>       <span class="c1"># Formulas are marked with @</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="s2">"delim"</span><span class="p">:</span> <span class="s2">"()"</span><span class="p">,</span>              <span class="c1"># Formula delimiters</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="s2">"commentline"</span><span class="p">:</span> <span class="s2">"#"</span><span class="p">,</span>         <span class="c1"># Comment character</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="s2">"output"</span><span class="p">:</span> <span class="p">{</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        <span class="s2">"pressure"</span><span class="p">:</span> <span class="s2">"grep 'pressure = ' output.txt | awk '{print $3}'"</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="p">}</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="p">}</span>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="c1"># Define parameter values</span>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="n">input_variables</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>    <span class="s2">"T_celsius"</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span>  <span class="c1"># 4 temperatures</span>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    <span class="s2">"V_L"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>                <span class="c1"># 3 volumes</span>
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>    <span class="s2">"n_mol"</span><span class="p">:</span> <span class="mf">1.0</span>                     <span class="c1"># fixed amount</span>
-</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="p">}</span>
-</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>
-</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="c1"># Run all combinations (4 × 3 = 12 cases)</span>
-</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span>
-</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>    <span class="s2">"input.txt"</span><span class="p">,</span>
-</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>    <span class="n">input_variables</span><span class="p">,</span>
-</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>    <span class="n">model</span><span class="p">,</span>
-</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>    <span class="n">calculators</span><span class="o">=</span><span class="s2">"sh://bash calculate.sh"</span><span class="p">,</span>
-</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>    <span class="n">results_dir</span><span class="o">=</span><span class="s2">"results"</span>
-</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="p">)</span>
-</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>
-</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="c1"># Display results</span>
-</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a><span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
-</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Completed </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2"> calculations"</span><span class="p">)</span>
+<div class="language-text highlight"><span class="filename">output</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>   T_celsius  V_L  n_mol    pressure status
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>0         10    1    1.0  2354109.10   done
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>1         10    2    1.0  1177054.55   done
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>2         10    5    1.0   470821.82   done
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>3         20    1    1.0  2437249.10   done
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>4         20    2    1.0  1218624.55   done
 </span></code></pre></div>
-<h3 id="step-4-execute">Step 4: Execute</h3>
-<p>Run the study:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>python<span class="w"> </span>run_study.py
+<div class="admonition danger">
+<p class="admonition-title">Pass <code>calculators=</code> and <code>results_dir=</code> by keyword</p>
+<p>The 4th positional parameter of <code>fz.fzr</code> is <code>results_dir</code>, not <code>calculators</code>.
+<code>fz.fzr("input.txt", vars, model, "sh://bash calculate.sh")</code> raises
+<code>ValueError: results_dir looks like a calculator URI</code> (fz ≤ 1.2 silently created a
+directory named <code>sh:/bash calculate.sh</code> and ran every case without calculator).</p>
+</div>
+<h2 id="4-what-was-produced">4. What was produced</h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>results/
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>├── manifest.json                     # campaign record (versions, model, calculators, cases)
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>├── ro-crate-metadata.json            # same, as RO-Crate metadata
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>├── T_celsius=10,V_L=1,n_mol=1.0/
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>│   ├── input.txt                     # compiled input
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>│   ├── output.txt                    # written by calculate.sh
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>│   ├── out.txt  err.txt              # stdout / stderr of the command
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>│   ├── log.txt  info.txt  history.txt
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>│   └── .fz_hash                      # SHA-256 of the inputs (cache key)
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>└── ...                               # 11 more case directories
 </span></code></pre></div>
-<p><strong>Expected output:</strong></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>   T_celsius  V_L  n_mol     pressure status calculator       error command
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>0         10  1.0    1.0  2353.58     done     sh://        None    bash...
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>1         10  2.0    1.0  1176.79     done     sh://        None    bash...
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>2         10  5.0    1.0   470.72     done     sh://        None    bash...
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>3         20  1.0    1.0  2437.30     done     sh://        None    bash...
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>...
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>Completed 12 calculations
+<p>The returned DataFrame has one row per case: the variables, the outputs, and
+<code>status</code>, <code>calculator</code>, <code>error</code>, <code>command</code>. A case whose <code>status</code> is not <code>done</code> has its
+diagnosis in that case's <code>err.txt</code> and <code>log.txt</code>.</p>
+<h2 id="5-the-same-from-the-command-line">5. The same from the command line</h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>fzr<span class="w"> </span>input.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span>--model<span class="w"> </span><span class="s1">'{"output": {"pressure": "python://grep(r\"pressure = (\\S+)\", \"output.txt\")"}}'</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span>--input_variables<span class="w"> </span><span class="s1">'{"T_celsius": [10, 20, 30, 40], "V_L": [1, 2, 5], "n_mol": 1.0}'</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span>--calculators<span class="w"> </span><span class="s2">"sh://bash calculate.sh"</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span>--results_dir<span class="w"> </span>results<span class="w"> </span>--format<span class="w"> </span>json
 </span></code></pre></div>
-<h2 id="understanding-the-results">Understanding the Results</h2>
-<p>The results DataFrame contains:</p>
-<ul>
-<li><strong>Input variables</strong>: <code>T_celsius</code>, <code>V_L</code>, <code>n_mol</code></li>
-<li><strong>Output variables</strong>: <code>pressure</code></li>
-<li><strong>Metadata</strong>: <code>status</code>, <code>calculator</code>, <code>error</code>, <code>command</code></li>
-</ul>
-<p>You can use pandas to analyze:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Find maximum pressure</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">max_pressure</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s1">'pressure'</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Maximum pressure: </span><span class="si">{</span><span class="n">max_pressure</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<p>Data goes to stdout, logs and progress to stderr; the exit status is 1 when no case
+succeeds.</p>
+<h2 id="6-check-each-step-before-a-large-run">6. Check each step before a large run</h2>
+<p>For a new code, verify the steps separately; each one isolates a class of errors.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">fz</span><span class="o">.</span><span class="n">fzi</span><span class="p">(</span><span class="s2">"input.txt"</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1"># {'T_celsius': None, 'V_L': None, 'n_mol': None,</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="c1">#  'T_celsius + 273.15': None, 'L_to_m3(V_L)': None}   variables and formulas found</span>
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="c1"># Filter results</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="n">high_temp</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">results</span><span class="p">[</span><span class="s1">'T_celsius'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">25</span><span class="p">]</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">high_temp</span><span class="p">)</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="c1"># Plot results</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="k">for</span> <span class="n">volume</span> <span class="ow">in</span> <span class="n">results</span><span class="p">[</span><span class="s1">'V_L'</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
-</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">results</span><span class="p">[</span><span class="s1">'V_L'</span><span class="p">]</span> <span class="o">==</span> <span class="n">volume</span><span class="p">]</span>
-</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">'T_celsius'</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">'pressure'</span><span class="p">],</span> 
-</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>             <span class="n">marker</span><span class="o">=</span><span class="s1">'o'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">'V=</span><span class="si">{</span><span class="n">volume</span><span class="si">}</span><span class="s1"> L'</span><span class="p">)</span>
-</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>
-</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Temperature (°C)'</span><span class="p">)</span>
-</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Pressure (Pa)'</span><span class="p">)</span>
-</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">fz</span><span class="o">.</span><span class="n">fzc</span><span class="p">(</span><span class="s2">"input.txt"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"T_celsius"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">"V_L"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"n_mol"</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">},</span> <span class="n">model</span><span class="p">,</span> <span class="s2">"compiled"</span><span class="p">)</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="c1"># compiled/T_celsius=10,V_L=1,n_mol=1.0/input.txt        one sub-directory per case</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1">#   T_kelvin=283.15, V_m3=0.001                          compilation correct?</span>
 </span></code></pre></div>
-<h2 id="what-just-happened">What Just Happened?</h2>
-<p>Let's break down the workflow:</p>
-<ol>
-<li>
-<p><strong>fzi (Parse Input)</strong> - FZ identified variables <code>$n_mol</code>, <code>$T_celsius</code>, <code>$V_L</code> in <code>input.txt</code></p>
-</li>
-<li>
-<p><strong>fzc (Compile)</strong> - For each parameter combination, FZ:</p>
-</li>
-<li>Created a directory (e.g., <code>results/T_celsius=10,V_L=1</code>)</li>
-<li>Substituted variable values</li>
-<li>Evaluated formulas</li>
-<li>
-<p>Saved compiled input file</p>
-</li>
-<li>
-<p><strong>Calculator Execution</strong> - For each case, FZ:</p>
-</li>
-<li>Ran <code>bash calculate.sh input.txt</code> in the case directory</li>
-<li>Captured output and errors</li>
-<li>
-<p>Logged execution metadata</p>
-</li>
-<li>
-<p><strong>fzo (Parse Output)</strong> - FZ:</p>
-</li>
-<li>Ran the output command to extract <code>pressure</code></li>
-<li>Collected results from all cases</li>
-<li>
-<p>Built a pandas DataFrame</p>
-</li>
-<li>
-<p><strong>fzr (Complete Run)</strong> - FZ orchestrated all steps automatically!</p>
-</li>
-</ol>
-<h2 id="next-steps">Next Steps</h2>
-<h3 id="try-different-calculators">Try Different Calculators</h3>
-<p>Run on a remote server:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="s2">"input.txt"</span><span class="p">,</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">input_variables</span><span class="p">,</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">model</span><span class="p">,</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">calculators</span><span class="o">=</span><span class="s2">"ssh://user@server.com/bash /path/to/calculate.sh"</span><span class="p">,</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="n">results_dir</span><span class="o">=</span><span class="s2">"remote_results"</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="p">)</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="o">(</span><span class="nb">cd</span><span class="w"> </span>compiled/*/<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>bash<span class="w"> </span>../../calculate.sh<span class="w"> </span>input.txt<span class="o">)</span><span class="w">       </span><span class="c1"># does the code run?</span>
 </span></code></pre></div>
-<p>Use caching to avoid recalculation:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="s2">"input.txt"</span><span class="p">,</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="n">input_variables</span><span class="p">,</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="n">model</span><span class="p">,</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="n">calculators</span><span class="o">=</span><span class="p">[</span>
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>        <span class="s2">"cache://results"</span><span class="p">,</span>           <span class="c1"># Check cache first</span>
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>        <span class="s2">"sh://bash calculate.sh"</span>     <span class="c1"># Run if not cached</span>
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    <span class="p">],</span>
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    <span class="n">results_dir</span><span class="o">=</span><span class="s2">"cached_results"</span>
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">fz</span><span class="o">.</span><span class="n">fzo</span><span class="p">(</span><span class="s2">"compiled/*"</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>                                <span class="c1"># does parsing find the value?</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="c1"># path=compiled/T_celsius=10,V_L=1,n_mol=1.0, pressure=2354109.1, T_celsius=10, ...</span>
 </span></code></pre></div>
-<h3 id="run-in-parallel">Run in Parallel</h3>
-<p>Use multiple calculators for parallel execution:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="s2">"input.txt"</span><span class="p">,</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="n">input_variables</span><span class="p">,</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="n">model</span><span class="p">,</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">calculators</span><span class="o">=</span><span class="p">[</span>
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        <span class="s2">"sh://bash calculate.sh"</span><span class="p">,</span>
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        <span class="s2">"sh://bash calculate.sh"</span><span class="p">,</span>
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>        <span class="s2">"sh://bash calculate.sh"</span><span class="p">,</span>
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>        <span class="s2">"sh://bash calculate.sh"</span>
-</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>    <span class="p">],</span>  <span class="c1"># 4 parallel workers</span>
-</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>    <span class="n">results_dir</span><span class="o">=</span><span class="s2">"parallel_results"</span>
-</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="p">)</span>
-</span></code></pre></div>
-<h3 id="save-model-as-alias">Save Model as Alias</h3>
-<p>Create <code>.fz/models/perfectgas.json</code>:</p>
-<div class="language-json highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="nt">"varprefix"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$"</span><span class="p">,</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="nt">"formulaprefix"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@"</span><span class="p">,</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="nt">"delim"</span><span class="p">:</span><span class="w"> </span><span class="s2">"()"</span><span class="p">,</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="nt">"commentline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#"</span><span class="p">,</span>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span><span class="nt">"output"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">        </span><span class="nt">"pressure"</span><span class="p">:</span><span class="w"> </span><span class="s2">"grep 'pressure = ' output.txt | awk '{print $3}'"</span>
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="p">},</span>
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"perfectgas"</span>
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="p">}</span>
-</span></code></pre></div>
-<p>Then use by name:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="s2">"input.txt"</span><span class="p">,</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="n">input_variables</span><span class="p">,</span>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    <span class="s2">"perfectgas"</span><span class="p">,</span>  <span class="c1"># Model name instead of dict</span>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    <span class="n">calculators</span><span class="o">=</span><span class="s2">"sh://bash calculate.sh"</span><span class="p">,</span>
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>    <span class="n">results_dir</span><span class="o">=</span><span class="s2">"results"</span>
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="p">)</span>
-</span></code></pre></div>
-<h2 id="common-patterns">Common Patterns</h2>
-<h3 id="single-parameter-study">Single Parameter Study</h3>
-<p>Vary one parameter:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="s2">"input.txt"</span><span class="p">,</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="p">{</span><span class="s2">"temperature"</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">500</span><span class="p">]},</span>
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    <span class="n">model</span><span class="p">,</span>
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    <span class="n">calculators</span><span class="o">=</span><span class="s2">"sh://bash calc.sh"</span>
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="p">)</span>
-</span></code></pre></div>
-<h3 id="full-factorial-design">Full Factorial Design</h3>
-<p>Vary multiple parameters:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    <span class="s2">"input.txt"</span><span class="p">,</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    <span class="p">{</span>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>        <span class="s2">"param1"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>      <span class="c1"># 3 values</span>
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>        <span class="s2">"param2"</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>       <span class="c1"># 2 values</span>
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>        <span class="s2">"param3"</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span> <span class="c1"># 3 values</span>
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>    <span class="p">},</span>  <span class="c1"># Total: 3 × 2 × 3 = 18 cases</span>
-</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>    <span class="n">model</span><span class="p">,</span>
-</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>    <span class="n">calculators</span><span class="o">=</span><span class="s2">"sh://bash calc.sh"</span>
-</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="p">)</span>
-</span></code></pre></div>
-<h3 id="mixed-fixed-and-variable-parameters">Mixed Fixed and Variable Parameters</h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">results</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzr</span><span class="p">(</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    <span class="s2">"input.txt"</span><span class="p">,</span>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="p">{</span>
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>        <span class="s2">"variable_param"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>  <span class="c1"># Variable</span>
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>        <span class="s2">"fixed_param"</span><span class="p">:</span> <span class="mi">100</span>                <span class="c1"># Fixed</span>
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>    <span class="p">},</span>
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>    <span class="n">model</span><span class="p">,</span>
-</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>    <span class="n">calculators</span><span class="o">=</span><span class="s2">"sh://bash calc.sh"</span>
-</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="p">)</span>
-</span></code></pre></div>
-<h2 id="troubleshooting">Troubleshooting</h2>
-<p><strong>Issue</strong>: Calculation fails with "command not found"</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Use absolute paths</span>
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="n">calculators</span><span class="o">=</span><span class="s2">"sh://bash /full/path/to/calculate.sh"</span>
-</span></code></pre></div>
-<p><strong>Issue</strong>: Output not parsed correctly</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Test your output command manually</span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
-</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    <span class="s2">"grep 'pressure = ' output.txt | awk '{print $3}'"</span><span class="p">,</span>
-</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span>
-</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="p">)</span>
-</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
-</span></code></pre></div>
-<p><strong>Issue</strong>: Formulas not evaluating</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Check formula syntax</span>
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="c1"># Ensure variables are marked with $ and formulas with @</span>
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="c1"># Check that commentline is correct</span>
-</span></code></pre></div>
-<h2 id="google-colab-quick-start">Google Colab Quick Start</h2>
-<p>Want to try FZ without installing anything locally? Use Google Colab:</p>
-<p><a href="https://colab.research.google.com/github/Funz/fz/blob/main/notebooks/quickstart.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
-<h2 id="beyond-fixed-grids-adaptive-design">Beyond Fixed Grids: Adaptive Design</h2>
-<p>For optimization and uncertainty quantification, use <code>fzd</code> instead of <code>fzr</code>. Instead of specifying exact parameter values, you specify ranges and let an algorithm choose points adaptively:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">result</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">fzd</span><span class="p">(</span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>    <span class="s2">"input.txt"</span><span class="p">,</span>
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>    <span class="p">{</span><span class="s2">"T_celsius"</span><span class="p">:</span> <span class="s2">"[0;100]"</span><span class="p">,</span> <span class="s2">"V_L"</span><span class="p">:</span> <span class="s2">"[1;5]"</span><span class="p">},</span>  <span class="c1"># Ranges, not lists</span>
-</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>    <span class="n">model</span><span class="p">,</span>
-</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>    <span class="n">output_expression</span><span class="o">=</span><span class="s2">"pressure"</span><span class="p">,</span>
-</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>    <span class="n">algorithm</span><span class="o">=</span><span class="s2">"examples/algorithms/bfgs.py"</span><span class="p">,</span>
-</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>    <span class="n">calculators</span><span class="o">=</span><span class="s2">"sh://bash calculate.sh"</span>
-</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="p">)</span>
-</span></code></pre></div>
-<p>See <a href="../../user-guide/core-functions/fzd/">fzd - Design of Experiments</a> for details.</p>
-<h2 id="further-reading">Further Reading</h2>
+<p><code>fzo</code> must target the case directory (or a glob of case directories): <code>fz.fzo("compiled",
+model)</code> looks for <code>output.txt</code> in <code>compiled/</code> itself and returns <code>None</code>.</p>
+<h2 id="7-next-steps">7. Next steps</h2>
 <ul>
-<li><a href="../concepts/">Core Concepts</a> - Understand FZ fundamentals</li>
-<li><a href="../../user-guide/core-functions/fzi/">Core Functions</a> - Deep dive into fzi, fzc, fzo, fzr, fzd, fzl</li>
-<li><a href="../../user-guide/model-definition/">Model Definition</a> - Learn about model configuration</li>
-<li><a href="../../examples/perfectgas/">Examples</a> - More complete examples</li>
+<li>Reuse finished cases: add <code>"cache://results"</code> first in <code>calculators</code>
+  (<a href="../../user-guide/running/caching/">Caching</a>).</li>
+<li>Run elsewhere: <a href="../../user-guide/calculators/ssh/">SSH</a>,
+  <a href="../../user-guide/calculators/slurm/">SLURM</a>.</li>
+<li>
+<p>Let an algorithm choose the points (optimization, sampling):
+  <a href="../../user-guide/core-functions/fzd/">fzd</a>.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">fz</span><span class="o">.</span><span class="n">fzd</span><span class="p">(</span><span class="s2">"input.txt"</span><span class="p">,</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>       <span class="p">{</span><span class="s2">"T_celsius"</span><span class="p">:</span> <span class="s2">"[0;100]"</span><span class="p">,</span> <span class="s2">"V_L"</span><span class="p">:</span> <span class="s2">"[1;5]"</span><span class="p">,</span> <span class="s2">"n_mol"</span><span class="p">:</span> <span class="s2">"1"</span><span class="p">},</span>   <span class="c1"># ranges, fixed values</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>       <span class="n">model</span><span class="p">,</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>       <span class="n">output_expression</span><span class="o">=</span><span class="s2">"pressure"</span><span class="p">,</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>       <span class="n">algorithm</span><span class="o">=</span><span class="s2">"randomsampling"</span><span class="p">,</span>          <span class="c1"># .fz/algorithms/randomsampling.py</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>       <span class="n">calculators</span><span class="o">=</span><span class="s2">"sh://bash calculate.sh"</span><span class="p">,</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>       <span class="n">algorithm_options</span><span class="o">=</span><span class="p">{</span><span class="s2">"nvalues"</span><span class="p">:</span> <span class="mi">5</span><span class="p">})</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="c1"># summary: "randomsampling completed: 1 iterations, 5 evaluations (5 valid)"</span>
+</span></code></pre></div>
+<p><code>randomsampling.py</code> is copied from fz's
+<a href="https://github.com/Funz/fz/tree/main/examples/algorithms"><code>examples/algorithms/</code></a>;
+<code>algorithm=</code> also accepts a path to a <code>.py</code>/<code>.R</code> file.</p>
+</li>
+<li>
+<p>Read the <a href="../../reference/limitations/">Constraints &amp; Limits</a> before wrapping a real code.</p>
+</li>
 </ul>
 
 
@@ -2915,6 +2984,46 @@
       </main>
       
         <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../installation/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Installation">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Installation
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../concepts/" class="md-footer__link md-footer__link--next" aria-label="Next: Core Concepts">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Core Concepts
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -2949,7 +3058,7 @@
       
       
     
-    <a href="https://pypi.org/project/funz/" target="_blank" rel="noopener" title="pypi.org" class="md-social__link">
+    <a href="https://pypi.org/project/funz-fz/" target="_blank" rel="noopener" title="pypi.org" class="md-social__link">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6M286.2 444.7a20.4 20.4 0 1 1 0-40.7 20.4 20.4 0 1 1 0 40.7M167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4m-6.6-183.4a20.4 20.4 0 1 1 0 40.8 20.4 20.4 0 1 1 0-40.8"/></svg>
     </a>
   
@@ -2968,7 +3077,7 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.tracking", "navigation.indexes", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
