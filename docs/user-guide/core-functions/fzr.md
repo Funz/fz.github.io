@@ -19,8 +19,8 @@ fz.fzr(
 
 !!! danger "Pass `calculators` and `results_dir` by keyword"
     `results_dir` is the **4th** positional parameter. `fz.fzr("in.txt", vars, model,
-    "sh://bash run.sh")` uses the URI as a directory name, runs without calculator and
-    every case fails.
+    "sh://bash run.sh")` raises `ValueError` because the value looks like a calculator
+    URI (fz ≤ 1.2 used it as a directory name and ran without calculator).
 
 ## Parameters
 
@@ -32,7 +32,7 @@ fz.fzr(
 | `results_dir` | Results root (default `results`); an existing one is renamed with a timestamp |
 | `calculators` | URI, alias, dict, or list of them. Omitted: installed aliases matching the model `id`, else `sh://` ([Calculators](../calculators/overview.md)) |
 | `callbacks` | Dict of progress callbacks (below) |
-| `timeout` | Seconds per case; overrides the model's `timeout` and `FZ_RUN_TIMEOUT` ([Timeouts](../running/timeouts.md)) |
+| `timeout` | Seconds per case (`0` = no timeout); overrides the model's `timeout` and `FZ_RUN_TIMEOUT` ([Timeouts](../running/timeouts.md)) |
 | `case_naming` | `"path"` (default, or `FZ_CASE_NAMING`), `"hash"`, `"index"` ([Results](../running/results.md#case-directory-naming)) |
 | `input_static` | Files identical for every case, never templated ([Results](../running/results.md#shared-static-files-input_static)) |
 
@@ -62,7 +62,7 @@ One row per case, in design order:
 | variables | The case's values |
 | outputs | One column per `output` entry (dict outputs expand to `name_key` columns) |
 | `path` | Case result directory |
-| `status` | `done`, `failed`, `error`, `timeout` or `interrupted` |
+| `status` | `done`, `failed`, `error`, `timeout` or `interrupted`; `done` only means the run ended: check the outputs or `error` |
 | `calculator` | Calculator used (`cache://...` for a cache hit), with a short id suffix |
 | `error` | Error message, including `Missing output: ...` when an extractor failed |
 | `command` | Command actually executed (paths made absolute) |

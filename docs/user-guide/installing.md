@@ -11,7 +11,7 @@ into a `.fz/` directory.
 fz install model Moret                   # -> https://github.com/Funz/fz-Moret
 fz install model https://github.com/you/fz-mycode
 fz install model ./fz-mycode.zip         # local archive
-fz install model Moret --global          # into ~/.fz/ instead of ./.fz/ (see warning below)
+fz install model Moret --global          # into ~/.fz/ instead of ./.fz/
 
 fz install algorithm brent               # -> https://github.com/Funz/fz-brent
 fz uninstall model Moret
@@ -57,13 +57,11 @@ fzr input.inp --model Moret --input_variables '{"e": [1, 2]}' --format json
 The simulation code itself (MORET, MCNP, ...) is **not** installed: each wrapper's
 README states what it expects (path, environment variables).
 
-!!! warning "`--global` installs and runner scripts"
-    `fz install model <X> --global` copies the wrapper to `~/.fz/`, but its calculator
-    alias keeps the relative command `bash .fz/calculators/<X>.sh`, looked up in the
-    launch directory, then the case directory, never in `~/.fz/`: runs from any other
-    directory fail (`Command not found locally: '.fz/calculators/<X>.sh'`). Prefer project-local installs, or edit
-    `~/.fz/calculators/localhost_<X>.json` to use the absolute path of the script (`~` is
-    not expanded).
+!!! note "Runner paths"
+    Installed aliases run `bash .fz/calculators/<X>.sh`. Such `.fz/...` paths are
+    resolved against the `.fz/` directory the alias was loaded from, so a `--global`
+    install works from any directory. In fz ≤ 1.2 they were resolved against the launch
+    directory, and global installs failed elsewhere (`Command not found locally`).
 
 ## Available packages
 
@@ -79,10 +77,9 @@ README states what it expects (path, environment variables).
 fz list --models Moret --check --format json
 ```
 
-The model must report `check_status: passed`. The calculator line shows the alias's
-`uri` (`sh://`) and may report `Empty sh:// command` for this alias layout — a known
-`fz list` limitation ([fzl](core-functions/fzl.md#limitations)); a real `fzr` run without
-`--calculators` is the reliable check.
+The model and its `localhost_Moret` calculator alias must both report
+`check_status: passed` (fz ≤ 1.2 listed the alias as `sh://` and reported it failed with
+`Empty sh:// command`; a real `fzr` run without `--calculators` was then the only check).
 
 ## Publishing your own
 

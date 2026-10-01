@@ -21,7 +21,8 @@ import fz
 
 Invalid argument types raise `TypeError`; invalid values (unknown `case_naming`, bad
 `delim`, unknown callback name, duplicate DataFrame rows, missing `input_variables` for a
-template with variables) raise `ValueError`; a missing `input_path` raises
+template with variables, negative `timeout`, a `results_dir` that looks like a
+calculator URI) raise `ValueError`; a missing `input_path` raises
 `FileNotFoundError`.
 
 ## Installation of models and algorithms

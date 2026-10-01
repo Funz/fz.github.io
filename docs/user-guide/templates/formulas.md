@@ -15,7 +15,7 @@ area: @{math.pi * $r ** 2}
 
 The formula prefix (`@`), delimiters (`{}`), variable prefix (`$`) and comment marker
 (`#`) are all configurable per model. Formulas use `{}` by default even when the model
-has no `delim`; variables then use `()` ([defaults](../models/definition.md#default-delimiters)).
+has no `delim` ([defaults](../models/definition.md#default-delimiters)).
 
 ## Number Formatting (updated in 1.2)
 

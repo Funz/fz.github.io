@@ -12,8 +12,7 @@ pip install funz-fz
 fz install model Scale
 ```
 
-Installs into `./.fz/` (`--global`: `~/.fz/`, see the
-[warning on runner paths](../user-guide/installing.md)). **Requirements of the code
+Installs into `./.fz/` (`--global`: `~/.fz/`). **Requirements of the code
 itself**: SCALE 6.2+ at `/SCALE/scale6.2` or set `SCALE_HOME`.
 
 ## Models

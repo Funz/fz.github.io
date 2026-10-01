@@ -37,7 +37,7 @@ fz.fzr("input.txt", variables, "perfectgas", calculators="sh://bash calc.sh")
 |-------|---------|------|
 | `varprefix` | `$` | Variable marker: `$x` |
 | `formulaprefix` | `@` | Formula marker: `@{expr}` |
-| `delim` | see below | Two characters (or `""`) delimiting variables *and* formulas |
+| `delim` | see below | Two characters (or `""`) delimiting variables *and* formulas; without it variables accept `$(x)` and `${x}` |
 | `var_delim` / `formula_delim` | `()` / `{}` | Delimiters of variables / formulas separately; take precedence over `delim` |
 | `commentline` | `#` | Comment marker; `commentline` + `formulaprefix` (`#@`) starts a context line |
 | `interpreter` | `FZ_INTERPRETER` (`python`) | `python` or `R` for formulas |
@@ -56,11 +56,10 @@ Accepted aliases of the key names (first found wins): `var_prefix`, `varprefix`,
 |----------------|-----------|----------|
 | `"delim": "{}"` | `$x`, `${x}` | `@{...}` |
 | `"delim": "()"` | `$x`, `$(x)` | `@(...)` |
-| no `delim`, no `var_delim`/`formula_delim` | `$x`, `$(x)` — **not** `${x}` | `@{...}` |
-| CLI without `--model` | `$x`, `${x}` | `@{...}` |
+| no `delim`, no `var_delim`/`formula_delim` (also the CLI without `--model`) | `$x`, `$(x)`, `${x}` | `@{...}` |
 
-`delim` must be empty or exactly two characters (validated). Setting it explicitly
-avoids the difference between the Python default and the CLI default.
+`delim` must be empty or exactly two characters (validated). In fz ≤ 1.2 the default
+recognized only `$(x)` in Python and only `${x}` in the CLI.
 
 ## Where a model can come from
 

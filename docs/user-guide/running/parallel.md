@@ -40,8 +40,8 @@ faster entries take more cases.
 When a run fails (non-zero exit, timeout, transfer error), the case is tried again on
 the calculators, preferring another entry. After `FZ_MAX_RETRIES` failures (default 5)
 the case is marked `failed` with the last error. A case whose command succeeds but whose
-outputs cannot be parsed is **not** retried: it keeps its status and the reason goes to
-`error` (`Missing output: ...`).
+outputs cannot be parsed is **not** retried: the reason goes to `error`
+(`Missing output: ...`) and the case stays `done`.
 
 ```python
 calculators = [

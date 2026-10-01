@@ -81,8 +81,8 @@ lengths. `fzd` needs a scalar objective: reduce vectors in `output_expression`
 When an extractor fails (missing file, empty output), the value is `None` and:
 
 - `fzo` adds a column `_output_error` with the reason;
-- `fzr` keeps the case `status` and writes `Missing output: <reason>` in the `error`
-  column.
+- `fzr` keeps the case `status` (`done` if the command ended normally) and writes
+  `Missing output: <reason>` in the `error` column.
 
 A `cache://` hit is only accepted when all outputs, re-parsed with the current model,
 are non-`None`.

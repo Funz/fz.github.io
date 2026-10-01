@@ -12,8 +12,7 @@ pip install funz-fz
 fz install model Telemac
 ```
 
-Installs into `./.fz/` (`--global`: `~/.fz/`, see the
-[warning on runner paths](../user-guide/installing.md)). **Requirements of the code
+Installs into `./.fz/` (`--global`: `~/.fz/`). **Requirements of the code
 itself**: `pip install PyTelTools` + Telemac (or Docker).
 
 ## Models

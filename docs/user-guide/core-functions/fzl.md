@@ -27,27 +27,31 @@ fz list ...        # same
     "perfectgas": {
       "path": "/project/.fz/models/perfectgas.json",
       "properties": {"id": "perfectgas", "delim": "{}", "output": {"pressure": "..."}},
-      "supported_calculators": ["sh://"],
+      "supported_calculators": ["localhost_perfectgas"],
       "check_status": "passed"
     }
   },
   "calculators": {
-    "sh://": {"supports_models": "all", "check_status": "failed",
-              "check_error": "Empty sh:// command"}
+    "localhost_perfectgas": {
+      "path": "/project/.fz/calculators/localhost_perfectgas.json",
+      "uri": "sh://",
+      "supports_models": ["perfectgas"],
+      "check_status": "passed"
+    }
   }
 }
 ```
 
-## Limitations
-
-- Calculators are listed by their `uri`, not by alias file name.
-- An alias whose command is in its `models` map — `{"uri": "sh://", "models":
-  {"perfectgas": "bash calculate.sh"}}`, the layout used by installed wrappers — is
-  reported `failed` / `Empty sh:// command` by `--check`, although `fzr` runs it
-  correctly. Check such an alias with a real run: `fzr ... --model perfectgas` without
-  `--calculators`.
+- Calculator aliases are keyed by file name; a project alias shadows a global one with
+  the same name. With no alias installed, the default `sh://` is listed.
+- `--check` validates each command of an alias's `models` map (`uri` + command).
 - Algorithms are not listed: use `ls .fz/algorithms ~/.fz/algorithms` or
   `fz.list_installed_algorithms()`.
+
+!!! note "fz ≤ 1.2"
+    Calculators were listed by `uri` (`sh://`) and aliases of the form
+    `{"uri": "sh://", "models": {...}}` — the layout of installed wrappers — were
+    reported `failed` / `Empty sh:// command` by `--check`.
 
 ## See also
 

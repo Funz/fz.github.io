@@ -51,7 +51,8 @@ fzl [-m PATTERN] [-c PATTERN] [--check] [-f {json,markdown,table}]
 **Model fields** (fzi, fzc, fzo, fzr) define or override the model inline:
 `--varprefix`, `--formulaprefix`, `--delim`, `--commentline`, `--interpreter`, and
 repeatable `--output-cmd NAME=COMMAND`. Without `--model`, these start from
-`{"varprefix": "$", "formulaprefix": "@", "delim": "{}", "commentline": "#"}`.
+`{"varprefix": "$", "formulaprefix": "@", "commentline": "#"}` (no `delim`: variables
+accept `$(x)` and `${x}`), the same default as a Python model.
 
 ## Conventions
 
@@ -72,7 +73,6 @@ repeatable `--output-cmd NAME=COMMAND`. Without `--model`, these start from
 | `timeout` per call | `timeout=` | no option: model `timeout` or `FZ_RUN_TIMEOUT` |
 | `fzd` default directory | `analysis` | `results_fzd` |
 | `fzd` output format | dict | printed summary, no `--format` |
-| Model without `delim` | variables use `()` | `{}` when `--model` is absent; `()` when `--model` gives a model without `delim` |
 
 ## Shell completion
 

@@ -51,9 +51,8 @@ omitted, every alias supporting the model's `id` is used.
 ## `.fz/tmp`
 
 Each run creates temporary case directories under `./.fz/tmp/fz_temp_*` (and, for
-`ssh://`, under `.fz/tmp/fz_calc_*` in the remote home). Their content is removed after
-the run, but empty `fz_temp_*` directories remain and accumulate; `.fz/tmp/` can be
-deleted when no run is active. Remote cleanup is restricted to fz's own directories.
+`ssh://`, under `.fz/tmp/fz_calc_*` in the remote home). Empty directories are removed
+after the run; files left behind are kept for inspection. Remote cleanup is restricted to fz's own directories.
 
 ## Inspecting
 

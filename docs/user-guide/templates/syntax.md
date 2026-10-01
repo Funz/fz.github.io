@@ -5,11 +5,12 @@ some values are replaced by **variables** and **formulas**. The markers are conf
 in the [model](../models/definition.md); this page uses `varprefix="$"`,
 `formulaprefix="@"`, `delim="{}"`, `commentline="#"`.
 
-!!! warning "Set `delim` explicitly"
-    A model **without** a `delim` key delimits variables with `()` and formulas with `{}`
-    (the Java Funz convention). With such a model `${x}` is **not** a variable — only `$x`
-    and `$(x)` are. The CLI used without `--model` applies `delim: "{}"`, so the same
-    template can behave differently from Python and from the CLI.
+!!! note "Default delimiters"
+    A model **without** `delim` accepts both `$(x)` (Java Funz convention) and `${x}` for
+    variables, and `@{...}` for formulas; the CLI without `--model` does the same. Set
+    `delim` when the code's own text contains `${...}` or `$(...)` that must not be read
+    as variables. In fz ≤ 1.2, a model without `delim` only recognized `$(x)` and the CLI
+    only `${x}`.
 
 ## Variables
 

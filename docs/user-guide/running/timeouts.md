@@ -18,13 +18,13 @@ Setting `FZ_RUN_TIMEOUT` explicitly applies it to every calculator type.
 
 ## Disabling
 
-| Setting | Effect |
-|---------|--------|
-| model `"timeout": null` or `"timeout": 0` | no timeout for this model |
-| `FZ_RUN_TIMEOUT=0` | **every case times out immediately** |
-| `timeout=0` argument | **every case times out immediately** |
+`0` means **no timeout** at every level: `timeout=0`, model `"timeout": 0` or `null`,
+`FZ_RUN_TIMEOUT=0` (which then also covers `ssh://`/`slurm://`). A negative `timeout=`
+raises `ValueError`.
 
-To run without limit, use the model entry, or set a large value.
+!!! note "fz ≤ 1.2"
+    `timeout=0` and `FZ_RUN_TIMEOUT=0` made every case time out immediately; only the
+    model entry disabled the timeout.
 
 ## Examples
 

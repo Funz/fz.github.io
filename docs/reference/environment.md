@@ -20,7 +20,7 @@ variables are read when the first `slurm-array://` case is submitted, MCP variab
 |----------|---------|---------|
 | `FZ_MAX_WORKERS` | unset | Upper bound on concurrent cases; never above the number of non-cache calculator entries (except `slurm-array://`) |
 | `FZ_MAX_RETRIES` | `5` | Calculator failures tolerated per case before `failed` |
-| `FZ_RUN_TIMEOUT` | `3600` for `sh://`/`funz://`, none for `ssh://`/`slurm://` | Per-case timeout in seconds; when set, applies to all calculators. **`0` is not "unlimited"**: cases time out immediately ([Timeouts](../user-guide/running/timeouts.md)) |
+| `FZ_RUN_TIMEOUT` | `3600` for `sh://`/`funz://`, none for `ssh://`/`slurm://` | Per-case timeout in seconds; when set, applies to all calculators; `0` = no timeout ([Timeouts](../user-guide/running/timeouts.md)) |
 | `FZ_CASE_NAMING` | `path` | Case directory naming: `path`, `hash`, `index` (invalid values fall back to `path`) |
 | `FZ_STATIC_CANDIDATE_MIN_SIZE` | `1048576` | Size (bytes) above which a variable-free input file triggers the `input_static` suggestion; `0` disables |
 | `FZ_RO_CRATE` | `1` | `0` disables `ro-crate-metadata.json` (`manifest.json` is always written) |

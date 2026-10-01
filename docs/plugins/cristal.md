@@ -12,8 +12,7 @@ pip install funz-fz
 fz install model Cristal
 ```
 
-Installs into `./.fz/` (`--global`: `~/.fz/`, see the
-[warning on runner paths](../user-guide/installing.md)). **Requirements of the code
+Installs into `./.fz/` (`--global`: `~/.fz/`). **Requirements of the code
 itself**: Set `CRISTAL_HOME` and `CRISTAL_VERSION`.
 
 ## Models

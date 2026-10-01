@@ -15,6 +15,11 @@ in the fz repository.
       3600 s.
     - `fz-mcp`: `FZ_MCP_TRUSTED=0` restricted mode now works at the MCP layer only.
 
+- **Usability fixes** (Funz/fz#99): `timeout=0` / `FZ_RUN_TIMEOUT=0` mean no timeout;
+  a model without `delim` accepts both `$(x)` and `${x}` (CLI and Python alike);
+  `fzr()` rejects a `results_dir` that looks like a calculator URI; `fz list` lists aliases by name and checks their
+  `models` commands; `.fz/...` paths of aliases resolve against their own `.fz/` (global
+  installs work anywhere); empty `.fz/tmp/fz_temp_*` directories are removed.
 - **`slurm-array://`**: all cases batched in one `sbatch --array` job, one shared
   `sacct` monitor; resources in the URI (`?cores=4&mem=8G&time=01:00:00&maxrunning=M`),
   also accepted by `slurm://` ([SLURM](../user-guide/calculators/slurm.md)).

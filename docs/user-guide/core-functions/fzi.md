@@ -48,7 +48,8 @@ fzi case_dir/ --delim '{}' --format json        # inline model fields, no alias
 ## Use it to
 
 - check that the model's markers match the template: stray variables mean `varprefix`
-  collides with the code's syntax; missing `${x}` variables mean `delim` is not `{}`
+  collides with the code's syntax; missing `${x}` or `$(x)` variables mean `delim` is set
+  to the other pair
   ([defaults](../models/definition.md#default-delimiters));
 - list the parameters of an existing input deck.
 

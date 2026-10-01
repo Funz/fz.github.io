@@ -76,8 +76,9 @@ print(results[["T_celsius", "V_L", "n_mol", "pressure", "status"]].head())
 
 !!! danger "Pass `calculators=` and `results_dir=` by keyword"
     The 4th positional parameter of `fz.fzr` is `results_dir`, not `calculators`.
-    `fz.fzr("input.txt", vars, model, "sh://bash calculate.sh")` creates a directory
-    named `sh:/bash calculate.sh` and runs without calculator: every case fails.
+    `fz.fzr("input.txt", vars, model, "sh://bash calculate.sh")` raises
+    `ValueError: results_dir looks like a calculator URI` (fz ≤ 1.2 silently created a
+    directory named `sh:/bash calculate.sh` and ran every case without calculator).
 
 ## 4. What was produced
 
