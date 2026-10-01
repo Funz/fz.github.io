@@ -1,259 +1,118 @@
 # Installation
 
-FZ is a Python package that requires Python 3.8 or later. This guide covers different installation methods and optional dependencies.
-
 ## Requirements
 
-- **Python**: 3.8 or later
-- **Operating System**: Linux, macOS, or Windows
-- **Optional**: SSH access for remote calculators, pandas for DataFrame output
+| Item | Requirement |
+|------|-------------|
+| Python | ≥ 3.9 (CI tests 3.9 to 3.14 on Linux, macOS and Windows; 3.9 not on Windows) |
+| Required packages | `paramiko`, `pandas`, `charset-normalizer` (installed automatically) |
+| bash | Needed by `sh://` calculators and shell output commands. Native on Linux/macOS; MSYS2 or Git Bash on Windows |
+| Operating system | Linux, macOS, Windows |
 
-## Installation Methods
+Optional components, needed only for the matching feature:
 
-### From PyPI (Recommended)
+| Feature | Install |
+|---------|---------|
+| R formulas (`interpreter: "R"`) and R algorithms | R + `pip install 'funz-fz[r]'` (rpy2) |
+| MCP server `fz-mcp` | `pip install 'funz-fz[mcp]'` — Python ≥ 3.10 only |
+| `hdf5_file()` output helper | `pip install h5py` |
+| `jq://`, `yq://`, `xpath://` outputs | `jq`, [mikefarah/yq](https://github.com/mikefarah/yq), `xmllint` on `PATH` |
+| `slurm://`, `slurm-array://` | SLURM client commands (`srun`; `sbatch`/`sacct` for arrays) |
+| `funz://` | A running Java Funz calculator |
 
-Install the latest stable version from PyPI:
+## Install
+
+=== "pip"
+
+    ```bash
+    pip install funz-fz
+    ```
+
+=== "pipx (CLI only)"
+
+    ```bash
+    pipx install funz-fz
+    ```
+
+=== "virtual environment"
+
+    ```bash
+    python3 -m venv .venv
+    source .venv/bin/activate      # Windows: .venv\Scripts\activate
+    pip install funz-fz
+    ```
+
+    Use this form on systems that refuse `pip install` with
+    `error: externally-managed-environment` (PEP 668).
+
+=== "from source"
+
+    ```bash
+    git clone https://github.com/Funz/fz.git
+    cd fz
+    pip install -e ".[dev]"        # editable, with test dependencies
+    ```
+
+This installs the Python package `fz` and the commands `fz`, `fzi`, `fzc`, `fzo`, `fzr`,
+`fzd`, `fzl` (and `fz-mcp` when the `mcp` extra is installed).
+
+## Verify
 
 ```bash
+fz --version
+python -c "import fz; print(fz.__version__)"
+fz list --check           # models/calculators found in ./.fz and ~/.fz
+```
+
+## Windows
+
+- Install [MSYS2](https://www.msys2.org/) or Git Bash, then point `FZ_SHELL_PATH` at the
+  directories containing `bash` and the Unix tools, before starting Python:
+
+    ```powershell
+    $env:FZ_SHELL_PATH = "C:\msys64\usr\bin;C:\msys64\mingw64\bin"
+    ```
+
+- `import fz` works without bash; only `sh://` calculators and shell output commands need
+  it. The `python://`, `jq://`, `yq://` and `xpath://` output forms do not.
+- Relative `input_static` files are symlinked into each case; without symlink permission
+  (no developer mode/admin) they are copied.
+- Write templates with Unix line endings when they are sourced by bash scripts.
+
+## HPC login nodes
+
+```bash
+module load python/3.11        # site-specific
+python3 -m venv ~/fz-venv && source ~/fz-venv/bin/activate
 pip install funz-fz
 ```
 
-Or using pipx for isolated CLI tools:
-
-```bash
-pipx install funz-fz
-```
-
-This installs the `fz` command along with standalone commands: `fzi`, `fzc`, `fzo`, `fzr`, `fzd`, and `fzl`.
-
-### From Source
-
-Install the latest development version from GitHub:
-
-```bash
-git clone https://github.com/Funz/fz.git
-cd fz
-pip install -e .
-```
-
-The `-e` flag installs in editable mode, which is useful for development.
-
-### Using Virtual Environment (Recommended)
-
-It's best practice to use a virtual environment:
-
-```bash
-# Create virtual environment
-python -m venv fz-env
-
-# Activate it
-# On Linux/macOS:
-source fz-env/bin/activate
-# On Windows:
-fz-env\Scripts\activate
-
-# Install FZ
-pip install -e /path/to/fz
-```
-
-## Optional Dependencies
-
-FZ has several optional dependencies for additional features:
-
-### SSH Support
-
-For remote calculator execution via SSH:
-
-```bash
-pip install paramiko
-```
-
-### DataFrame Support
-
-For pandas DataFrame output (highly recommended):
-
-```bash
-pip install pandas
-```
-
-### All Optional Dependencies
-
-Install everything at once:
-
-```bash
-pip install paramiko pandas
-```
-
-## Verify Installation
-
-Test that FZ is properly installed:
-
-```bash
-python -c "import fz; print('FZ version:', fz.__version__)"
-```
-
-You should see output like:
-```
-FZ version: 1.2
-```
+Calculator scripts executed remotely through `ssh://` or `slurm://` do not need fz on the
+remote side: fz only needs to be installed where the study is launched.
 
 ## Google Colab
-
-To use FZ in Google Colab, add this to your notebook:
 
 ```python
 !pip install funz-fz
 ```
 
-Or install from GitHub for the latest development version:
+See [Google Colab Notebooks](../examples/colab.md).
 
-```python
-!pip install git+https://github.com/Funz/fz.git
-```
+## Models and algorithms for specific codes
 
-## Installing Plugins
-
-FZ plugins are separate packages. Install them as needed:
-
-### FZ-Moret
+Ready-made wrappers (`fz-<code>` repositories) are installed with fz itself, not with
+pip:
 
 ```bash
-git clone https://github.com/Funz/fz-moret.git
-cd fz-moret
-pip install -e .
+fz install model Moret          # -> https://github.com/Funz/fz-Moret, into ./.fz/
+fz install algorithm brent      # -> https://github.com/Funz/fz-brent
 ```
 
-### FZ-MCNP
+See [Installing Models & Algorithms](../user-guide/installing.md) and
+[Plugins](../plugins/index.md).
 
-```bash
-git clone https://github.com/Funz/fz-mcnp.git
-cd fz-mcnp
-pip install -e .
-```
+## Next steps
 
-### Other Plugins
-
-Follow the same pattern for other plugins:
-
-- [FZ-Cathare](https://github.com/Funz/fz-cathare)
-- [FZ-Cristal](https://github.com/Funz/fz-cristal)
-- [FZ-Scale](https://github.com/Funz/fz-scale)
-- [FZ-Telemac](https://github.com/Funz/fz-telemac)
-
-## Development Installation
-
-For FZ development, install additional dependencies:
-
-```bash
-# Clone the repository
-git clone https://github.com/Funz/fz.git
-cd fz
-
-# Install with development dependencies
-pip install -e ".[dev]"
-
-# Run tests to verify
-pytest tests/
-```
-
-## Troubleshooting
-
-### Import Error
-
-If you get `ModuleNotFoundError: No module named 'fz'`:
-
-1. Verify installation: `pip list | grep fz`
-2. Check your Python path: `python -c "import sys; print(sys.path)"`
-3. Ensure you're using the correct Python environment
-
-### SSH Connection Issues
-
-If SSH calculators fail:
-
-1. Install paramiko: `pip install paramiko`
-2. Test SSH manually: `ssh user@host`
-3. Check host keys are accepted
-4. Verify network connectivity
-
-### Permission Errors
-
-On Linux/macOS, if you get permission errors:
-
-```bash
-# Use --user flag
-pip install --user -e .
-
-# Or use sudo (not recommended)
-sudo pip install -e .
-```
-
-## System-Specific Notes
-
-### Windows
-
-- Use PowerShell or Command Prompt
-- Since **1.2**, `import fz` works on Windows without bash. Only genuinely shell-dependent
-  features (legacy shell-command outputs, `sh://` calculators) need it; shell-free
-  workflows (`python://`, `jq://`, `yq://`, `xpath://` outputs) run with no bash at all.
-- Shell calculators and `bash://` outputs still require MSYS2 or Git Bash — set
-  `FZ_SHELL_PATH` to point to the binaries:
-  ```powershell
-  $env:FZ_SHELL_PATH = "C:\msys64\usr\bin;C:\msys64\mingw64\bin"
-  ```
-- Path separators are backslashes (`\`) instead of forward slashes (`/`)
-- Write input files with Unix line endings (`newline='\n'`) to avoid issues
-
-### macOS
-
-- May need Xcode Command Line Tools: `xcode-select --install`
-- Use Homebrew to install Python if needed: `brew install python`
-
-### Linux
-
-- Use your distribution's package manager for Python:
-    - Ubuntu/Debian: `sudo apt install python3 python3-pip`
-    - Fedora/RHEL: `sudo dnf install python3 python3-pip`
-    - Arch: `sudo pacman -S python python-pip`
-
-## HPC Environments
-
-For HPC clusters, you may need to:
-
-1. Load Python module: `module load python/3.9`
-2. Install to user directory: `pip install --user -e .`
-3. Add to PATH: `export PATH=$HOME/.local/bin:$PATH`
-
-## Docker Installation (Advanced)
-
-Create a Dockerfile for containerized FZ:
-
-```dockerfile
-FROM python:3.10-slim
-
-# Install dependencies
-RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
-
-# Install FZ
-RUN pip install funz-fz
-
-# Set working directory
-WORKDIR /workspace
-
-# Default command
-CMD ["python"]
-```
-
-Build and run:
-
-```bash
-docker build -t fz-env .
-docker run -it -v $(pwd):/workspace fz-env
-```
-
-## Next Steps
-
-Once installed, proceed to:
-
-- [Quick Start Guide](quickstart.md) - Your first FZ calculation
-- [Core Concepts](concepts.md) - Understand FZ fundamentals
-- [Examples](../examples/perfectgas.md) - See FZ in action
+- [Quick Start](quickstart.md)
+- [Core Concepts](concepts.md)
+- [Constraints & Limits](../reference/limitations.md)

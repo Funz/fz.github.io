@@ -29,6 +29,9 @@ theme:
     - navigation.sections
     - navigation.top
     - navigation.tracking
+    - navigation.indexes
+    - navigation.footer
+    - toc.follow
     - search.suggest
     - search.highlight
     - content.tabs.link
@@ -40,6 +43,13 @@ theme:
 
 plugins:
   - search
+  - redirects:
+      redirect_maps:
+        user-guide/model-definition.md: user-guide/models/definition.md
+        user-guide/advanced/formulas.md: user-guide/templates/formulas.md
+        user-guide/advanced/parallel.md: user-guide/running/parallel.md
+        user-guide/advanced/caching.md: user-guide/running/caching.md
+        user-guide/advanced/interrupts.md: user-guide/running/interrupts.md
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -48,7 +58,11 @@ markdown_extensions:
       pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
   - admonition
@@ -74,9 +88,7 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/Funz/fz
     - icon: fontawesome/brands/python
-      link: https://pypi.org/project/funz/
-  version:
-    provider: mike
+      link: https://pypi.org/project/funz-fz/
 
 nav:
   - Home: index.md
@@ -85,6 +97,11 @@ nav:
     - Quick Start: getting-started/quickstart.md
     - Core Concepts: getting-started/concepts.md
   - User Guide:
+    - Templates & Models:
+      - Input Template Syntax: user-guide/templates/syntax.md
+      - Formulas: user-guide/templates/formulas.md
+      - Model Definition: user-guide/models/definition.md
+      - Output Extraction: user-guide/models/outputs.md
     - Core Functions:
       - fzi - Parse Input: user-guide/core-functions/fzi.md
       - fzc - Compile: user-guide/core-functions/fzc.md
@@ -92,19 +109,23 @@ nav:
       - fzr - Run Study: user-guide/core-functions/fzr.md
       - fzd - Design of Experiments: user-guide/core-functions/fzd.md
       - fzl - List Models/Calculators: user-guide/core-functions/fzl.md
-    - Model Definition: user-guide/model-definition.md
     - Calculators:
-      - Overview: user-guide/calculators/overview.md
-      - Local Shell: user-guide/calculators/shell.md
-      - SSH Remote: user-guide/calculators/ssh.md
-      - SLURM: user-guide/calculators/slurm.md
-      - Funz Server: user-guide/calculators/funz.md
-      - Cache: user-guide/calculators/cache.md
-    - Advanced Features:
-      - Parallel Execution: user-guide/advanced/parallel.md
-      - Caching Strategy: user-guide/advanced/caching.md
-      - Interrupt Handling: user-guide/advanced/interrupts.md
-      - Formulas: user-guide/advanced/formulas.md
+      - Overview & Aliases: user-guide/calculators/overview.md
+      - Local Shell (sh://): user-guide/calculators/shell.md
+      - SSH (ssh://): user-guide/calculators/ssh.md
+      - SLURM (slurm://, slurm-array://): user-guide/calculators/slurm.md
+      - Funz Server (funz://): user-guide/calculators/funz.md
+      - Cache (cache://): user-guide/calculators/cache.md
+    - Running Studies:
+      - Parallelism & Retries: user-guide/running/parallel.md
+      - Timeouts: user-guide/running/timeouts.md
+      - Caching: user-guide/running/caching.md
+      - Results & Traceability: user-guide/running/results.md
+      - Interrupt & Resume: user-guide/running/interrupts.md
+    - Design of Experiments:
+      - Writing Algorithms: user-guide/design/algorithms.md
+    - Installing Models & Algorithms: user-guide/installing.md
+    - AI Agents (Claude Code, MCP): user-guide/ai-agents.md
   - Plugins:
     - Overview: plugins/index.md
     - FZ-Moret: plugins/moret.md
@@ -119,11 +140,20 @@ nav:
     - Remote HPC: examples/hpc.md
     - Google Colab Notebooks: examples/colab.md
   - Reference:
-    - Configuration: reference/configuration.md
+    - CLI: reference/cli.md
+    - Python API: reference/api.md
+    - .fz Directory & Aliases: reference/configuration.md
     - Environment Variables: reference/environment.md
-    - Release Notes: reference/releases.md
+    - Constraints & Limits: reference/limitations.md
+    - Security Model: reference/security.md
     - Troubleshooting: reference/troubleshooting.md
-    - API Reference: reference/api.md
+    - Release Notes: reference/releases.md
   - Contributing:
     - Development: contributing/development.md
     - Testing: contributing/testing.md
+
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+  anchors: warn

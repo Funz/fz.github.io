@@ -14,7 +14,8 @@ area: @{math.pi * $r ** 2}
 ```
 
 The formula prefix (`@`), delimiters (`{}`), variable prefix (`$`) and comment marker
-(`#`) are all configurable per model.
+(`#`) are all configurable per model. Formulas use `{}` by default even when the model
+has no `delim` ([defaults](../models/definition.md#default-delimiters)).
 
 ## Number Formatting (updated in 1.2)
 
@@ -50,12 +51,20 @@ sci=1.23E05
 
 ## R Interpreter
 
-Set `model["interpreter"] = "R"` (or `FZ_INTERPRETER=R`) to evaluate formulas with R —
-`mean()`, `sd()`, `rnorm()`, and multi-line function definitions in `#@` context lines.
-Requires the `rpy2` package and an R installation.
+Set `model["interpreter"] = "R"` (or `FZ_INTERPRETER=R`, or `fz.set_interpreter("R")`)
+to evaluate formulas with R — `mean()`, `sd()`, `rnorm()`, and multi-line function
+definitions in `#@` context lines. Requires R and `pip install 'funz-fz[r]'` (rpy2).
+
+```text
+#@ samples <- rnorm(100, mean=$mu, sd=$sigma)
+#@ ci <- function(x) mean(x) + c(-1, 1) * 1.96 * sd(x) / sqrt(length(x))
+lower = @{ci(samples)[1] | 0.000}
+```
+
+If `import rpy2.robjects` fails (R/rpy2 version mismatch), R is reported unavailable.
 
 ## See Also
 
-- [Model Definition](../model-definition.md) — `varprefix` / `formulaprefix` / `delim` / `commentline`
+- [Input Template Syntax](syntax.md) · [Model Definition](../models/definition.md) — `varprefix` / `formulaprefix` / `delim` / `commentline`
 - [fzc](../core-functions/fzc.md) — where formulas are evaluated
 - [Formulas & interpreters reference in the FZ repo](https://github.com/Funz/fz/blob/main/doc/formulas-and-interpreters.md)

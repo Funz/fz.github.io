@@ -1,67 +1,58 @@
-# fzi - Parse Input Variables
+# fzi - Parse Input
 
-`fzi` scans an input file or directory and reports every **variable** it finds — the
-placeholders your templates expect you to fill in. It reads nothing else and runs
-nothing; it is the discovery step.
-
-## Function Signature
+`fzi` scans a template (file or directory) and reports the variables, static objects
+and formulas it contains. It runs nothing.
 
 ```python
-fz.fzi(input_path, model, input_static=None)
+fz.fzi(input_path, model, input_static=None) -> dict
 ```
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `input_path` | `str` | Input file or directory (scanned recursively) |
-| `model` | `dict` or `str` | Model definition or alias — only the syntax fields matter here (`varprefix`, `delim`, `formulaprefix`, `commentline`) |
-| `input_static` | `list`, optional | Shared files to ignore while scanning — never templated *(1.2)* |
+| Parameter | Description |
+|-----------|-------------|
+| `input_path` | Template file or directory (scanned recursively) |
+| `model` | Model dict, JSON string/file or alias; only the syntax fields are used |
+| `input_static` | Files excluded from scanning ([shared static files](../running/results.md#shared-static-files-input_static)) |
 
-## Returns
+## Result
 
-A `dict` mapping each variable name to `None` (a template ready to be filled with
-values):
+A dict whose keys are:
 
-```python
-model = {"varprefix": "$", "delim": "{}"}
-# input.txt:  Temperature: ${temp}, Pressure: ${pressure}
+- each **variable** → `None`, or its `~default`;
+- each **static object** declared with `#@:` → its value;
+- each **formula expression** → its value when computable from defaults, else `None`.
 
-fz.fzi("input.txt", model)
-# {'temp': None, 'pressure': None}
-```
-
-## Variables vs Formulas
-
-Names that appear only inside a formula (`@{...}`) or that are *defined* in a formula
-context line (`#@ ...`) are **not** variables:
-
-```text
-n_mol=$n_mol
-T_celsius=$T_celsius
-#@ T_kelvin = $T_celsius + 273.15
-T_kelvin=@{T_kelvin}
+```text title="input.txt"
+a=${a~3}
+b=$b
+#@: K = 10
+c=@{$a*2}
 ```
 
 ```python
-model = {"varprefix": "$", "formulaprefix": "@", "delim": "{}", "commentline": "#"}
-fz.fzi("input.txt", model)
-# {'n_mol': None, 'T_celsius': None}   — T_kelvin is a formula result, not an input
+fz.fzi("input.txt", {"delim": "{}"})
+# {'K': '10', 'a': 3, 'b': None, 'a*2': 6}
 ```
 
-## Typical Uses
-
-- Discover the parameters of a legacy input deck.
-- Validate that you are supplying every value a template needs before an `fzr` run.
-- Auto-generate a parameter list for documentation.
+The variables to provide to `fzc`/`fzr` are the variable names (`a`, `b`), not the
+formula keys.
 
 ## CLI
 
 ```bash
-fzi input.txt -m mymodel
-fzi input_dir/ -m mymodel --format json
+fzi input.txt --model mymodel --format json
+fzi case_dir/ --delim '{}' --format json        # inline model fields, no alias
 ```
 
-## See Also
+`--format`: `json`, `csv`, `html`, `markdown` (default), `table`.
 
-- [fzc](fzc.md) — substitute values into the template
-- [fzr](fzr.md) — the full run that calls `fzi` → `fzc` → execute → `fzo`
-- [Model Definition](../model-definition.md) · [Formula Evaluation](../advanced/formulas.md)
+## Use it to
+
+- check that the model's markers match the template: stray variables mean `varprefix`
+  collides with the code's syntax; missing `${x}` or `$(x)` variables mean `delim` is set
+  to the other pair
+  ([defaults](../models/definition.md#default-delimiters));
+- list the parameters of an existing input deck.
+
+## See also
+
+[Input Template Syntax](../templates/syntax.md) · [fzc](fzc.md) · [fzr](fzr.md)

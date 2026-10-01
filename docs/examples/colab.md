@@ -35,7 +35,7 @@ All variable syntaxes, `@{}` formula expressions, `#@` context code, and delimit
 - `$name`, `${name}`, `${name~default}` variable forms
 - `@{expr}` inline formula evaluation (Python & R)
 - `#@ code` context blocks and `#@: static` constants
-- Legacy `?(name)` syntax
+- `?(name)` templates (model `varprefix: "?"`, `delim: "()"`)
 - Custom delimiter styles: `()`, `{}`, `[]`, `<>`
 
 ### 3. Parametric Studies (fzr)
@@ -87,13 +87,13 @@ Cache reuse, multi-output models, logging, coarse-to-fine DOE.
 Add this cell at the beginning:
 
 ```python
-!pip install git+https://github.com/Funz/fz.git
+!pip install funz-fz
 ```
 
 For plugins:
 
 ```python
-!pip install git+https://github.com/Funz/fz-moret.git
+!fz install model Moret
 ```
 
 ### Step 2: Install Dependencies
@@ -159,7 +159,7 @@ Complete notebook for dynamic system simulations:
 !apt-get install -y omc
 
 # Install FZ
-!pip install git+https://github.com/Funz/fz.git
+!pip install funz-fz
 
 # Create Modelica model
 %%writefile Oscillator.mo
@@ -230,33 +230,20 @@ plt.show()
 
 ## Plugins in Colab
 
-### Installing Plugins
-
 ```python
-# Install base FZ
-!pip install git+https://github.com/Funz/fz.git
-
-# Install plugins
-!pip install git+https://github.com/Funz/fz-moret.git
-!pip install git+https://github.com/Funz/fz-mcnp.git
-# etc.
+!pip install funz-fz
+!fz install model Moret          # model + runner script + localhost_Moret alias in ./.fz/
 ```
 
-### Using Plugin Models
-
 ```python
-from fz_moret import get_model
-
-# Use plugin model
-model = get_model('moret')
-
-results = fz.fzr(
-    "input.txt",
-    variables,
-    model,
-    calculators="sh://bash run_moret.sh"
-)
+import fz
+results = fz.fzr("input.inp", {"e": [1, 2]}, "Moret",
+                 calculators="localhost_Moret", results_dir="results")
 ```
+
+The simulation code itself (MORET, MCNP, ...) must also be available in the Colab
+runtime, which is rarely possible for licensed codes; Colab suits open codes such as
+OpenModelica.
 
 ## Accessing Files in Colab
 

@@ -321,23 +321,13 @@ for _, row in results.head().iterrows():
 
 ## Complete Working Example
 
-Download all files:
-
-- [input.txt](https://github.com/Funz/fz/blob/main/examples/perfectgas/input.txt)
-- [calculate.sh](https://github.com/Funz/fz/blob/main/examples/perfectgas/calculate.sh)
-- [run_study.py](https://github.com/Funz/fz/blob/main/examples/perfectgas/run_study.py)
-
-Or clone the examples:
-
-```bash
-git clone https://github.com/Funz/fz.git
-cd fz/examples/perfectgas
-python run_study.py
-```
+The files above are complete. The same study, runnable end to end, is the notebook
+[`examples/01_getting_started.ipynb`](https://github.com/Funz/fz/blob/main/examples/01_getting_started.ipynb)
+of the fz repository (also on [Colab](colab.md)).
 
 ## Next Steps
 
 - [Modelica Example](modelica.md) - OpenModelica integration
 - [HPC Example](hpc.md) - Remote cluster execution
-- [Advanced Features](../user-guide/advanced/parallel.md) - Master parallel execution
+- [Parallelism & Retries](../user-guide/running/parallel.md) - parallel execution
 - [Plugins](../plugins/index.md) - Explore FZ plugins

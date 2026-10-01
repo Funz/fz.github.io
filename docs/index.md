@@ -1,227 +1,144 @@
 # FZ - Parametric Scientific Computing Framework
 
 [![CI](https://github.com/Funz/fz/workflows/CI/badge.svg)](https://github.com/Funz/fz/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/funz-fz.svg)](https://pypi.org/project/funz-fz/)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![Version](https://img.shields.io/badge/version-1.2-blue.svg)](https://github.com/Funz/fz/releases)
 
-A powerful Python package for parametric simulations and computational experiments. **FZ** wraps your simulation codes to automatically run parametric studies, manage input/output files, handle parallel execution, and collect results in structured DataFrames.
+**FZ** wraps any simulation code that reads input files and writes output files, and runs
+it as a parametric study: variables in the input files are substituted for each case,
+cases run in parallel (locally, over SSH, on SLURM or on Funz servers), and the outputs
+are parsed back into a pandas DataFrame. FZ is the Python rewrite of the Java
+[Funz](https://github.com/Funz) framework. PyPI package: `funz-fz`.
 
-!!! info "What's New in 1.2"
-    - **Shell-free output extraction**: `python://`, `jq://`, `yq://`, `xpath://` output prefixes — no bash/grep/awk, fully portable on Windows
-    - **Vector (array) outputs**: an output entry can resolve to a full list (time series, profiles, spectra) — stored as-is by `fzr`/`fzo`
-    - **Multi-objective `fzd`**: `output_expression` also accepts a list of expressions; new NSGA-II example algorithm
-    - **Shared static files**: new `input_static` parameter for files identical across every case — never re-hashed or duplicated per case
-    - **Configurable case naming**: `case_naming` = `"path"` / `"hash"` / `"index"` to avoid filesystem filename-length limits
-    - **1 h default run timeout**: `FZ_RUN_TIMEOUT` default is now 3600 s, with a per-model `"timeout"` override
-    - **Formula number formatting**: full `DecimalFormat` subset — `@{3.0 | #.###}` → `3`, `@{123456.789 | 0.00E00}` → `1.23E05`
-    - **Claude Code plugin**: four slash commands — `/fz:wrap`, `/fz:run`, `/fz:design`, `/fz:install`
+```bash
+pip install funz-fz
+```
 
-    [See full release notes](reference/releases.md)
-
-## What is FZ?
-
-FZ is a framework that simplifies running parametric computational studies. Whether you're working with scientific simulations, engineering calculations, or any computational model, FZ helps you:
-
-- 🔄 **Run parametric studies** - Automatically generate and execute all combinations of parameter values
-- ⚡ **Parallelize execution** - Run multiple cases concurrently across multiple calculators
-- 💾 **Cache results** - Reuse previous calculations based on input file hashes
-- 🌐 **Execute remotely** - Run calculations on remote servers via SSH
-- 📊 **Structure output** - Get results as pandas DataFrames with automatic type conversion
-
-## Six Core Functions
-
-FZ provides six functions that cover the entire workflow:
-
-| Function | Purpose | Description |
-|----------|---------|-------------|
-| **[fzi](user-guide/core-functions/fzi.md)** | Parse **I**nput | Identify variables in input files |
-| **[fzc](user-guide/core-functions/fzc.md)** | **C**ompile | Substitute variable values in templates |
-| **[fzo](user-guide/core-functions/fzo.md)** | Parse **O**utput | Extract results from output files |
-| **[fzr](user-guide/core-functions/fzr.md)** | **R**un | Execute complete parametric studies |
-| **[fzd](user-guide/core-functions/fzd.md)** | **D**esign | Iterative design of experiments with adaptive algorithms |
-| **[fzl](user-guide/core-functions/fzl.md)** | **L**ist | List and validate installed models and calculators |
-
-## Quick Example
-
-Here's a simple parametric study in just a few lines:
+## Minimal example
 
 ```python
 import fz
 
-# Define the model
-model = {
-    "varprefix": "$",
-    "output": {
-        "pressure": "grep 'pressure = ' output.txt | awk '{print $3}'"
-    }
-}
+model = {"output": {"pressure": "python://grep(r'pressure = (\\S+)', 'output.txt')"}}
 
-# Run all combinations (4 × 3 = 12 cases)
 results = fz.fzr(
-    "input.txt",
-    {
-        "T_celsius": [10, 20, 30, 40],  # 4 temperatures
-        "V_L": [1, 2, 5],                # 3 volumes
-        "n_mol": 1.0                     # fixed amount
-    },
+    "input.txt",                                  # template containing $T_celsius, $V_L
+    {"T_celsius": [10, 20, 30], "V_L": [1, 2]},   # 3 x 2 = 6 cases
     model,
-    calculators="sh://bash calculate.sh",
-    results_dir="results"
+    calculators="sh://bash calculate.sh",         # always pass by keyword
+    results_dir="results",
 )
-
-print(results)  # pandas DataFrame with all results
+print(results[["T_celsius", "V_L", "pressure", "status"]])
 ```
 
-## Key Features
+The full walk-through is in the [Quick Start](getting-started/quickstart.md).
 
-### Parametric Studies
-Generate and run all combinations of parameter values automatically. FZ creates the Cartesian product of your parameter lists and manages execution.
+## The six functions
 
-### Multiple Calculators
-Execute calculations using different methods:
+Each function exists in Python (`fz.fzr(...)`) and as a command (`fzr ...` or
+`fz run ...`).
 
-- **Local shell** - Run scripts and executables locally
-- **SSH remote** - Execute on remote servers with automatic file transfer
-- **SLURM** - Submit jobs to HPC clusters with workload management (New in 0.9.1)
-- **Funz server** - Connect to Java Funz calculator servers (New in 0.9.1)
-- **Cache** - Reuse previous results based on input hashes
+| Function | Role | Page |
+|----------|------|------|
+| `fzi` | List the variables of an input template | [fzi](user-guide/core-functions/fzi.md) |
+| `fzc` | Compile templates with given values | [fzc](user-guide/core-functions/fzc.md) |
+| `fzo` | Parse output files into a table | [fzo](user-guide/core-functions/fzo.md) |
+| `fzr` | Run a full parametric study (grid or list of cases) | [fzr](user-guide/core-functions/fzr.md) |
+| `fzd` | Run an adaptive design of experiments (optimization, sampling, calibration) | [fzd](user-guide/core-functions/fzd.md) |
+| `fzl` | List and check installed models and calculators | [fzl](user-guide/core-functions/fzl.md) |
 
-### Smart Parallel Execution
-FZ automatically parallelizes your calculations across available calculators with:
-
-- Load balancing
-- Automatic retry on failures
-- Progress tracking with ETA
-- Graceful interrupt handling (Ctrl+C)
-
-### Formula Evaluation
-Use Python or R expressions directly in input templates for calculated parameters:
-
-```text
-Temperature: $T_celsius C
-# Calculated value, formatted with a DecimalFormat pattern
-T_kelvin: @{$T_celsius + 273.15 | 0.00} K
-```
-
-### Shell-Free Output Extraction (New in 1.2)
-Pull results out of output files with native, portable extractors — no bash/grep/awk needed:
-
-```python
-model = {
-    "output": {
-        "pressure": "python://grep(r'Pressure: (\\S+)', 'output.txt')",
-        "energy":   "jq://.energy results.json",
-        "T_series": "python://csv_file('temps.csv', column='T')",  # vector output
-    }
-}
-```
-
-## Getting Started
-
-Ready to get started? Check out our guides:
+## How the documentation is organized
 
 <div class="grid cards" markdown>
 
--   :material-rocket-launch:{ .lg .middle } __Quick Start__
+-   :material-rocket-launch:{ .lg .middle } __Getting Started__
 
     ---
 
-    Get up and running with FZ in minutes
+    Installation, a first study end to end, and the vocabulary (template, model,
+    calculator, case).
 
     [:octicons-arrow-right-24: Quick Start](getting-started/quickstart.md)
 
--   :material-book-open-variant:{ .lg .middle } __User Guide__
+-   :material-file-document-edit:{ .lg .middle } __Templates & Models__
 
     ---
 
-    Learn about core functions, models, and calculators
+    How to mark variables and formulas in input files, and how to declare the outputs to
+    extract.
 
-    [:octicons-arrow-right-24: User Guide](user-guide/core-functions/fzi.md)
+    [:octicons-arrow-right-24: Template syntax](user-guide/templates/syntax.md)
 
--   :material-puzzle:{ .lg .middle } __Plugins__
-
-    ---
-
-    Explore FZ plugins for specific simulation codes
-
-    [:octicons-arrow-right-24: Plugins](plugins/index.md)
-
--   :material-code-braces:{ .lg .middle } __Examples__
+-   :material-server-network:{ .lg .middle } __Calculators__
 
     ---
 
-    See FZ in action with complete examples and Google Colab notebooks
+    Where cases run: local shell, SSH, SLURM (per case or job arrays), Funz servers, and
+    the result cache.
 
-    [:octicons-arrow-right-24: Examples](examples/perfectgas.md)
+    [:octicons-arrow-right-24: Calculators](user-guide/calculators/overview.md)
+
+-   :material-play-speed:{ .lg .middle } __Running Studies__
+
+    ---
+
+    Parallelism, retries, timeouts, caching, results layout, manifest, interrupt and
+    resume.
+
+    [:octicons-arrow-right-24: Running studies](user-guide/running/parallel.md)
+
+-   :material-chart-bell-curve:{ .lg .middle } __Design of Experiments__
+
+    ---
+
+    `fzd` with built-in or installed algorithms, and how to write your own.
+
+    [:octicons-arrow-right-24: fzd](user-guide/core-functions/fzd.md)
+
+-   :material-alert-circle-outline:{ .lg .middle } __Constraints & Limits__
+
+    ---
+
+    Behaviors that most often surprise users, checked against the code. Read before
+    writing a first model.
+
+    [:octicons-arrow-right-24: Constraints](reference/limitations.md)
 
 </div>
 
-## Plugins
+## Capabilities at a glance
 
-FZ includes plugins for various simulation codes:
+| Area | What FZ provides | Details |
+|------|------------------|---------|
+| Templates | `$var`, `${var~default}`, `@{formula}` in Python or R, `#@` context lines, DecimalFormat number formatting, Java Funz `$(var)` templates | [Syntax](user-guide/templates/syntax.md), [Formulas](user-guide/templates/formulas.md) |
+| Designs | Full factorial (dict of lists), explicit case list (DataFrame), adaptive (`fzd`) incl. multi-objective | [fzr](user-guide/core-functions/fzr.md), [fzd](user-guide/core-functions/fzd.md) |
+| Outputs | Shell commands, shell-free `python://`, `jq://`, `yq://`, `xpath://`, Python callables; scalar or vector values | [Output extraction](user-guide/models/outputs.md) |
+| Execution | `sh://`, `ssh://`, `slurm://`, `slurm-array://`, `funz://`, `cache://`; aliases in `.fz/calculators/` | [Calculators](user-guide/calculators/overview.md) |
+| Robustness | Retries across calculators, timeouts, graceful Ctrl+C, resume from cache | [Running studies](user-guide/running/parallel.md) |
+| Traceability | Per-case logs, `manifest.json`, RO-Crate metadata, cache identity (`code_id`) | [Results & traceability](user-guide/running/results.md) |
+| Packaging | `fz install model|algorithm <name>` from the `fz-<name>` repositories | [Installing](user-guide/installing.md), [Plugins](plugins/index.md) |
+| AI agents | Claude Code plugin (skill + slash commands), `fz-mcp` MCP server | [AI agents](user-guide/ai-agents.md) |
 
-- **[FZ-Moret](plugins/moret.md)** - Moret model plugin
-- **[FZ-MCNP](plugins/mcnp.md)** - Monte Carlo N-Particle Transport Code
-- **[FZ-Cathare](plugins/cathare.md)** - Thermal-hydraulic system code
-- **[FZ-Cristal](plugins/cristal.md)** - Cristal simulation plugin
-- **[FZ-Scale](plugins/scale.md)** - Scale nuclear analysis code
-- **[FZ-Telemac](plugins/telemac.md)** - Hydrodynamics simulation system
+## Requirements
 
-## AI Agent Skill (Claude Code)
+- Python ≥ 3.9 (tested 3.9–3.14); dependencies `paramiko`, `pandas`, `charset-normalizer`.
+- **bash** for shell calculators and shell output commands (MSYS2 or Git Bash on
+  Windows, located with `FZ_SHELL_PATH`).
+- Optional: `rpy2` + R (R formulas), `mcp` on Python ≥ 3.10 (`fz-mcp`), `h5py`, `jq`,
+  `yq`, `xmllint` (corresponding output extractors).
 
-FZ ships a **Claude Code plugin** that teaches AI coding agents the full fz workflow — parameterizing input files, defining models, choosing calculators, and running parametric studies or optimizations.
+!!! warning "Security"
+    Templates, formulas, output commands and calculator commands run as code with your
+    privileges. Only use models, algorithms and calculator aliases from sources you
+    trust. See [Security Model](reference/security.md).
 
-Install it directly from Claude Code:
+## Links
 
-```
-/plugin marketplace add Funz/fz
-/plugin install fz@funz
-```
-
-Since **1.2** the plugin also provides four slash commands alongside the Agent Skill:
-
-| Command | Purpose |
-|---------|---------|
-| `/fz:wrap` | Wrap a simulation code and verify it step by step |
-| `/fz:run` | Run a parametric study (`fzr`) |
-| `/fz:design` | Adaptive design of experiments / optimization / calibration (`fzd`) |
-| `/fz:install` | Find and install an official `fz-<code>` wrapper or algorithm |
-
-Or just describe what you want in plain language — *"wrap my simulation and run a parameter sweep over mesh_size and timestep"* — and the agent handles the rest.
-
-The skill covers the complete workflow: `fzi` → `fzc` → `fzo` → `fzr`/`fzd`, calculator selection (local, SSH, SLURM), caching, and writing custom model wrappers or algorithms.
-
-## Google Colab Integration
-
-Try FZ directly in your browser with our Google Colab notebooks:
-
-- [Basic Example - Perfect Gas](examples/colab.md#perfect-gas-example)
-- [OpenModelica Integration](examples/colab.md#openmodelica-example)
-- [Plugin Examples](examples/colab.md#plugin-examples)
-
-## Use Cases
-
-FZ is perfect for:
-
-- **Sensitivity Analysis** - Understand how parameters affect your results
-- **Design of Experiments** - Systematically explore the parameter space
-- **Optimization Studies** - Find optimal parameter combinations
-- **Uncertainty Quantification** - Propagate uncertainties through your model
-- **Model Validation** - Compare model outputs against experimental data
-
-## Community and Support
-
-- **GitHub**: [Funz/fz](https://github.com/Funz/fz)
-- **Issues**: [Report bugs or request features](https://github.com/Funz/fz/issues)
-- **Documentation**: You're reading it!
-
-## License
-
-FZ is released under the [BSD 3-Clause License](https://opensource.org/licenses/BSD-3-Clause).
+- Source and issues: [github.com/Funz/fz](https://github.com/Funz/fz)
+- Release notes: [Release Notes](reference/releases.md)
+- License: [BSD 3-Clause](https://opensource.org/licenses/BSD-3-Clause)
 
 ## Citation
-
-If you use FZ in your research, please cite:
 
 ```bibtex
 @software{fz,

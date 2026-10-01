@@ -1,5 +1,52 @@
 # Release Notes
 
+Complete, authoritative notes: [NEWS.md](https://github.com/Funz/fz/blob/main/NEWS.md)
+in the fz repository.
+
+## Unreleased (main branch, after 1.2)
+
+!!! warning "Breaking changes"
+    - Python 3.8 is no longer supported (`requires-python >= 3.9`).
+    - `"path"` case directory names percent-encode `/ \ : * ? " < > | %`, control
+      characters and `.`/`..` values: names containing such values differ from 1.2.
+    - `cache://` uses a SHA-256 `.fz_hash` ("v2") format; caches written by older versions
+      are ignored unless `FZ_CACHE_ACCEPT_LEGACY=1`.
+    - `ssh://` and `slurm://` have no default timeout (was 3600 s); `sh://`/`funz://` keep
+      3600 s.
+    - `fz-mcp`: `FZ_MCP_TRUSTED=0` restricted mode now works at the MCP layer only.
+
+- **Usability fixes** (Funz/fz#99): `timeout=0` / `FZ_RUN_TIMEOUT=0` mean no timeout;
+  a model without `delim` accepts both `$(x)` and `${x}` (CLI and Python alike);
+  `fzr()` rejects a `results_dir` that looks like a calculator URI; `fz list` lists aliases by name and checks their
+  `models` commands; `.fz/...` paths of aliases resolve against their own `.fz/` (global
+  installs work anywhere); empty `.fz/tmp/fz_temp_*` directories are removed.
+- **`slurm-array://`**: all cases batched in one `sbatch --array` job, one shared
+  `sacct` monitor; resources in the URI (`?cores=4&mem=8G&time=01:00:00&maxrunning=M`),
+  also accepted by `slurm://` ([SLURM](../user-guide/calculators/slurm.md)).
+- **Campaign manifest**: `manifest.json` and RO-Crate `ro-crate-metadata.json` written by
+  `fzr` and `fzd` ([Results & Traceability](../user-guide/running/results.md)).
+- **Cache identity**: calculator aliases may declare `code_id` or `version_cmd`;
+  `FZ_CACHE_STRICT=1` refuses unverifiable matches
+  ([Caching](../user-guide/running/caching.md)).
+- **`fz-mcp` MCP server** (`pip install 'funz-fz[mcp]'`, Python ≥ 3.10) with tool
+  annotations, stdio-only by default ([AI Agents](../user-guide/ai-agents.md)).
+- **Security**: threat model documented; remote commands built by fz are shell-quoted;
+  remote cleanup restricted to fz's directories; passwords in URIs masked everywhere
+  ([Security Model](security.md)).
+- **Fix (P0-8)**: `sh://` no longer rewrites words to non-existent files of the launch
+  directory, nor redirection targets. Before, `sh://cat in.txt > out.txt` read the
+  uncompiled template and wrote outside the case: re-check results of such commands.
+- Python 3.14 in the stable CI matrix (Linux, macOS, Windows) and declared.
+- Ignored legacy caches are reported by a warning; a failing `version_cmd` gives "no
+  identity" instead of its error text; the "no timeout" warning is logged once per
+  scheme and campaign.
+- fz documentation reorganized: short README, one file per topic in `doc/`.
+- `fz install model` installs every model of a repository.
+- `fzc`/`fzr` evaluate formulas using inline variable defaults, as `fzi` does.
+- Error reports no longer blame the command for a "not found" printed by the code.
+- `fz/runners.py` split into the `fz.runners` package (no behavior change; code patching
+  `fz.runners.run_command` must patch `fz.runners.sh.run_command`).
+
 ## Version 1.2 (2026-09-04)
 
 ### New Features
@@ -282,7 +329,7 @@ If `analysis_dir` already exists it is renamed with a timestamp suffix and its c
 - Warning issued when default value is used
 
 #### Old Funz Syntax Compatibility
-- Support for legacy Java Funz variable syntax: `?var` (equivalent to `$var`)
+- Support for legacy Java Funz variable syntax: `?var` (note: as of the current code, only with `"varprefix": "?"`; there is no automatic conversion to `$var`)
 - Backward compatibility for existing Funz users migrating to Python
 - Automatic detection and replacement
 - Example: `Temperature: ?T_celsius` → `Temperature: 25`

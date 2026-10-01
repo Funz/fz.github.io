@@ -1,353 +1,165 @@
 # Quick Start
 
-This guide will get you up and running with FZ in just a few minutes. We'll create a simple parametric study for the ideal gas law.
+This page runs a complete study: the pressure of a perfect gas, `P = nRT/V`, for 4
+temperatures × 3 volumes = 12 cases. Every file below is complete; the output shown was
+produced by running them.
 
-## The Complete Example
+## 1. Input template
 
-We'll calculate pressure for different temperatures and volumes using the ideal gas law: `PV = nRT`
+A template is the code's normal input file with `$variables` and `@{formulas}`.
 
-### Step 1: Create Input Template
-
-Create a file named `input.txt`:
-
-```text
-# input file for Perfect Gas Pressure, with variables n_mol, T_celsius, V_L
+```text title="input.txt"
+# Perfect gas: n_mol, T_celsius, V_L are variables
 n_mol=$n_mol
-T_kelvin=@($T_celsius + 273.15)
+T_kelvin=@{$T_celsius + 273.15}
 #@ def L_to_m3(L):
-#@     return(L / 1000)
-V_m3=@(L_to_m3($V_L))
+#@     return L / 1000
+V_m3=@{L_to_m3($V_L)}
 ```
 
-**What's happening here?**
+- `$n_mol`, `$T_celsius`, `$V_L`: variables, replaced by a value in each case.
+- `@{...}`: formulas, evaluated in Python when the case is compiled.
+- `#@` lines: code made available to formulas (here a function).
 
-- `$n_mol`, `$T_celsius`, `$V_L` are **variables** (marked with `$`)
-- `@(...)` are **formulas** that are evaluated during compilation
-- `#@` lines define Python functions available to formulas
+## 2. Calculation script
 
-### Step 2: Create Calculation Script
+The "simulation" reads the compiled input and writes a result file.
 
-Create a file named `calculate.sh`:
-
-```bash
+```bash title="calculate.sh"
 #!/bin/bash
-
-# Read input file
-source $1
-
-# Simulate calculation time
-sleep 1
-
-# Calculate pressure using ideal gas law
-# P = nRT/V (R = 8.314 J/(mol·K))
-echo 'pressure = '`echo "scale=4;$n_mol*8.314*$T_kelvin/$V_m3" | bc` > output.txt
-
-echo 'Done'
+# $1 is the compiled input file, in the case directory
+source "$1"
+P=$(python3 -c "print($n_mol * 8.314 * $T_kelvin / $V_m3)")
+echo "pressure = $P" > output.txt
 ```
 
-Make it executable:
+fz runs the script inside a fresh directory per case and appends the compiled input
+file names to the command line, so `$1` is `input.txt`.
 
-```bash
-chmod +x calculate.sh
-```
+!!! warning "Do not name result files `out.txt`, `err.txt`, `log.txt`, `info.txt`, `history.txt`"
+    fz writes these files in every case directory (stdout, stderr, metadata) and would
+    overwrite a result file of the same name.
 
-### Step 3: Run Parametric Study
+## 3. Model and run
 
-Create a file named `run_study.py`:
-
-```python
+```python title="run_study.py"
 import fz
 
-# Define the model
 model = {
-    "varprefix": "$",           # Variables are marked with $
-    "formulaprefix": "@",       # Formulas are marked with @
-    "delim": "()",              # Formula delimiters
-    "commentline": "#",         # Comment character
-    "output": {
-        "pressure": "grep 'pressure = ' output.txt | awk '{print $3}'"
-    }
-}
-
-# Define parameter values
-input_variables = {
-    "T_celsius": [10, 20, 30, 40],  # 4 temperatures
-    "V_L": [1, 2, 5],                # 3 volumes
-    "n_mol": 1.0                     # fixed amount
-}
-
-# Run all combinations (4 × 3 = 12 cases)
-results = fz.fzr(
-    "input.txt",
-    input_variables,
-    model,
-    calculators="sh://bash calculate.sh",
-    results_dir="results"
-)
-
-# Display results
-print(results)
-print(f"\nCompleted {len(results)} calculations")
-```
-
-### Step 4: Execute
-
-Run the study:
-
-```bash
-python run_study.py
-```
-
-**Expected output:**
-
-```
-   T_celsius  V_L  n_mol     pressure status calculator       error command
-0         10  1.0    1.0  2353.58     done     sh://        None    bash...
-1         10  2.0    1.0  1176.79     done     sh://        None    bash...
-2         10  5.0    1.0   470.72     done     sh://        None    bash...
-3         20  1.0    1.0  2437.30     done     sh://        None    bash...
-...
-
-Completed 12 calculations
-```
-
-## Understanding the Results
-
-The results DataFrame contains:
-
-- **Input variables**: `T_celsius`, `V_L`, `n_mol`
-- **Output variables**: `pressure`
-- **Metadata**: `status`, `calculator`, `error`, `command`
-
-You can use pandas to analyze:
-
-```python
-# Find maximum pressure
-max_pressure = results['pressure'].max()
-print(f"Maximum pressure: {max_pressure}")
-
-# Filter results
-high_temp = results[results['T_celsius'] > 25]
-print(high_temp)
-
-# Plot results
-import matplotlib.pyplot as plt
-
-for volume in results['V_L'].unique():
-    data = results[results['V_L'] == volume]
-    plt.plot(data['T_celsius'], data['pressure'], 
-             marker='o', label=f'V={volume} L')
-
-plt.xlabel('Temperature (°C)')
-plt.ylabel('Pressure (Pa)')
-plt.legend()
-plt.show()
-```
-
-## What Just Happened?
-
-Let's break down the workflow:
-
-1. **fzi (Parse Input)** - FZ identified variables `$n_mol`, `$T_celsius`, `$V_L` in `input.txt`
-
-2. **fzc (Compile)** - For each parameter combination, FZ:
-   - Created a directory (e.g., `results/T_celsius=10,V_L=1`)
-   - Substituted variable values
-   - Evaluated formulas
-   - Saved compiled input file
-
-3. **Calculator Execution** - For each case, FZ:
-   - Ran `bash calculate.sh input.txt` in the case directory
-   - Captured output and errors
-   - Logged execution metadata
-
-4. **fzo (Parse Output)** - FZ:
-   - Ran the output command to extract `pressure`
-   - Collected results from all cases
-   - Built a pandas DataFrame
-
-5. **fzr (Complete Run)** - FZ orchestrated all steps automatically!
-
-## Next Steps
-
-### Try Different Calculators
-
-Run on a remote server:
-
-```python
-results = fz.fzr(
-    "input.txt",
-    input_variables,
-    model,
-    calculators="ssh://user@server.com/bash /path/to/calculate.sh",
-    results_dir="remote_results"
-)
-```
-
-Use caching to avoid recalculation:
-
-```python
-results = fz.fzr(
-    "input.txt",
-    input_variables,
-    model,
-    calculators=[
-        "cache://results",           # Check cache first
-        "sh://bash calculate.sh"     # Run if not cached
-    ],
-    results_dir="cached_results"
-)
-```
-
-### Run in Parallel
-
-Use multiple calculators for parallel execution:
-
-```python
-results = fz.fzr(
-    "input.txt",
-    input_variables,
-    model,
-    calculators=[
-        "sh://bash calculate.sh",
-        "sh://bash calculate.sh",
-        "sh://bash calculate.sh",
-        "sh://bash calculate.sh"
-    ],  # 4 parallel workers
-    results_dir="parallel_results"
-)
-```
-
-### Save Model as Alias
-
-Create `.fz/models/perfectgas.json`:
-
-```json
-{
-    "varprefix": "$",
+    "varprefix": "$",       # these four values are the defaults
     "formulaprefix": "@",
-    "delim": "()",
+    "delim": "{}",
     "commentline": "#",
     "output": {
-        "pressure": "grep 'pressure = ' output.txt | awk '{print $3}'"
+        "pressure": "python://grep(r'pressure = (\\S+)', 'output.txt')",
     },
-    "id": "perfectgas"
 }
-```
 
-Then use by name:
-
-```python
 results = fz.fzr(
     "input.txt",
-    input_variables,
-    "perfectgas",  # Model name instead of dict
-    calculators="sh://bash calculate.sh",
-    results_dir="results"
-)
-```
-
-## Common Patterns
-
-### Single Parameter Study
-
-Vary one parameter:
-
-```python
-results = fz.fzr(
-    "input.txt",
-    {"temperature": [100, 200, 300, 400, 500]},
+    {"T_celsius": [10, 20, 30, 40], "V_L": [1, 2, 5], "n_mol": 1.0},  # 4 x 3 = 12 cases
     model,
-    calculators="sh://bash calc.sh"
+    calculators=["sh://bash calculate.sh"] * 2,   # 2 cases at a time
+    results_dir="results",
 )
+print(results[["T_celsius", "V_L", "n_mol", "pressure", "status"]].head())
 ```
 
-### Full Factorial Design
+```text title="output"
+   T_celsius  V_L  n_mol    pressure status
+0         10    1    1.0  2354109.10   done
+1         10    2    1.0  1177054.55   done
+2         10    5    1.0   470821.82   done
+3         20    1    1.0  2437249.10   done
+4         20    2    1.0  1218624.55   done
+```
 
-Vary multiple parameters:
+!!! danger "Pass `calculators=` and `results_dir=` by keyword"
+    The 4th positional parameter of `fz.fzr` is `results_dir`, not `calculators`.
+    `fz.fzr("input.txt", vars, model, "sh://bash calculate.sh")` raises
+    `ValueError: results_dir looks like a calculator URI` (fz ≤ 1.2 silently created a
+    directory named `sh:/bash calculate.sh` and ran every case without calculator).
+
+## 4. What was produced
+
+```text
+results/
+├── manifest.json                     # campaign record (versions, model, calculators, cases)
+├── ro-crate-metadata.json            # same, as RO-Crate metadata
+├── T_celsius=10,V_L=1,n_mol=1.0/
+│   ├── input.txt                     # compiled input
+│   ├── output.txt                    # written by calculate.sh
+│   ├── out.txt  err.txt              # stdout / stderr of the command
+│   ├── log.txt  info.txt  history.txt
+│   └── .fz_hash                      # SHA-256 of the inputs (cache key)
+└── ...                               # 11 more case directories
+```
+
+The returned DataFrame has one row per case: the variables, the outputs, and
+`status`, `calculator`, `error`, `command`. A case whose `status` is not `done` has its
+diagnosis in that case's `err.txt` and `log.txt`.
+
+## 5. The same from the command line
+
+```bash
+fzr input.txt \
+    --model '{"output": {"pressure": "python://grep(r\"pressure = (\\S+)\", \"output.txt\")"}}' \
+    --input_variables '{"T_celsius": [10, 20, 30, 40], "V_L": [1, 2, 5], "n_mol": 1.0}' \
+    --calculators "sh://bash calculate.sh" \
+    --results_dir results --format json
+```
+
+Data goes to stdout, logs and progress to stderr; the exit status is 1 when no case
+succeeds.
+
+## 6. Check each step before a large run
+
+For a new code, verify the steps separately; each one isolates a class of errors.
 
 ```python
-results = fz.fzr(
-    "input.txt",
-    {
-        "param1": [1, 2, 3],      # 3 values
-        "param2": [10, 20],       # 2 values
-        "param3": [0.1, 0.5, 1.0] # 3 values
-    },  # Total: 3 × 2 × 3 = 18 cases
-    model,
-    calculators="sh://bash calc.sh"
-)
+fz.fzi("input.txt", model)
+# {'T_celsius': None, 'V_L': None, 'n_mol': None,
+#  'T_celsius + 273.15': None, 'L_to_m3(V_L)': None}   variables and formulas found
+
+fz.fzc("input.txt", {"T_celsius": 10, "V_L": 1, "n_mol": 1.0}, model, "compiled")
+# compiled/T_celsius=10,V_L=1,n_mol=1.0/input.txt        one sub-directory per case
+#   T_kelvin=283.15, V_m3=0.001                          compilation correct?
 ```
 
-### Mixed Fixed and Variable Parameters
+```bash
+(cd compiled/*/ && bash ../../calculate.sh input.txt)       # does the code run?
+```
 
 ```python
-results = fz.fzr(
-    "input.txt",
-    {
-        "variable_param": [1, 2, 3, 4],  # Variable
-        "fixed_param": 100                # Fixed
-    },
-    model,
-    calculators="sh://bash calc.sh"
-)
+fz.fzo("compiled/*", model)                                # does parsing find the value?
+# path=compiled/T_celsius=10,V_L=1,n_mol=1.0, pressure=2354109.1, T_celsius=10, ...
 ```
 
-## Troubleshooting
+`fzo` must target the case directory (or a glob of case directories): `fz.fzo("compiled",
+model)` looks for `output.txt` in `compiled/` itself and returns `None`.
 
-**Issue**: Calculation fails with "command not found"
+## 7. Next steps
 
-```python
-# Use absolute paths
-calculators="sh://bash /full/path/to/calculate.sh"
-```
+- Reuse finished cases: add `"cache://results"` first in `calculators`
+  ([Caching](../user-guide/running/caching.md)).
+- Run elsewhere: [SSH](../user-guide/calculators/ssh.md),
+  [SLURM](../user-guide/calculators/slurm.md).
+- Let an algorithm choose the points (optimization, sampling):
+  [fzd](../user-guide/core-functions/fzd.md).
 
-**Issue**: Output not parsed correctly
+    ```python
+    fz.fzd("input.txt",
+           {"T_celsius": "[0;100]", "V_L": "[1;5]", "n_mol": "1"},   # ranges, fixed values
+           model,
+           output_expression="pressure",
+           algorithm="randomsampling",          # .fz/algorithms/randomsampling.py
+           calculators="sh://bash calculate.sh",
+           algorithm_options={"nvalues": 5})
+    # summary: "randomsampling completed: 1 iterations, 5 evaluations (5 valid)"
+    ```
 
-```python
-# Test your output command manually
-import subprocess
-result = subprocess.run(
-    "grep 'pressure = ' output.txt | awk '{print $3}'",
-    shell=True, capture_output=True, text=True
-)
-print(result.stdout)
-```
+    `randomsampling.py` is copied from fz's
+    [`examples/algorithms/`](https://github.com/Funz/fz/tree/main/examples/algorithms);
+    `algorithm=` also accepts a path to a `.py`/`.R` file.
 
-**Issue**: Formulas not evaluating
-
-```python
-# Check formula syntax
-# Ensure variables are marked with $ and formulas with @
-# Check that commentline is correct
-```
-
-## Google Colab Quick Start
-
-Want to try FZ without installing anything locally? Use Google Colab:
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Funz/fz/blob/main/notebooks/quickstart.ipynb)
-
-## Beyond Fixed Grids: Adaptive Design
-
-For optimization and uncertainty quantification, use `fzd` instead of `fzr`. Instead of specifying exact parameter values, you specify ranges and let an algorithm choose points adaptively:
-
-```python
-result = fz.fzd(
-    "input.txt",
-    {"T_celsius": "[0;100]", "V_L": "[1;5]"},  # Ranges, not lists
-    model,
-    output_expression="pressure",
-    algorithm="examples/algorithms/bfgs.py",
-    calculators="sh://bash calculate.sh"
-)
-```
-
-See [fzd - Design of Experiments](../user-guide/core-functions/fzd.md) for details.
-
-## Further Reading
-
-- [Core Concepts](concepts.md) - Understand FZ fundamentals
-- [Core Functions](../user-guide/core-functions/fzi.md) - Deep dive into fzi, fzc, fzo, fzr, fzd, fzl
-- [Model Definition](../user-guide/model-definition.md) - Learn about model configuration
-- [Examples](../examples/perfectgas.md) - More complete examples
+- Read the [Constraints & Limits](../reference/limitations.md) before wrapping a real code.

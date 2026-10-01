@@ -1,203 +1,92 @@
-# SLURM Calculator
+# SLURM (`slurm://`, `slurm-array://`)
 
-The SLURM calculator allows FZ to execute calculations on HPC clusters using the SLURM Workload Manager.
+Two schemes submit cases to a SLURM cluster:
 
-## Overview
+| | `slurm://` | `slurm-array://` |
+|--|-----------|------------------|
+| Submission | One blocking `srun` per case | One `sbatch --array` job for all cases submitted within a short window |
+| Where fz runs | On a node with SLURM commands, or anywhere through SSH | On a node with `sbatch`/`sacct` (local only) |
+| Parallel cases | One per calculator entry | All cases from one URI (optionally throttled) |
+| Monitoring | `srun` returns when the job ends | One shared thread polls `sacct` (fallback `squeue`) |
+| Default timeout | none | none |
 
-SLURM (Simple Linux Utility for Resource Management) is a widely-used job scheduler for HPC clusters. The FZ SLURM calculator provides seamless integration for submitting and managing jobs on SLURM-enabled systems.
+## `slurm://`
 
-## URI Format
-
+```text
+slurm://:partition/command                       # local SLURM
+slurm://user@host:partition/command              # remote, through SSH
+slurm://user@host:port:partition/command         # remote, custom SSH port
 ```
-slurm://[user@host[:port]]:partition/script
-```
 
-### Components
-
-- **user** (optional): Username for remote SLURM clusters
-- **host** (optional): Hostname for remote SLURM clusters
-- **port** (optional): SSH port for remote access (default: 22)
-- **partition** (required): SLURM partition name (e.g., compute, gpu, debug)
-- **script**: Shell command or script to execute
-
-## Local SLURM Execution
-
-For local SLURM clusters (when FZ runs on the cluster login node):
+The partition is required and must be preceded by `:` (also in the local form).
 
 ```python
-import fz
-
-results = fz.fzr(
-    "input.txt",
-    {"param1": [1, 2, 3]},
-    model,
-    calculators="slurm://:compute/bash script.sh",
-    results_dir="results"
-)
+calculators = "slurm://:compute/bash /home/me/run.sh"
+calculators = ["slurm://me@cluster.example.edu:compute/bash /home/me/run.sh"] * 8  # 8 jobs at a time
 ```
 
-Example with GPU partition:
+- Local: fz runs `srun --partition=<partition> [resources] <command> <input files>` in the
+  case directory.
+- Remote: fz connects by SSH (same authentication and host-key rules as
+  [`ssh://`](ssh.md)), uploads the inputs by SFTP, runs `srun` there, downloads the
+  results.
+- Each entry runs one case at a time; repeat the URI to have several jobs in the queue.
+
+## Job arrays (`slurm-array://`)
 
 ```python
-calculators = "slurm://:gpu/python simulation.py"
+calculators = "slurm-array://:compute/bash /home/me/run.sh?cores=4&mem=8G&time=01:00:00&maxrunning=20"
 ```
 
-## Remote SLURM Execution
+- Cases arriving within `FZ_SLURM_ARRAY_WINDOW` seconds (default 1) are submitted as one
+  array; one calculator URI runs all of them concurrently.
+- `maxrunning=M` limits simultaneously running tasks (`--array=0-N%M`).
+- Each task changes into its case directory listed in a manifest file: the case
+  directories must be on a filesystem **shared with the compute nodes**.
+- `FZ_SLURM_POLL_INTERVAL` (default 2 s) sets the polling period.
+- Remote job arrays are not supported: use `slurm://user@host:...` for a remote cluster.
 
-For remote SLURM clusters accessed via SSH:
+## Resources
 
-```python
-calculators = "slurm://username@cluster.example.edu:gpu/bash run.sh"
-```
+Both schemes accept resources as a query string at the end of the URI:
 
-With custom SSH port:
+| Key | SLURM option |
+|-----|--------------|
+| `cores` | `--cpus-per-task` |
+| `mem` | `--mem` |
+| `time` | `--time` |
+| `nodes` | `--nodes` |
+| `ntasks` | `--ntasks` |
+| `gres` | `--gres` |
+| `account` | `--account` |
+| `qos` | `--qos` |
+| `maxrunning` | array throttle (`slurm-array://` only) |
 
-```python
-calculators = "slurm://user@cluster.edu:2222:compute/python script.py"
-```
+Unknown keys are rejected; values must match `[A-Za-z0-9_.:,=-/]+`.
 
-## Features
+## Timeouts and interrupts
 
-### Automatic Job Management
-
-- Submits jobs to SLURM scheduler using `sbatch`
-- Monitors job status using `squeue`
-- Retrieves results when jobs complete
-- Handles job failures and retries
-
-### Interrupt Handling
-
-Press `Ctrl+C` to gracefully terminate SLURM jobs:
-
-- Cancels all running SLURM jobs using `scancel`
-- Cleans up temporary files
-- Preserves completed results
-
-### File Transfer
-
-For remote execution:
-
-- Automatically uploads input files to the cluster
-- Downloads output files after job completion
-- Uses SSH/SCP for secure file transfer
-
-## Configuration
-
-### SLURM Script Headers
-
-The calculator automatically adds appropriate SLURM directives to job scripts:
-
-```bash
-#!/bin/bash
-#SBATCH --job-name=fz_case_001
-#SBATCH --output=output_%j.log
-#SBATCH --error=error_%j.log
-#SBATCH --partition=compute
-```
-
-### Custom SLURM Options
-
-You can specify additional SLURM options in your model configuration:
-
-```python
-model = {
-    "varprefix": "$",
-    "slurm_options": {
-        "nodes": 1,
-        "ntasks": 4,
-        "time": "01:00:00",
-        "mem": "8GB"
-    }
-}
-```
-
-## Examples
-
-### Basic Parametric Study
-
-```python
-import fz
-
-model = {
-    "varprefix": "$",
-    "output": {
-        "result": "grep 'Result:' output.txt | awk '{print $2}'"
-    }
-}
-
-results = fz.fzr(
-    "simulation.input",
-    {
-        "temperature": [300, 350, 400, 450],
-        "pressure": [1.0, 2.0, 3.0]
-    },
-    model,
-    calculators="slurm://:compute/bash run_simulation.sh",
-    results_dir="slurm_results",
-    n_parallel=6  # Submit up to 6 jobs simultaneously
-)
-```
-
-### Multiple Partitions
-
-Use different partitions for different job types:
-
-```python
-calculators = [
-    "slurm://:compute/bash short_job.sh",  # Quick jobs
-    "slurm://:gpu/bash gpu_job.sh"         # GPU-intensive jobs
-]
-```
-
-### Remote HPC Cluster
-
-```python
-calculators = "slurm://myuser@hpc.university.edu:compute/python analyze.py"
-```
+There is **no default timeout** for SLURM calculators (queue waits are unbounded); a
+warning is logged. Set the model's `timeout` or `FZ_RUN_TIMEOUT` to bound a case,
+including its time in the queue. Ctrl+C cancels the submitted jobs
+([Interrupt & Resume](../running/interrupts.md)).
 
 ## Requirements
 
-- SLURM commands must be available: `sbatch`, `squeue`, `scancel`
-- For remote execution: SSH access with key-based authentication
-- Python `paramiko` package for remote SSH connections
+- Local: `srun` (and `sbatch`, `sacct`/`squeue` for arrays) on `PATH`.
+- Remote: SSH access to a login node with `srun`.
+- A job failing with a SLURM state such as `TIMEOUT`, `OUT_OF_MEMORY`, `NODE_FAIL`,
+  `PREEMPTED` marks the case as failed (then retried).
 
-## Limitations
-
-- Requires SLURM workload manager installed
-- Job scheduling may introduce delays depending on cluster load
-- Remote execution requires SSH key authentication (password auth not supported)
-
-## Troubleshooting
-
-### Job Submission Fails
-
-Check that SLURM is available:
+## Check the cluster by hand first
 
 ```bash
-which sbatch
-sinfo  # Check partition availability
+sinfo -o "%P"                                   # partition names
+srun --partition=compute bash /home/me/run.sh input.txt
 ```
 
-### Partition Not Found
+## See also
 
-Verify partition names:
-
-```bash
-sinfo -o "%P"
-```
-
-### Remote Connection Issues
-
-Test SSH connection:
-
-```bash
-ssh user@cluster.example.edu
-```
-
-Ensure SSH key authentication is configured.
-
-## See Also
-
-- [SSH Calculator](ssh.md) - For remote execution without SLURM
-- [Local Shell Calculator](shell.md) - For local execution
-- [Environment Variables](../../reference/environment.md) - Configuration options
+[SSH](ssh.md) · [Remote HPC example](../../examples/hpc.md) ·
+[Timeouts](../running/timeouts.md) ·
+[Architecture note](https://github.com/Funz/fz/blob/main/doc/slurm-architecture.md)

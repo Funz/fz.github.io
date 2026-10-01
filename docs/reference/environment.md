@@ -1,225 +1,87 @@
 # Environment Variables
 
-FZ can be configured using several environment variables to customize its behavior.
-
-## Core Configuration
-
-### `FZ_LOG_LEVEL`
-**Description**: Controls the verbosity of FZ logging output.
-
-**Values**: `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`
-
-**Default**: `ERROR`
-
-**Example**:
-```bash
-export FZ_LOG_LEVEL=DEBUG
-```
-
-### `FZ_INTERPRETER`
-**Description**: Default formula interpreter for evaluating expressions.
-
-**Values**: `python`, `R`
-
-**Default**: `python`
-
-**Example**:
-```bash
-export FZ_INTERPRETER=R
-```
-
-## Execution Configuration
-
-### `FZ_RUN_TIMEOUT` (renamed in 1.2, default raised to 1 h)
-
-**Description**: Default timeout in seconds for a single case run. A model can override
-it with its own `"timeout"` entry (`None`/`null`/`0` disables the timeout for that
-model); an explicit `timeout=` argument to `fzr()` / `fzc()` overrides both.
-
-**Values**: Positive integer (seconds), or `0` to disable
-
-**Default**: `3600` (1 hour — was `600` before 1.2)
-
-**Example**:
-```bash
-export FZ_RUN_TIMEOUT=300  # 5 minutes
-```
-
-!!! note
-    Earlier releases named this variable `FZ_EXECUTION_TIMEOUT`. Use `FZ_RUN_TIMEOUT`.
-
-### `FZ_MAX_RETRIES`
-**Description**: Maximum number of retry attempts when a calculator fails.
-
-**Values**: Non-negative integer
-
-**Default**: `5`
-
-**Example**:
-```bash
-export FZ_MAX_RETRIES=3
-```
-
-### `FZ_MAX_WORKERS`
-**Description**: Maximum number of parallel workers for concurrent execution.
-
-**Values**: Positive integer
-
-**Default**: Number of CPU cores
-
-**Example**:
-```bash
-export FZ_MAX_WORKERS=8
-```
-
-## Shell Configuration
-
-### `FZ_SHELL_PATH` (New in 0.9.1)
-**Description**: Custom search path for shell commands and executables. Overrides system PATH for binary resolution. Essential for Windows users with MSYS2, Git Bash, or custom tool locations.
-
-**Format**: 
-- Windows: Semicolon-separated paths
-- Unix/Linux: Colon-separated paths
-
-**Default**: System PATH
-
-**Example**:
-```bash
-# Windows
-SET FZ_SHELL_PATH=C:\msys64\usr\bin;C:\msys64\mingw64\bin;C:\Python39
-
-# Linux/macOS
-export FZ_SHELL_PATH=/opt/tools/bin:/usr/local/bin
-```
-
-**Features**:
-- Automatic `.exe` extension handling on Windows
-- Binary path caching for performance
-- Overrides system PATH priority
-
-## Case Layout Configuration
-
-### `FZ_CASE_NAMING` (New in 1.2)
-**Description**: How each case's result/temp subdirectory is named. `"path"` produces
-`var1=val1,var2=val2,...` (human-readable, but can exceed the ~255-char filename limit
-with many variables); `"hash"` uses a short content hash of the variable combination;
-`"index"` uses `case_<i>`. With `"hash"` / `"index"` a `cases.csv` manifest mapping each
-directory to its variables is written at the results root. Overridden by the
-`case_naming=` argument / `--case_naming` flag.
-
-**Values**: `path`, `hash`, `index`
-
-**Default**: `path`
-
-**Example**:
-```bash
-export FZ_CASE_NAMING=hash
-```
-
-### `FZ_STATIC_CANDIDATE_MIN_SIZE` (New in 1.2)
-**Description**: Size threshold in bytes above which an `input_path` file with no
-variables triggers a one-time warning suggesting it be passed via `input_static`
-instead (it is otherwise re-read, re-copied, and re-hashed on every case). Set to `0`
-to disable the warning.
-
-**Values**: Non-negative integer (bytes)
-
-**Default**: `1048576` (1 MiB)
-
-**Example**:
-```bash
-export FZ_STATIC_CANDIDATE_MIN_SIZE=0
-```
-
-## SSH Configuration
-
-### `FZ_SSH_KEEPALIVE`
-**Description**: Interval in seconds for SSH keepalive packets to prevent connection timeout.
-
-**Values**: Positive integer (seconds)
-
-**Default**: `300`
-
-**Example**:
-```bash
-export FZ_SSH_KEEPALIVE=30
-```
-
-## Cache Configuration
-
-### `FZ_CACHE_DIR`
-**Description**: Directory for storing cached results.
-
-**Values**: Valid directory path
-
-**Default**: `.fz/cache` in working directory
-
-**Example**:
-```bash
-export FZ_CACHE_DIR=/tmp/fz_cache
-```
-
-## Discovery Configuration
-
-### `FZ_UDP_DISCOVERY_PORT`
-**Description**: UDP port for Funz calculator auto-discovery.
-
-**Values**: Valid port number
-
-**Default**: `21001`
-
-**Example**:
-```bash
-export FZ_UDP_DISCOVERY_PORT=21001
-```
-
-## Configuration Files
-
-### Model and Calculator Aliases
-
-FZ looks for configuration files in:
-
-- **Models**: `~/.fz/models/` and `./.fz/models/`
-- **Calculators**: `~/.fz/calculators/` and `./.fz/calculators/`
-
-Configuration files use JSON format:
-
-**Model Example** (`~/.fz/models/perfectgas.json`):
-```json
-{
-  "varprefix": "$",
-  "interpreter": "python",
-  "output": {
-    "pressure": "grep 'P =' output.txt | awk '{print $3}'"
-  }
-}
-```
-
-**Calculator Example** (`~/.fz/calculators/compute.json`):
-```json
-{
-  "uri": "ssh://user@cluster.example.edu/bash",
-  "models": ["perfectgas", "simulation"]
-}
-```
-
-## Platform-Specific Notes
-
-### Windows
-
-- Use `SET` instead of `export` for environment variables
-- Path separators are semicolons (`;`) in `FZ_SHELL_PATH`
-- Consider setting `FZ_SHELL_PATH` for Git Bash or MSYS2 tools
-
-### Linux/macOS
-
-- Use `export` for environment variables
-- Path separators are colons (`:`) in `FZ_SHELL_PATH`
-- Environment variables can be set in `~/.bashrc` or `~/.zshrc`
-
-## See Also
-
-- [Configuration Guide](configuration.md) - Model and calculator configuration
-- [Shell Calculator](../user-guide/calculators/shell.md) - Shell execution details
-- [Troubleshooting](troubleshooting.md) - Common issues and solutions
-
+The variables of the General, Execution, Cache and SSH tables are read **once, when
+`fz` is imported**: set them before starting Python, or call `fz.reload_config()` after
+changing `os.environ`. `fz.print_config()` shows the effective values. SLURM array
+variables are read when the first `slurm-array://` case is submitted, MCP variables when
+`fz-mcp` starts.
+
+## General
+
+| Variable | Default | Meaning |
+|----------|---------|---------|
+| `FZ_LOG_LEVEL` | `ERROR` | `QUIET`, `ERROR`, `WARNING`, `INFO`, `DEBUG`. Logs go to stderr |
+| `FZ_INTERPRETER` | `python` | Default formula interpreter (`python` or `R`); a model's `interpreter` wins |
+| `FZ_SHELL_PATH` | unset | Directories searched first for `bash` and the commands of shell calculators/extractors (`;`-separated on Windows, `:` elsewhere). Needed on Windows (MSYS2/Git Bash) |
+
+## Execution
+
+| Variable | Default | Meaning |
+|----------|---------|---------|
+| `FZ_MAX_WORKERS` | unset | Upper bound on concurrent cases; never above the number of non-cache calculator entries (except `slurm-array://`) |
+| `FZ_MAX_RETRIES` | `5` | Calculator failures tolerated per case before `failed` |
+| `FZ_RUN_TIMEOUT` | `3600` for `sh://`/`funz://`, none for `ssh://`/`slurm://` | Per-case timeout in seconds; when set, applies to all calculators; `0` = no timeout ([Timeouts](../user-guide/running/timeouts.md)) |
+| `FZ_CASE_NAMING` | `path` | Case directory naming: `path`, `hash`, `index` (invalid values fall back to `path`) |
+| `FZ_STATIC_CANDIDATE_MIN_SIZE` | `1048576` | Size (bytes) above which a variable-free input file triggers the `input_static` suggestion; `0` disables |
+| `FZ_RO_CRATE` | `1` | `0` disables `ro-crate-metadata.json` (`manifest.json` is always written) |
+
+## Cache
+
+| Variable | Default | Meaning |
+|----------|---------|---------|
+| `FZ_CACHE_STRICT` | `0` | `1` refuses cache matches whose code identity cannot be verified |
+| `FZ_CACHE_ACCEPT_LEGACY` | `0` | `1` lets `cache://` use caches written in the old MD5 format |
+
+## SSH
+
+| Variable | Default | Meaning |
+|----------|---------|---------|
+| `FZ_SSH_KEEPALIVE` | `300` | Keepalive interval (s) |
+| `FZ_SSH_AUTO_ACCEPT_HOSTKEYS` | `0` | `1` accepts unknown host keys without prompting (the prompt only occurs with a password in the URI; key authentication already adds unknown hosts) |
+| `SSH_USER` | local user | User name when the URI has no `user@` (read at connection time) |
+
+## SLURM job arrays
+
+| Variable | Default | Meaning |
+|----------|---------|---------|
+| `FZ_SLURM_ARRAY_WINDOW` | `1` | Seconds during which cases are gathered into one `sbatch --array` |
+| `FZ_SLURM_POLL_INTERVAL` | `2` | Seconds between `sacct`/`squeue` polls |
+
+## MCP server
+
+| Variable | Default | Meaning |
+|----------|---------|---------|
+| `FZ_MCP_ROOT` | working directory | Root to which all file paths are confined |
+| `FZ_MCP_TRUSTED` | `1` | `0`: models/calculators must be installed aliases |
+| `FZ_MCP_TRANSPORT` | `stdio` | `sse` or `streamable-http` (requires the next variable) |
+| `FZ_MCP_ALLOW_NETWORK_TRANSPORT` | `0` | `1` allows a network transport |
+
+## Examples
+
+=== "Linux / macOS"
+
+    ```bash
+    export FZ_LOG_LEVEL=INFO FZ_MAX_WORKERS=8 FZ_RUN_TIMEOUT=7200
+    python run_study.py
+    ```
+
+=== "Windows (PowerShell)"
+
+    ```powershell
+    $env:FZ_SHELL_PATH = "C:\msys64\usr\bin;C:\msys64\mingw64\bin"
+    python run_study.py
+    ```
+
+=== "Python"
+
+    ```python
+    import os, fz
+    os.environ["FZ_MAX_RETRIES"] = "3"
+    fz.reload_config()
+    fz.set_log_level("DEBUG")          # or directly, without environment variables
+    fz.get_config().max_workers = 4
+    ```
+
+## See also
+
+[.fz Directory & Aliases](configuration.md) · [Constraints & Limits](limitations.md)

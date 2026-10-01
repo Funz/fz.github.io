@@ -28,11 +28,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install mkdocs mkdocs-material pymdown-extensions
+          pip install -r requirements.txt
 
       - name: Build documentation
         run: |
-          mkdocs build
+          mkdocs build --strict
+          python test_site_structure.py
 
       - name: Deploy to GitHub Pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
