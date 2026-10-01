@@ -4044,16 +4044,25 @@
 in the fz repository.</p>
 <h2 id="unreleased-main-branch-after-12">Unreleased (main branch, after 1.2)</h2>
 <div class="admonition warning">
-<p class="admonition-title">Breaking changes</p>
+<p class="admonition-title">Behavior changes when upgrading from 1.2</p>
 <ul>
 <li>Python 3.8 is no longer supported (<code>requires-python &gt;= 3.9</code>).</li>
 <li><code>"path"</code> case directory names percent-encode <code>/ \ : * ? " &lt; &gt; | %</code>, control
   characters and <code>.</code>/<code>..</code> values: names containing such values differ from 1.2.</li>
 <li><code>cache://</code> uses a SHA-256 <code>.fz_hash</code> ("v2") format; caches written by older versions
   are ignored unless <code>FZ_CACHE_ACCEPT_LEGACY=1</code>.</li>
-<li><code>ssh://</code> and <code>slurm://</code> have no default timeout (was 3600 s); <code>sh://</code>/<code>funz://</code> keep
-  3600 s.</li>
-<li><code>fz-mcp</code>: <code>FZ_MCP_TRUSTED=0</code> restricted mode now works at the MCP layer only.</li>
+<li><code>ssh://</code> and <code>slurm://</code> have no default timeout (was 3600 s); <code>timeout=0</code> and
+  <code>FZ_RUN_TIMEOUT=0</code> mean "no timeout" (they timed every case out immediately).</li>
+<li>A model without <code>delim</code> reads both <code>$(x)</code> and <code>${x}</code> (Python read only <code>$(x)</code>, the
+  CLI only <code>${x}</code>).</li>
+<li><code>fzr()</code> raises <code>ValueError</code> when <code>results_dir</code> looks like a calculator URI.</li>
+<li><code>sh://</code> resolves a word to the launch directory only if the file exists there and
+  not in the case directory: re-check 1.2 results of commands such as
+  <code>cat in.txt &gt; out.txt</code>.</li>
+<li><code>fz list --format json</code>: calculators are keyed by alias name (with <code>path</code>, <code>uri</code>).</li>
+<li><code>fz-mcp</code>: <code>FZ_MCP_TRUSTED=0</code> restricts at the MCP layer only; network transports
+  need <code>FZ_MCP_ALLOW_NETWORK_TRANSPORT=1</code>.</li>
+<li>Code patching <code>fz.runners.run_command</code> must patch <code>fz.runners.sh.run_command</code>.</li>
 </ul>
 </div>
 <ul>
@@ -4085,6 +4094,11 @@ in the fz repository.</p>
 <li>fz documentation reorganized: short README, one file per topic in <code>doc/</code>.</li>
 <li><code>fz install model</code> installs every model of a repository.</li>
 <li><code>fzc</code>/<code>fzr</code> evaluate formulas using inline variable defaults, as <code>fzi</code> does.</li>
+<li>An unexpected exception in one case no longer aborts a sequential campaign: the case
+  gets <code>status="error"</code> with the message in the <code>error</code> column (Funz/fz#100).</li>
+<li><code>fzo</code> decodes percent-encoded case directory names when rebuilding variable columns.</li>
+<li>Claude Code plugin / Agent Skill updated for all the above (plugin manifests to be
+  bumped with the release).</li>
 <li>Error reports no longer blame the command for a "not found" printed by the code.</li>
 <li><code>fz/runners.py</code> split into the <code>fz.runners</code> package (no behavior change; code patching
   <code>fz.runners.run_command</code> must patch <code>fz.runners.sh.run_command</code>).</li>
