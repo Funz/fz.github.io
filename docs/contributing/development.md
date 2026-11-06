@@ -51,10 +51,18 @@ changes: `README.md` (overview, under 300 lines), `doc/` (one file per topic), a
 
 ## Releasing
 
-`fz/_version.py` is stamped by CI (`scripts/stamp_version.py`) and must not be edited by
-hand; `pyproject.toml` reads the version dynamically. A release commit folds `## Unreleased` into a dated `## Version X.Y` section in
-`NEWS.md`, and aligns the Claude Code plugin version. Publishing a GitHub Release with
-the matching tag triggers `release.yml`, which pushes to PyPI.
+The version number lives in `fz/__init__.py` only (`pyproject.toml`, `fz --version` and
+`manifest.json` read it). `fz/_version.py` holds the commit date and hash; `release.yml`
+stamps it (`scripts/stamp_version.py`) and it must not be edited by hand. A release
+commit folds `## Unreleased` into a dated `## Version X.Y` section in `NEWS.md`, and
+aligns the Claude Code plugin version.
+
+Publishing a GitHub Release triggers `release.yml`. It builds the wheel and the sdist
+once, checks them with `scripts/check_dist.py` (one pure-Python wheel, `twine check`,
+release tag equal to `fz.__version__`, a leading `v` being allowed), installs the wheel
+on the CI OS × Python matrix with a smoke test, then publishes to PyPI and attaches the
+files to the release. A tag that does not match the version stops the release before
+anything is published.
 
 ## See Also
 
