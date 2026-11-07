@@ -3,7 +3,7 @@
 Complete, authoritative notes: [NEWS.md](https://github.com/Funz/fz/blob/main/NEWS.md)
 in the fz repository.
 
-## Version 2.0 (2026-11-06)
+## Version 2.0 (2026-11-07)
 
 2.0 is a major version because it changes behavior in ways that are not backward
 compatible (summary below). It also fixes wrong results with some `sh://` commands and
