@@ -3,7 +3,7 @@
 Complete, authoritative notes: [NEWS.md](https://github.com/Funz/fz/blob/main/NEWS.md)
 in the fz repository.
 
-## Version 2.0 (2026-11-07)
+## Version 2.0 (2026-11-08)
 
 2.0 is a major version because it changes behavior in ways that are not backward
 compatible (summary below). It also fixes wrong results with some `sh://` commands and
@@ -74,6 +74,12 @@ a command-injection issue present in 1.2: upgrading is recommended.
   tag equal to the version); `release.yml` installs and smoke-tests the wheel on the CI
   OS × Python matrix before publishing, and `ci.yml` installs it in a fresh venv on every
   push and pull request.
+- `fzd` with a file-based model no longer leaves an empty `iterNNN_<timestamp>/`
+  directory next to each `iterNNN/` of its `analysis_dir` (Funz/fz#108).
+- A failed `#require:` auto-install of an algorithm now reports pip's output; the error
+  ended with an empty `Error:` (Funz/fz#111).
+- The Agent Skill was audited against the code (Funz/fz#107): among others, the `fzd`
+  example passed `max_iterations` to `bfgs.py`, which reads `max_iter`.
 - Error reports no longer blame the command for a "not found" printed by the code.
 - `fz/runners.py` split into the `fz.runners` package (no behavior change; code patching
   `fz.runners.run_command` must patch `fz.runners.sh.run_command`).
