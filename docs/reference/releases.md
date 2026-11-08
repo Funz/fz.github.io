@@ -3,7 +3,11 @@
 Complete, authoritative notes: [NEWS.md](https://github.com/Funz/fz/blob/main/NEWS.md)
 in the fz repository.
 
-## Unreleased (main branch, after 1.2)
+## Version 2.0 (2026-11-08)
+
+2.0 is a major version because it changes behavior in ways that are not backward
+compatible (summary below). It also fixes wrong results with some `sh://` commands and
+a command-injection issue present in 1.2: upgrading is recommended.
 
 !!! warning "Behavior changes when upgrading from 1.2"
     - Python 3.8 is no longer supported (`requires-python >= 3.9`).
@@ -55,8 +59,27 @@ in the fz repository.
 - An unexpected exception in one case no longer aborts a sequential campaign: the case
   gets `status="error"` with the message in the `error` column (Funz/fz#100).
 - `fzo` decodes percent-encoded case directory names when rebuilding variable columns.
-- Claude Code plugin / Agent Skill updated for all the above (plugin manifests to be
-  bumped with the release).
+- Claude Code plugin / Agent Skill updated for all the above; plugin version 2.0.0. The
+  skill now documents every name exported by `fz` and every `fz` subcommand (checked by
+  `tests/test_skill_static.py`).
+- **Default delimiters warning** (Funz/fz#104): when a model without `delim` has `${...}`
+  names next to `$(...)` variables (typically shell text such as `${HOME}`), `fzi` (hence
+  `fzc`/`fzr`/`fzd`) logs a warning (visible with `FZ_LOG_LEVEL=WARNING` or lower), and
+  the `input_variables is required` error names the `${...}`-only variables. Results are
+  unchanged.
+- `manifest.json` (`fz_version`, RO-Crate) reported version `1.0`; it now reports the
+  installed version (Funz/fz#103).
+- **Release tooling** (Funz/fz#105): the pure-Python wheel and the sdist are built once
+  and checked (`scripts/check_dist.py`: one `py3-none-any` wheel, `twine check`, release
+  tag equal to the version); `release.yml` installs and smoke-tests the wheel on the CI
+  OS × Python matrix before publishing, and `ci.yml` installs it in a fresh venv on every
+  push and pull request.
+- `fzd` with a file-based model no longer leaves an empty `iterNNN_<timestamp>/`
+  directory next to each `iterNNN/` of its `analysis_dir` (Funz/fz#108).
+- A failed `#require:` auto-install of an algorithm now reports pip's output; the error
+  ended with an empty `Error:` (Funz/fz#111).
+- The Agent Skill was audited against the code (Funz/fz#107): among others, the `fzd`
+  example passed `max_iterations` to `bfgs.py`, which reads `max_iter`.
 - Error reports no longer blame the command for a "not found" printed by the code.
 - `fz/runners.py` split into the `fz.runners` package (no behavior change; code patching
   `fz.runners.run_command` must patch `fz.runners.sh.run_command`).

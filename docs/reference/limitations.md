@@ -3,13 +3,14 @@
 This page lists the behaviors of fz that most often surprise users. Each item states the
 rule, the consequence, and what to do instead. Items were checked against the code of fz (`fz/core.py`,
 `fz/helpers.py`, `fz/runners/`, `fz/config.py`, `fz/cli.py`) and by running it. They
-describe fz after Funz/fz#99; fz ≤ 1.2 differs on timeouts `0`, default delimiters,
+describe fz 2.0; fz ≤ 1.2 differs on timeouts `0`, default delimiters,
 `fz list` and global installs. Source:
 [`doc/limitations.md`](https://github.com/Funz/fz/blob/main/doc/limitations.md).
 
 ## Platform and dependencies
 
-- **Python ≥ 3.9.** 3.9–3.13 are tested in CI; 3.14 is exercised as a pre-release only.
+- **Python ≥ 3.9.** 3.9–3.14 are tested in CI on Linux, macOS and Windows (3.9 not on
+  Windows).
 - **bash is required everywhere.** Calculator commands and shell output parsers run
   through bash. On Windows, install MSYS2 or Git Bash and point `FZ_SHELL_PATH` at its
   `bin` directories (see [Environment Variables](environment.md#general)). Shell-free output parsers
@@ -26,7 +27,10 @@ describe fz after Funz/fz#99; fz ≤ 1.2 differs on timeouts `0`, default delimi
 - **Default delimiters.** A model without `delim` (nor `var_delim`) accepts both `$(x)`
   and `${x}` for variables and uses `@{...}` for formulas; the CLI without `--model` uses
   the same default. Setting `"delim": "{}"` or `"()"` restricts variables to one form.
-  Templates that contain other `${...}` text (shell snippets) should set `delim`.
+  Templates that contain other `${...}` text (shell snippets) should set `delim`:
+  `fzi` (hence `fzc`/`fzr`) logs a warning (`FZ_LOG_LEVEL=WARNING` or lower) when
+  `${...}` names sit next to `$(...)` variables in a model without `delim`, and the
+  `input_variables is required` error names the `${...}`-only variables.
 - **No automatic `?var` conversion.** `?var` is a variable only with `"varprefix": "?"`.
 - A variable absent from `input_variables` and without `~default` is left as-is in the
   compiled file (no error from `fzc`).

@@ -15,6 +15,7 @@ fz.set_log_level("DEBUG")        # or FZ_LOG_LEVEL=DEBUG before starting Python
 | `Permission denied ... ./input.txt` | No calculator: fz fell back to an empty `sh://` | Give `calculators`, or install a calculator alias matching the model `id` |
 | `fzi` misses `${x}` (fz ≤ 1.2) or `$(x)` variables | Model sets `delim` to the other pair (or fz ≤ 1.2 default `()`) | Fix `delim`, or remove it to accept both forms |
 | `fzi` reports unexpected variables | `varprefix` collides with the code's syntax | Change `varprefix` (e.g. `%`) |
+| `fzi` lists `HOME` (or other shell `${...}` names); warning `The model sets no "delim"` | A model without `delim` reads `${x}` as well as `$(x)` | Set `"delim": "()"` (or `"{}"`) in the model |
 | Case `done` but output `None` and `error` = `Missing output: ...` | Extractor found nothing: wrong file/pattern, file written elsewhere, locale | Test the extractor with `fzo` on the case directory |
 | Output value equals the program's stdout | The code writes `out.txt` (reserved, overwritten by stdout) | Rename the code's output file |
 | Result file contains the input twice, or the command gets unexpected arguments | The compiled input names are appended to the end of the `sh://` command line | Move file handling into a script run as `sh://bash script.sh` |

@@ -9,8 +9,9 @@ in the [model](../models/definition.md); this page uses `varprefix="$"`,
     A model **without** `delim` accepts both `$(x)` (Java Funz convention) and `${x}` for
     variables, and `@{...}` for formulas; the CLI without `--model` does the same. Set
     `delim` when the code's own text contains `${...}` or `$(...)` that must not be read
-    as variables. In fz ≤ 1.2, a model without `delim` only recognized `$(x)` and the CLI
-    only `${x}`.
+    as variables. fz logs a warning (`FZ_LOG_LEVEL=WARNING` or lower) when, in a model
+    without `delim`, `${...}` names appear next to `$(...)` variables. In fz ≤ 1.2, a model
+    without `delim` only recognized `$(x)` and the CLI only `${x}`.
 
 ## Variables
 
