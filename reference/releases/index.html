@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
     
     
       
@@ -33,10 +33,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -2481,10 +2481,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#unreleased-main-branch-after-12" class="md-nav__link">
+  <a href="#version-20-2026-11-08" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Unreleased (main branch, after 1.2)
+        Version 2.0 (2026-11-08)
       
     </span>
   </a>
@@ -3332,10 +3332,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#unreleased-main-branch-after-12" class="md-nav__link">
+  <a href="#version-20-2026-11-08" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Unreleased (main branch, after 1.2)
+        Version 2.0 (2026-11-08)
       
     </span>
   </a>
@@ -4042,7 +4042,10 @@
 <h1 id="release-notes">Release Notes</h1>
 <p>Complete, authoritative notes: <a href="https://github.com/Funz/fz/blob/main/NEWS.md">NEWS.md</a>
 in the fz repository.</p>
-<h2 id="unreleased-main-branch-after-12">Unreleased (main branch, after 1.2)</h2>
+<h2 id="version-20-2026-11-08">Version 2.0 (2026-11-08)</h2>
+<p>2.0 is a major version because it changes behavior in ways that are not backward
+compatible (summary below). It also fixes wrong results with some <code>sh://</code> commands and
+a command-injection issue present in 1.2: upgrading is recommended.</p>
 <div class="admonition warning">
 <p class="admonition-title">Behavior changes when upgrading from 1.2</p>
 <ul>
@@ -4097,8 +4100,27 @@ in the fz repository.</p>
 <li>An unexpected exception in one case no longer aborts a sequential campaign: the case
   gets <code>status="error"</code> with the message in the <code>error</code> column (Funz/fz#100).</li>
 <li><code>fzo</code> decodes percent-encoded case directory names when rebuilding variable columns.</li>
-<li>Claude Code plugin / Agent Skill updated for all the above (plugin manifests to be
-  bumped with the release).</li>
+<li>Claude Code plugin / Agent Skill updated for all the above; plugin version 2.0.0. The
+  skill now documents every name exported by <code>fz</code> and every <code>fz</code> subcommand (checked by
+  <code>tests/test_skill_static.py</code>).</li>
+<li><strong>Default delimiters warning</strong> (Funz/fz#104): when a model without <code>delim</code> has <code>${...}</code>
+  names next to <code>$(...)</code> variables (typically shell text such as <code>${HOME}</code>), <code>fzi</code> (hence
+  <code>fzc</code>/<code>fzr</code>/<code>fzd</code>) logs a warning (visible with <code>FZ_LOG_LEVEL=WARNING</code> or lower), and
+  the <code>input_variables is required</code> error names the <code>${...}</code>-only variables. Results are
+  unchanged.</li>
+<li><code>manifest.json</code> (<code>fz_version</code>, RO-Crate) reported version <code>1.0</code>; it now reports the
+  installed version (Funz/fz#103).</li>
+<li><strong>Release tooling</strong> (Funz/fz#105): the pure-Python wheel and the sdist are built once
+  and checked (<code>scripts/check_dist.py</code>: one <code>py3-none-any</code> wheel, <code>twine check</code>, release
+  tag equal to the version); <code>release.yml</code> installs and smoke-tests the wheel on the CI
+  OS × Python matrix before publishing, and <code>ci.yml</code> installs it in a fresh venv on every
+  push and pull request.</li>
+<li><code>fzd</code> with a file-based model no longer leaves an empty <code>iterNNN_&lt;timestamp&gt;/</code>
+  directory next to each <code>iterNNN/</code> of its <code>analysis_dir</code> (Funz/fz#108).</li>
+<li>A failed <code>#require:</code> auto-install of an algorithm now reports pip's output; the error
+  ended with an empty <code>Error:</code> (Funz/fz#111).</li>
+<li>The Agent Skill was audited against the code (Funz/fz#107): among others, the <code>fzd</code>
+  example passed <code>max_iterations</code> to <code>bfgs.py</code>, which reads <code>max_iter</code>.</li>
 <li>Error reports no longer blame the command for a "not found" printed by the code.</li>
 <li><code>fz/runners.py</code> split into the <code>fz.runners</code> package (no behavior change; code patching
   <code>fz.runners.run_command</code> must patch <code>fz.runners.sh.run_command</code>).</li>
@@ -4645,10 +4667,10 @@ calculator failure. <code>fzr</code>/<code>fzd</code> now fall back to the next 
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.tracking", "navigation.indexes", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.tracking", "navigation.indexes", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
     
   </body>

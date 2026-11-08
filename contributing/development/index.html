@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
     
     
       
@@ -33,10 +33,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -2863,10 +2863,17 @@ changes: <code>README.md</code> (overview, under 300 lines), <code>doc/</code> (
 <li>Open a pull request.</li>
 </ol>
 <h2 id="releasing">Releasing</h2>
-<p><code>fz/_version.py</code> is stamped by CI (<code>scripts/stamp_version.py</code>) and must not be edited by
-hand; <code>pyproject.toml</code> reads the version dynamically. A release commit folds <code>## Unreleased</code> into a dated <code>## Version X.Y</code> section in
-<code>NEWS.md</code>, and aligns the Claude Code plugin version. Publishing a GitHub Release with
-the matching tag triggers <code>release.yml</code>, which pushes to PyPI.</p>
+<p>The version number lives in <code>fz/__init__.py</code> only (<code>pyproject.toml</code>, <code>fz --version</code> and
+<code>manifest.json</code> read it). <code>fz/_version.py</code> holds the commit date and hash; <code>release.yml</code>
+stamps it (<code>scripts/stamp_version.py</code>) and it must not be edited by hand. A release
+commit folds <code>## Unreleased</code> into a dated <code>## Version X.Y</code> section in <code>NEWS.md</code>, and
+aligns the Claude Code plugin version.</p>
+<p>Publishing a GitHub Release triggers <code>release.yml</code>. It builds the wheel and the sdist
+once, checks them with <code>scripts/check_dist.py</code> (one pure-Python wheel, <code>twine check</code>,
+release tag equal to <code>fz.__version__</code>, a leading <code>v</code> being allowed), installs the wheel
+on the CI OS × Python matrix with a smoke test, then publishes to PyPI and attaches the
+files to the release. A tag that does not match the version stops the release before
+anything is published.</p>
 <h2 id="see-also">See Also</h2>
 <ul>
 <li><a href="../testing/">Testing</a></li>
@@ -2997,10 +3004,10 @@ the matching tag triggers <code>release.yml</code>, which pushes to PyPI.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.tracking", "navigation.indexes", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.tracking", "navigation.indexes", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
     
   </body>

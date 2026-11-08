@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
     
     
       
@@ -33,10 +33,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -2909,12 +2909,13 @@
 <p>This page lists the behaviors of fz that most often surprise users. Each item states the
 rule, the consequence, and what to do instead. Items were checked against the code of fz (<code>fz/core.py</code>,
 <code>fz/helpers.py</code>, <code>fz/runners/</code>, <code>fz/config.py</code>, <code>fz/cli.py</code>) and by running it. They
-describe fz after Funz/fz#99; fz ≤ 1.2 differs on timeouts <code>0</code>, default delimiters,
+describe fz 2.0; fz ≤ 1.2 differs on timeouts <code>0</code>, default delimiters,
 <code>fz list</code> and global installs. Source:
 <a href="https://github.com/Funz/fz/blob/main/doc/limitations.md"><code>doc/limitations.md</code></a>.</p>
 <h2 id="platform-and-dependencies">Platform and dependencies</h2>
 <ul>
-<li><strong>Python ≥ 3.9.</strong> 3.9–3.13 are tested in CI; 3.14 is exercised as a pre-release only.</li>
+<li><strong>Python ≥ 3.9.</strong> 3.9–3.14 are tested in CI on Linux, macOS and Windows (3.9 not on
+  Windows).</li>
 <li><strong>bash is required everywhere.</strong> Calculator commands and shell output parsers run
   through bash. On Windows, install MSYS2 or Git Bash and point <code>FZ_SHELL_PATH</code> at its
   <code>bin</code> directories (see <a href="../environment/#general">Environment Variables</a>). Shell-free output parsers
@@ -2931,7 +2932,10 @@ describe fz after Funz/fz#99; fz ≤ 1.2 differs on timeouts <code>0</code>, def
 <li><strong>Default delimiters.</strong> A model without <code>delim</code> (nor <code>var_delim</code>) accepts both <code>$(x)</code>
   and <code>${x}</code> for variables and uses <code>@{...}</code> for formulas; the CLI without <code>--model</code> uses
   the same default. Setting <code>"delim": "{}"</code> or <code>"()"</code> restricts variables to one form.
-  Templates that contain other <code>${...}</code> text (shell snippets) should set <code>delim</code>.</li>
+  Templates that contain other <code>${...}</code> text (shell snippets) should set <code>delim</code>:
+  <code>fzi</code> (hence <code>fzc</code>/<code>fzr</code>) logs a warning (<code>FZ_LOG_LEVEL=WARNING</code> or lower) when
+  <code>${...}</code> names sit next to <code>$(...)</code> variables in a model without <code>delim</code>, and the
+  <code>input_variables is required</code> error names the <code>${...}</code>-only variables.</li>
 <li><strong>No automatic <code>?var</code> conversion.</strong> <code>?var</code> is a variable only with <code>"varprefix": "?"</code>.</li>
 <li>A variable absent from <code>input_variables</code> and without <code>~default</code> is left as-is in the
   compiled file (no error from <code>fzc</code>).</li>
@@ -3213,10 +3217,10 @@ advisory, not a security boundary. See <a href="../security/">Security Model</a>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.tracking", "navigation.indexes", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.tracking", "navigation.indexes", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
     
   </body>
